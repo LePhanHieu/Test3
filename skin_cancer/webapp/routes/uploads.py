@@ -31,45 +31,27 @@ bp = Blueprint(
 )
 
 
-@bp.post(
-    "/cases/<int:case_id>/upload-batch"
-)
-@limiter.limit(
-    lambda: current_app.config["RATELIMIT_EXPENSIVE"]
-)
+@bp.post("/cases/<int:case_id>/upload-batch")
+@limiter.limit(lambda: current_app.config["RATELIMIT_EXPENSIVE"])
 @require_roles("ADMIN", "DOCTOR")
 def upload_batch(case_id):
 
-    case = visible_case_or_404(
-        case_id
-    )
+    case = visible_case_or_404(case_id)
 
-    files = request.files.getlist(
-        "images"
-    )
+    files = request.files.getlist("images")
 
     if not files:
         abort(
             400,
-            description=(
-                "Cần gửi ít nhất một file "
-                "trong field images"
-            ),
+            description=("Cần gửi ít nhất một file trong field images"),
         )
 
-    max_images = int(
-        current_app.config[
-            "BATCH_MAX_IMAGES"
-        ]
-    )
+    max_images = int(current_app.config["BATCH_MAX_IMAGES"])
 
     if len(files) > max_images:
         abort(
             400,
-            description=(
-                "Batch vượt giới hạn tối đa "
-                f"{max_images} ảnh"
-            ),
+            description=(f"Batch vượt giới hạn tối đa {max_images} ảnh"),
         )
 
     batch = UploadBatch(
@@ -94,84 +76,53 @@ def upload_batch(case_id):
     created_files = []
 
     try:
-
         result = service.process(files)
 
         created_files = [
-            service.upload_root
-            / "images"
-            / item["filename"]
+            service.upload_root / "images" / item["filename"]
             for item in result.items
-            if (
-                item["status"] == "UPLOADED"
-                and item["filename"]
-            )
+            if (item["status"] == "UPLOADED" and item["filename"])
         ]
 
-        batch.success_count = (
-            result.success_count
-        )
+        batch.success_count = result.success_count
 
-        batch.failed_count = (
-            result.failed_count
-        )
+        batch.failed_count = result.failed_count
 
         if result.failed_count == 0:
-
             batch.status = "COMPLETED"
 
         elif result.success_count == 0:
-
             batch.status = "FAILED"
 
         else:
-
             batch.status = "PARTIAL"
 
-        batch.completed_at = (
-            datetime.now(timezone.utc)
-        )
+        batch.completed_at = datetime.now(timezone.utc)
 
-        if (
-            batch.success_count > 0
-            and case.status == "CREATED"
-        ):
+        if batch.success_count > 0 and case.status == "CREATED":
             case.status = "UPLOADED"
 
-        csv_path = (
-            service.upload_root
-            / "csv"
-            / f"batch_{batch.id}.csv"
-        )
+        csv_path = service.upload_root / "csv" / f"batch_{batch.id}.csv"
 
         BatchUploadService.write_csv(
             result.rows,
             csv_path,
         )
 
-        batch.csv_path = str(
-            csv_path.resolve()
-        )
+        batch.csv_path = str(csv_path.resolve())
 
-        batch.item_results = (
-            result.items
-        )
+        batch.item_results = result.items
 
         db.session.commit()
 
     except Exception:
-
         db.session.rollback()
 
         for created_file in created_files:
-            created_file.unlink(
-                missing_ok=True
-            )
+            created_file.unlink(missing_ok=True)
 
         if csv_path:
-            csv_path.unlink(
-                missing_ok=True
-            )
+            csv_path.unlink(missing_ok=True)
 
         raise
 
@@ -184,18 +135,12 @@ def upload_batch(case_id):
         failed_count=batch.failed_count,
         status=batch.status,
         csv_path="private",
-        csv_url=(
-            "/api/upload-batches/"
-            f"{batch.id}/csv"
-        ),
+        csv_url=(f"/api/upload-batches/{batch.id}/csv"),
         items=result.items,
     ), 201
 
 
-@bp.get(
-    "/upload-batches/"
-    "<int:batch_id>/csv"
-)
+@bp.get("/upload-batches/<int:batch_id>/csv")
 @require_roles("ADMIN", "DOCTOR")
 def download_batch_csv(batch_id):
 
@@ -207,44 +152,27 @@ def download_batch_csv(batch_id):
     if not batch:
         abort(404)
 
-    visible_case_or_404(
-        batch.case_id
-    )
+    visible_case_or_404(batch.case_id)
 
     if not batch.csv_path:
         abort(404)
 
-    upload_root = Path(
-        current_app.config[
-            "UPLOAD_FOLDER"
-        ]
-    ).resolve()
+    upload_root = Path(current_app.config["UPLOAD_FOLDER"]).resolve()
 
-    csv_path = Path(
-        batch.csv_path
-    ).resolve()
+    csv_path = Path(batch.csv_path).resolve()
 
-    if (
-        upload_root
-        not in csv_path.parents
-        or not csv_path.is_file()
-    ):
+    if upload_root not in csv_path.parents or not csv_path.is_file():
         abort(404)
 
     return send_file(
         csv_path,
         mimetype="text/csv",
         as_attachment=True,
-        download_name=(
-            f"batch_{batch.id}.csv"
-        ),
+        download_name=(f"batch_{batch.id}.csv"),
     )
 
 
-@bp.get(
-    "/upload-batches/"
-    "<int:batch_id>/analysis.csv"
-)
+@bp.get("/upload-batches/<int:batch_id>/analysis.csv")
 @require_roles("ADMIN", "DOCTOR")
 def download_batch_analysis_csv(batch_id):
     batch = db.session.get(
@@ -255,26 +183,17 @@ def download_batch_analysis_csv(batch_id):
     if not batch:
         abort(404)
 
-    visible_case_or_404(
-        batch.case_id
-    )
+    visible_case_or_404(batch.case_id)
 
     return send_file(
-        BytesIO(
-            AnalysisCsvService.render(batch)
-        ),
+        BytesIO(AnalysisCsvService.render(batch)),
         mimetype="text/csv",
         as_attachment=True,
-        download_name=(
-            f"batch_{batch.id}_analysis.csv"
-        ),
+        download_name=(f"batch_{batch.id}_analysis.csv"),
     )
 
 
-@bp.get(
-    "/upload-batches/"
-    "<int:batch_id>/analysis.xlsx"
-)
+@bp.get("/upload-batches/<int:batch_id>/analysis.xlsx")
 @require_roles("ADMIN", "DOCTOR")
 def download_batch_analysis_excel(batch_id):
     batch = db.session.get(
@@ -285,22 +204,11 @@ def download_batch_analysis_excel(batch_id):
     if not batch:
         abort(404)
 
-    visible_case_or_404(
-        batch.case_id
-    )
+    visible_case_or_404(batch.case_id)
 
     return send_file(
-        BytesIO(
-            AnalysisExcelService(
-                current_app
-            ).render(batch)
-        ),
-        mimetype=(
-            "application/vnd.openxmlformats-"
-            "officedocument.spreadsheetml.sheet"
-        ),
+        BytesIO(AnalysisExcelService(current_app).render(batch)),
+        mimetype=("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"),
         as_attachment=True,
-        download_name=(
-            f"batch_{batch.id}_analysis.xlsx"
-        ),
+        download_name=(f"batch_{batch.id}_analysis.xlsx"),
     )

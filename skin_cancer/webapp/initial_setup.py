@@ -34,10 +34,14 @@ LOCAL_STARTER_ACCOUNTS = {
     "DOCTOR": ("Bác sĩ", "doctor@dermascan.local", LOCAL_STARTER_PASSWORD),
     "USER": ("Người dùng A", "patient@dermascan.local", LOCAL_STARTER_PASSWORD),
 }
-LEGACY_DEMO_EMAILS = frozenset({
-    "admin@dermascan.local", "doctor@dermascan.local",
-    "patient@dermascan.local", "patient2@dermascan.local",
-})
+LEGACY_DEMO_EMAILS = frozenset(
+    {
+        "admin@dermascan.local",
+        "doctor@dermascan.local",
+        "patient@dermascan.local",
+        "patient2@dermascan.local",
+    }
+)
 
 
 def _already_initialized():
@@ -47,18 +51,14 @@ def _already_initialized():
         return False
 
     if db.session.scalar(db.select(Case.id).where(Case.case_code.like("DEMO-%"))):
-        raise click.ClickException(
-            "Database đang chứa dữ liệu demo; hãy chọn SQLite mới qua DATABASE_URL."
-        )
+        raise click.ClickException("Database đang chứa dữ liệu demo; hãy chọn SQLite mới qua DATABASE_URL.")
 
     existing_emails = {user.email for user in users}
     # Legacy seed contained exactly four known demo emails, while a legitimate
     # database can accumulate any number of registered doctors/patients.
     # Never infer "demo database" from a user count greater than three.
     if existing_emails == LEGACY_DEMO_EMAILS:
-        raise click.ClickException(
-            "Database đang chứa dữ liệu demo; hãy chọn SQLite mới qua DATABASE_URL."
-        )
+        raise click.ClickException("Database đang chứa dữ liệu demo; hãy chọn SQLite mới qua DATABASE_URL.")
 
     # Existing content is operator-managed. A later account lock or banner
     # deletion must not stop the site or silently recreate anything.
@@ -67,8 +67,7 @@ def _already_initialized():
         return True
 
     raise click.ClickException(
-        "Database đã có tài khoản nhưng chưa được thiết lập đầy đủ; "
-        "không ghi đè dữ liệu. Hãy kiểm tra DATABASE_URL."
+        "Database đã có tài khoản nhưng chưa được thiết lập đầy đủ; không ghi đè dữ liệu. Hãy kiểm tra DATABASE_URL."
     )
 
 
@@ -89,8 +88,11 @@ def provision_initial_data(accounts, *, allow_local_starter_emails=False):
                 if not (allow_local_starter_emails and email.strip().lower() == LOCAL_STARTER_ACCOUNTS[role][1]):
                     raise ValueError(f"Email {role} thuộc tài khoản demo cũ; hãy dùng email thật.")
             user = User(
-                full_name=name.strip(), email=email, role=role,
-                is_active=True, email_verified=True,
+                full_name=name.strip(),
+                email=email,
+                role=role,
+                is_active=True,
+                email_verified=True,
             )
             user.set_password(password)
             db.session.add(user)
@@ -101,10 +103,14 @@ def provision_initial_data(accounts, *, allow_local_starter_emails=False):
         settings = SiteSettingsService.FALLBACKS
         db.session.add(SiteSetting(id=1, updated_by=created["ADMIN"].id, **settings))
         for position, values in enumerate(INITIAL_SLIDES, start=1):
-            db.session.add(Slide(
-                **values, display_order=position, is_active=True,
-                created_by=created["ADMIN"].id,
-            ))
+            db.session.add(
+                Slide(
+                    **values,
+                    display_order=position,
+                    is_active=True,
+                    created_by=created["ADMIN"].id,
+                )
+            )
         db.session.commit()
     except Exception:
         db.session.rollback()
@@ -114,7 +120,8 @@ def provision_initial_data(accounts, *, allow_local_starter_emails=False):
 def register_initial_setup(app):
     @app.cli.command("setup-initial")
     @click.option(
-        "--local-starter-accounts", is_flag=True,
+        "--local-starter-accounts",
+        is_flag=True,
         help="Tự động tạo 3 tài khoản cố định chỉ dành cho máy phát triển.",
     )
     def setup_initial_command(local_starter_accounts):
@@ -134,7 +141,8 @@ def register_initial_setup(app):
                 email = click.prompt(f"Email {role}", type=str)
                 password = click.prompt(
                     f"Mật khẩu {role} (12–256 ký tự)",
-                    hide_input=True, confirmation_prompt=True,
+                    hide_input=True,
+                    confirmation_prompt=True,
                 )
                 accounts[role] = (full_name, email, password)
 
@@ -142,8 +150,7 @@ def register_initial_setup(app):
             provision_initial_data(accounts, allow_local_starter_emails=local_starter_accounts)
         except IntegrityError as error:
             raise click.ClickException(
-                "Email trùng hoặc ràng buộc database không hợp lệ; "
-                "không tài khoản nào được tạo."
+                "Email trùng hoặc ràng buộc database không hợp lệ; không tài khoản nào được tạo."
             ) from error
         except ValueError as error:
             raise click.ClickException(str(error)) from error

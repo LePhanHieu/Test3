@@ -16,9 +16,7 @@ from skin_cancer.webapp.services.onnx_inference import preprocess_numpy
 
 
 def make_session(name):
-    return ort.InferenceSession(
-        str(CKPT_DIR / name), providers=["CPUExecutionProvider"]
-    )
+    return ort.InferenceSession(str(CKPT_DIR / name), providers=["CPUExecutionProvider"])
 
 
 def predict_all(session, inputs):
@@ -49,9 +47,7 @@ def compare(name, inputs, labels):
         f"{'Kích thước':12}{(CKPT_DIR / fp32_file).stat().st_size / 1e6:>8.1f}MB"
         f"{(CKPT_DIR / int8_file).stat().st_size / 1e6:>8.1f}MB"
     )
-    print(
-        f"{'Tốc độ':12}{latency_ms(fp32, inputs):>8.1f}ms{latency_ms(int8, inputs):>8.1f}ms"
-    )
+    print(f"{'Tốc độ':12}{latency_ms(fp32, inputs):>8.1f}ms{latency_ms(int8, inputs):>8.1f}ms")
     print(f"{'Accuracy':12}{acc_fp32:>9.1f}%{acc_int8:>9.1f}%")
     print(f"Dự đoán giống nhau giữa FP32 và INT8: {agree:.1f}%")
 

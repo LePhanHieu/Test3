@@ -79,9 +79,7 @@ class AnalysisCsvService:
         writer = csv.DictWriter(output, fieldnames=CSV_COLUMNS, lineterminator="\r\n")
         writer.writeheader()
         for row in cls.rows(batch):
-            writer.writerow(
-                {column: spreadsheet_safe(row.get(column, "")) for column in CSV_COLUMNS}
-            )
+            writer.writerow({column: spreadsheet_safe(row.get(column, "")) for column in CSV_COLUMNS})
         return output.getvalue().encode("utf-8-sig")
 
     @staticmethod
@@ -104,9 +102,7 @@ class AnalysisCsvService:
         row.update(
             analysis_id=analysis.id,
             analysis_status=analysis.status,
-            analysis_error_message=_public_analysis_error(
-                analysis.error_message
-            ),
+            analysis_error_message=_public_analysis_error(analysis.error_message),
             analysis_started_at=_timestamp(analysis.started_at),
             analysis_completed_at=_timestamp(analysis.completed_at),
             lesion_area_px=analysis.lesion_area_px,
@@ -120,11 +116,7 @@ class AnalysisCsvService:
 
         result = latest(analysis.results)
         if result is not None:
-            probabilities = (
-                result.class_probabilities
-                if isinstance(result.class_probabilities, dict)
-                else {}
-            )
+            probabilities = result.class_probabilities if isinstance(result.class_probabilities, dict) else {}
             row.update(
                 model_name=result.model_name,
                 inference_time_ms=result.inference_time_ms,
@@ -134,12 +126,7 @@ class AnalysisCsvService:
                 predicted_probability=result.predicted_probability,
                 result_created_at=_timestamp(result.created_at),
             )
-            row.update(
-                {
-                    f"probability_{name}": probabilities.get(name, "")
-                    for name in CLASS_NAMES
-                }
-            )
+            row.update({f"probability_{name}": probabilities.get(name, "") for name in CLASS_NAMES})
 
         review = latest(analysis.reviews)
         if review is not None:
@@ -157,18 +144,13 @@ class AnalysisCsvService:
     def _rejected_rows(batch, represented_image_ids):
         rows = []
         for item in batch.item_results or []:
-            if (
-                item.get("status") == "UPLOADED"
-                or item.get("case_image_id") in represented_image_ids
-            ):
+            if item.get("status") == "UPLOADED" or item.get("case_image_id") in represented_image_ids:
                 continue
             row = {column: "" for column in CSV_COLUMNS}
             row.update(
                 batch_id=batch.id,
                 case_code=batch.case.case_code,
-                original_filename=(
-                    item.get("original_filename") or item.get("filename") or ""
-                ),
+                original_filename=(item.get("original_filename") or item.get("filename") or ""),
                 image_status=item.get("status") or "FAILED",
                 image_error_message=item.get("error_message") or "",
             )

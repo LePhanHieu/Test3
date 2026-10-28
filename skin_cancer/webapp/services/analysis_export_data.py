@@ -19,18 +19,14 @@ def binary_label(value):
 
 
 def load_batch_graph(batch_id):
-    image_analyses = selectinload(UploadBatch.images).selectinload(
-        CaseImage.analyses
-    )
+    image_analyses = selectinload(UploadBatch.images).selectinload(CaseImage.analyses)
     statement = (
         db.select(UploadBatch)
         .where(UploadBatch.id == batch_id)
         .options(
             selectinload(UploadBatch.case),
             image_analyses.selectinload(Analysis.results),
-            image_analyses.selectinload(Analysis.reviews).selectinload(
-                DoctorReview.doctor
-            ),
+            image_analyses.selectinload(Analysis.reviews).selectinload(DoctorReview.doctor),
         )
     )
     return db.session.scalar(statement)

@@ -28,31 +28,18 @@ from ..models import (
 )
 
 
-EMAIL_PATTERN = re.compile(
-    r"^[^@\s<>]+@[^@\s<>]+\.[^@\s<>]+$"
-)
+EMAIL_PATTERN = re.compile(r"^[^@\s<>]+@[^@\s<>]+\.[^@\s<>]+$")
 
 
-INVALID_EMAIL = (
-    "Địa chỉ email người nhận "
-    "không hợp lệ."
-)
+INVALID_EMAIL = "Địa chỉ email người nhận không hợp lệ."
 
-MISSING_PDF = (
-    "Không tìm thấy file PDF báo cáo."
-)
+MISSING_PDF = "Không tìm thấy file PDF báo cáo."
 
-UNSAFE_PDF = (
-    "Đường dẫn PDF không hợp lệ."
-)
+UNSAFE_PDF = "Đường dẫn PDF không hợp lệ."
 
-SMTP_NOT_CONFIGURED = (
-    "SMTP chưa được cấu hình đầy đủ."
-)
+SMTP_NOT_CONFIGURED = "SMTP chưa được cấu hình đầy đủ."
 
-SMTP_SEND_FAILED = (
-    "Không thể gửi email qua SMTP."
-)
+SMTP_SEND_FAILED = "Không thể gửi email qua SMTP."
 
 
 @dataclass
@@ -63,13 +50,11 @@ class EmailSendResult:
 
 
 class EmailService:
-
     def __init__(
         self,
         app: Flask,
     ):
         self.app = app
-
 
     # ========================================================
     # SEND
@@ -97,10 +82,7 @@ class EmailService:
         # EMAIL VALIDATION
         # ----------------------------------------------------
 
-        if not self._valid_email(
-            recipient
-        ):
-
+        if not self._valid_email(recipient):
             return self._failed(
                 report,
                 sent_by,
@@ -109,7 +91,6 @@ class EmailService:
                 INVALID_EMAIL,
             )
 
-
         # ----------------------------------------------------
         # PDF
         # ----------------------------------------------------
@@ -117,12 +98,9 @@ class EmailService:
         (
             pdf_path,
             path_error,
-        ) = self._pdf_path(
-            report
-        )
+        ) = self._pdf_path(report)
 
         if path_error:
-
             return self._failed(
                 report,
                 sent_by,
@@ -131,17 +109,13 @@ class EmailService:
                 path_error,
             )
 
-
         # ----------------------------------------------------
         # SMTP CONFIG
         # ----------------------------------------------------
 
-        smtp_error = (
-            self._validate_smtp_config()
-        )
+        smtp_error = self._validate_smtp_config()
 
         if smtp_error:
-
             return self._failed(
                 report,
                 sent_by,
@@ -150,14 +124,12 @@ class EmailService:
                 smtp_error,
             )
 
-
         sender = str(
             self.app.config.get(
                 "MAIL_DEFAULT_SENDER",
                 "",
             )
         ).strip()
-
 
         # ----------------------------------------------------
         # CREATE PENDING LOG
@@ -174,18 +146,14 @@ class EmailService:
         db.session.add(log)
         db.session.commit()
 
-
         # ----------------------------------------------------
         # SEND EMAIL
         # ----------------------------------------------------
 
         try:
-
             message = Message(
                 subject=subject_value,
-                recipients=[
-                    recipient
-                ],
+                recipients=[recipient],
                 sender=sender,
             )
 
@@ -194,30 +162,14 @@ class EmailService:
                 report.case_id,
             )
 
-            case_code = (
-                case.case_code
-                if case
-                else f"#{report.case_id}"
-            )
+            case_code = case.case_code if case else f"#{report.case_id}"
 
             patient_name = ""
 
-            if (
-                case
-                and case.patient
-            ):
-                patient_name = (
-                    case.patient.full_name
-                    or ""
-                ).strip()
+            if case and case.patient:
+                patient_name = (case.patient.full_name or "").strip()
 
-
-            greeting = (
-                f"Xin chào {patient_name},"
-                if patient_name
-                else "Xin chào,"
-            )
-
+            greeting = f"Xin chào {patient_name}," if patient_name else "Xin chào,"
 
             message.body = (
                 f"{greeting}\n\n"
@@ -233,11 +185,8 @@ class EmailService:
                 "DermaScan AI"
             )
 
-
             # Đọc PDF chỉ tại thời điểm gửi.
-            pdf_data = (
-                pdf_path.read_bytes()
-            )
+            pdf_data = pdf_path.read_bytes()
 
             message.attach(
                 pdf_path.name,
@@ -245,20 +194,14 @@ class EmailService:
                 pdf_data,
             )
 
-
             # Flask-Mail
-            mail.send(
-                message
-            )
-
+            mail.send(message)
 
         except Exception as exc:
-
             # Log traceback phía server,
             # không trả traceback cho browser.
             self.app.logger.exception(
-                "SMTP send failed "
-                "for report_id=%s",
+                "SMTP send failed for report_id=%s",
                 report.id,
             )
 
@@ -277,15 +220,9 @@ class EmailService:
 
             # Giữ lỗi kỹ thuật trong DB
             # để debug nhưng không chứa password.
-            technical_error = (
-                f"{type(exc).__name__}: "
-                f"{str(exc)}"
-            )
+            technical_error = f"{type(exc).__name__}: {str(exc)}"
 
-            log.error_message = (
-                f"{SMTP_SEND_FAILED} "
-                f"{technical_error}"
-            )
+            log.error_message = f"{SMTP_SEND_FAILED} {technical_error}"
 
             log.sent_at = None
 
@@ -295,11 +232,8 @@ class EmailService:
             return EmailSendResult(
                 log=log,
                 ok=False,
-                message=(
-                    SMTP_SEND_FAILED
-                ),
+                message=(SMTP_SEND_FAILED),
             )
-
 
         # ----------------------------------------------------
         # SUCCESS
@@ -307,9 +241,7 @@ class EmailService:
 
         log.status = "SENT"
 
-        log.sent_at = (
-            db.func.current_timestamp()
-        )
+        log.sent_at = db.func.current_timestamp()
 
         log.error_message = None
 
@@ -318,12 +250,8 @@ class EmailService:
         return EmailSendResult(
             log=log,
             ok=True,
-            message=(
-                "Email đã được gửi "
-                "thành công."
-            ),
+            message=("Email đã được gửi thành công."),
         )
-
 
     # ========================================================
     # SMTP VALIDATION
@@ -347,9 +275,7 @@ class EmailService:
             )
         ).strip()
 
-        password = self.app.config.get(
-            "MAIL_PASSWORD"
-        )
+        password = self.app.config.get("MAIL_PASSWORD")
 
         sender = str(
             self.app.config.get(
@@ -358,31 +284,17 @@ class EmailService:
             )
         ).strip()
 
-
         if not server:
-            return (
-                "SMTP chưa được cấu hình: "
-                "thiếu MAIL_SERVER."
-            )
+            return "SMTP chưa được cấu hình: thiếu MAIL_SERVER."
 
         if not username:
-            return (
-                "SMTP chưa được cấu hình: "
-                "thiếu MAIL_USERNAME."
-            )
+            return "SMTP chưa được cấu hình: thiếu MAIL_USERNAME."
 
         if not password:
-            return (
-                "SMTP chưa được cấu hình: "
-                "thiếu MAIL_PASSWORD."
-            )
+            return "SMTP chưa được cấu hình: thiếu MAIL_PASSWORD."
 
         if not sender:
-            return (
-                "SMTP chưa được cấu hình: "
-                "thiếu MAIL_DEFAULT_SENDER."
-            )
-
+            return "SMTP chưa được cấu hình: thiếu MAIL_DEFAULT_SENDER."
 
         use_tls = bool(
             self.app.config.get(
@@ -399,14 +311,9 @@ class EmailService:
         )
 
         if use_tls and use_ssl:
-            return (
-                "Cấu hình SMTP không hợp lệ: "
-                "MAIL_USE_TLS và MAIL_USE_SSL "
-                "không được cùng bật."
-            )
+            return "Cấu hình SMTP không hợp lệ: MAIL_USE_TLS và MAIL_USE_SSL không được cùng bật."
 
         return None
-
 
     # ========================================================
     # RECIPIENT
@@ -419,29 +326,17 @@ class EmailService:
     ):
 
         if recipient_email is not None:
-
-            return str(
-                recipient_email
-            ).strip()
-
+            return str(recipient_email).strip()
 
         case = db.session.get(
             Case,
             report.case_id,
         )
 
-        if (
-            case
-            and case.patient
-        ):
-
-            return (
-                case.patient.email
-                or ""
-            ).strip()
+        if case and case.patient:
+            return (case.patient.email or "").strip()
 
         return ""
-
 
     # ========================================================
     # SUBJECT
@@ -453,35 +348,17 @@ class EmailService:
         subject,
     ):
 
-        if (
-            subject is not None
-            and str(subject).strip()
-        ):
-
-            return str(
-                subject
-            ).strip()[:255]
-
+        if subject is not None and str(subject).strip():
+            return str(subject).strip()[:255]
 
         case = db.session.get(
             Case,
             report.case_id,
         )
 
-        case_code = (
-            case.case_code
-            if case
-            else f"#{report.case_id}"
-        )
+        case_code = case.case_code if case else f"#{report.case_id}"
 
-
-        return (
-            "DermaScan AI - "
-            f"Báo cáo phân tích "
-            f"{case_code} - "
-            f"v{report.report_version}"
-        )
-
+        return f"DermaScan AI - Báo cáo phân tích {case_code} - v{report.report_version}"
 
     # ========================================================
     # VALID EMAIL
@@ -502,20 +379,9 @@ class EmailService:
         ):
             return False
 
+        address = parseaddr(value)[1]
 
-        address = parseaddr(
-            value
-        )[1]
-
-        return (
-            address == value
-            and bool(
-                EMAIL_PATTERN.fullmatch(
-                    value
-                )
-            )
-        )
-
+        return address == value and bool(EMAIL_PATTERN.fullmatch(value))
 
     # ========================================================
     # PDF PATH
@@ -526,64 +392,34 @@ class EmailService:
         report,
     ):
 
-        raw = Path(
-            report.pdf_path
-        )
+        raw = Path(report.pdf_path)
 
-
-        if (
-            raw.is_absolute()
-            or PureWindowsPath(
-                report.pdf_path
-            ).drive
-            or ".." in raw.parts
-        ):
-
+        if raw.is_absolute() or PureWindowsPath(report.pdf_path).drive or ".." in raw.parts:
             return (
                 None,
                 UNSAFE_PDF,
             )
 
+        root = Path(self.app.config["REPORT_FOLDER"]).resolve()
 
-        root = Path(
-            self.app.config[
-                "REPORT_FOLDER"
-            ]
-        ).resolve()
+        path = (root / raw).resolve()
 
-
-        path = (
-            root / raw
-        ).resolve()
-
-
-        if not path.is_relative_to(
-            root
-        ):
-
+        if not path.is_relative_to(root):
             return (
                 None,
                 UNSAFE_PDF,
             )
 
-
-        if (
-            path.suffix.lower()
-            != ".pdf"
-            or not path.is_file()
-        ):
-
+        if path.suffix.lower() != ".pdf" or not path.is_file():
             return (
                 None,
                 MISSING_PDF,
             )
 
-
         return (
             path,
             None,
         )
-
 
     # ========================================================
     # FAILURE BEFORE SMTP
@@ -600,25 +436,15 @@ class EmailService:
 
         log = EmailLog(
             report_id=report.id,
-
-            recipient_email=(
-                recipient or ""
-            )[:254],
-
-            subject=(
-                subject or ""
-            )[:255],
-
+            recipient_email=(recipient or "")[:254],
+            subject=(subject or "")[:255],
             sent_by=sent_by.id,
-
             status="FAILED",
-
             error_message=error,
         )
 
         db.session.add(log)
         db.session.commit()
-
 
         return EmailSendResult(
             log=log,

@@ -27,18 +27,13 @@ def init_database(app, config=None):
     # LOAD CONFIG
     # --------------------------------------------------------
 
-    app.config.update(
-        database_config()
-    )
+    app.config.update(database_config())
 
     if config:
         app.config.update(config)
 
     if not app.config.get("SECRET_KEY"):
-        raise RuntimeError(
-            "Thiếu SECRET_KEY: đặt biến môi trường "
-            "hoặc .env trước khi chạy"
-        )
+        raise RuntimeError("Thiếu SECRET_KEY: đặt biến môi trường hoặc .env trước khi chạy")
 
     INSTANCE_DIR.mkdir(
         parents=True,
@@ -56,9 +51,7 @@ def init_database(app, config=None):
     migrate.init_app(
         app,
         db,
-        directory=str(
-            PROJECT_ROOT / "migrations"
-        ),
+        directory=str(PROJECT_ROOT / "migrations"),
         render_as_batch=True,
         compare_type=True,
     )
@@ -78,6 +71,7 @@ def init_database(app, config=None):
     from .bootstrap import (
         register_database_api,
     )
+
     register_database_api(app)
 
     @app.before_request
@@ -94,15 +88,14 @@ def init_database(app, config=None):
     # --------------------------------------------------------
 
     from .initial_setup import register_initial_setup
+
     register_initial_setup(app)
 
 
 def create_app(config=None):
     app = Flask(
         __name__,
-        instance_path=str(
-            INSTANCE_DIR
-        ),
+        instance_path=str(INSTANCE_DIR),
     )
 
     init_database(

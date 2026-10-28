@@ -33,9 +33,7 @@ def case_timeline(case_id):
     # Bệnh nhân có tài khoản: gộp mọi ca của họ. Bệnh nhân tạm: chỉ ca này.
     if case.patient_user_id:
         case_ids = db.session.scalars(
-            visible_cases(current_user)
-            .where(Case.patient_user_id == case.patient_user_id)
-            .with_only_columns(Case.id)
+            visible_cases(current_user).where(Case.patient_user_id == case.patient_user_id).with_only_columns(Case.id)
         ).all()
     else:
         case_ids = [case.id]

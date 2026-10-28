@@ -11,7 +11,5 @@ def read_limited_upload(stream, max_bytes: int) -> bytes:
 
     data = stream.read(max_bytes + 1)
     if len(data) > max_bytes:
-        raise UploadTooLarge(
-            f"Upload exceeds maximum size of {max_bytes} bytes"
-        )
+        raise UploadTooLarge(f"Upload exceeds maximum size of {max_bytes} bytes")
     return data

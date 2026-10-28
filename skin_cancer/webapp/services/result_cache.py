@@ -150,11 +150,14 @@ def save_cached(key, value):
     _init_sqlite_cache()
     try:
         with sqlite3.connect(str(CACHE_DB_PATH), timeout=5.0) as conn:
-            conn.execute("""
+            conn.execute(
+                """
                 INSERT INTO cache_store (key, value, expires_at)
                 VALUES (?, ?, ?)
                 ON CONFLICT(key) DO UPDATE SET value=excluded.value, expires_at=excluded.expires_at
-            """, (key, val_json, expires_at))
+            """,
+                (key, val_json, expires_at),
+            )
     except Exception:
         pass
 

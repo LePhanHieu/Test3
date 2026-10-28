@@ -25,6 +25,7 @@ depends_on = None
 # UPGRADE
 # ============================================================
 
+
 def upgrade():
 
     connection = op.get_bind()
@@ -38,30 +39,14 @@ def upgrade():
     # Vì vậy tạm tắt FK trong thời gian rebuild.
     # --------------------------------------------------------
 
-    connection.exec_driver_sql(
-        "PRAGMA foreign_keys=OFF"
-    )
+    connection.exec_driver_sql("PRAGMA foreign_keys=OFF")
 
-
-    foreign_keys_enabled = (
-        connection
-        .exec_driver_sql(
-            "PRAGMA foreign_keys"
-        )
-        .scalar()
-    )
-
+    foreign_keys_enabled = connection.exec_driver_sql("PRAGMA foreign_keys").scalar()
 
     if foreign_keys_enabled != 0:
-
-        raise RuntimeError(
-            "Không thể tắt SQLite foreign_keys. "
-            "Hãy dừng Flask và chạy migration lại."
-        )
-
+        raise RuntimeError("Không thể tắt SQLite foreign_keys. Hãy dừng Flask và chạy migration lại.")
 
     try:
-
         # ----------------------------------------------------
         # Nếu lần migration trước đã lỗi ở DROP TABLE cases,
         # Alembic có thể để lại bảng tạm.
@@ -76,7 +61,6 @@ def upgrade():
             """
         )
 
-
         # ----------------------------------------------------
         # REBUILD CASES
         # ----------------------------------------------------
@@ -86,7 +70,6 @@ def upgrade():
             schema=None,
             recreate="always",
         ) as batch_op:
-
             # ================================================
             # PATIENT SNAPSHOT
             # ================================================
@@ -99,7 +82,6 @@ def upgrade():
                 )
             )
 
-
             # ================================================
             # PATIENT USER
             #
@@ -109,13 +91,9 @@ def upgrade():
 
             batch_op.alter_column(
                 "patient_user_id",
-
-                existing_type=
-                    sa.Integer(),
-
+                existing_type=sa.Integer(),
                 nullable=True,
             )
-
 
             # ================================================
             # PATIENT SOURCE CHECK
@@ -123,107 +101,62 @@ def upgrade():
 
             batch_op.create_check_constraint(
                 "patient_source",
-
-                (
-                    "patient_user_id IS NOT NULL "
-                    "OR patient_snapshot IS NOT NULL"
-                ),
+                ("patient_user_id IS NOT NULL OR patient_snapshot IS NOT NULL"),
             )
 
-
     finally:
-
         # ----------------------------------------------------
         # Bật lại Foreign Key.
         # ----------------------------------------------------
 
-        connection.exec_driver_sql(
-            "PRAGMA foreign_keys=ON"
-        )
-
+        connection.exec_driver_sql("PRAGMA foreign_keys=ON")
 
     # --------------------------------------------------------
     # Kiểm tra FK sau khi rebuild.
     # --------------------------------------------------------
 
-    violations = (
-        connection
-        .exec_driver_sql(
-            "PRAGMA foreign_key_check"
-        )
-        .fetchall()
-    )
-
+    violations = connection.exec_driver_sql("PRAGMA foreign_key_check").fetchall()
 
     if violations:
-
-        raise RuntimeError(
-            "Foreign key check thất bại "
-            f"sau migration: {violations}"
-        )
+        raise RuntimeError(f"Foreign key check thất bại sau migration: {violations}")
 
 
 # ============================================================
 # DOWNGRADE
 # ============================================================
 
+
 def downgrade():
 
     connection = op.get_bind()
-
 
     # --------------------------------------------------------
     # Không thể quay về NOT NULL nếu đã tồn tại bệnh nhân tạm.
     # --------------------------------------------------------
 
-    temporary_count = (
-        connection
-        .exec_driver_sql(
-            """
+    temporary_count = connection.exec_driver_sql(
+        """
             SELECT COUNT(*)
             FROM cases
             WHERE patient_user_id IS NULL
             """
-        )
-        .scalar()
-    )
-
+    ).scalar()
 
     if temporary_count:
-
-        raise RuntimeError(
-            "Không thể downgrade vì database "
-            "đang có Case của bệnh nhân tạm."
-        )
-
+        raise RuntimeError("Không thể downgrade vì database đang có Case của bệnh nhân tạm.")
 
     # --------------------------------------------------------
     # SQLite FK OFF cho batch rebuild.
     # --------------------------------------------------------
 
-    connection.exec_driver_sql(
-        "PRAGMA foreign_keys=OFF"
-    )
+    connection.exec_driver_sql("PRAGMA foreign_keys=OFF")
 
-
-    foreign_keys_enabled = (
-        connection
-        .exec_driver_sql(
-            "PRAGMA foreign_keys"
-        )
-        .scalar()
-    )
-
+    foreign_keys_enabled = connection.exec_driver_sql("PRAGMA foreign_keys").scalar()
 
     if foreign_keys_enabled != 0:
-
-        raise RuntimeError(
-            "Không thể tắt SQLite foreign_keys."
-        )
-
+        raise RuntimeError("Không thể tắt SQLite foreign_keys.")
 
     try:
-
         connection.exec_driver_sql(
             """
             DROP TABLE IF EXISTS
@@ -231,53 +164,30 @@ def downgrade():
             """
         )
 
-
         with op.batch_alter_table(
             "cases",
             schema=None,
             recreate="always",
         ) as batch_op:
-
             batch_op.drop_constraint(
                 "patient_source",
                 type_="check",
             )
 
-
             batch_op.alter_column(
                 "patient_user_id",
-
-                existing_type=
-                    sa.Integer(),
-
+                existing_type=sa.Integer(),
                 nullable=False,
             )
-
 
             batch_op.drop_column(
                 "patient_snapshot",
             )
 
-
     finally:
+        connection.exec_driver_sql("PRAGMA foreign_keys=ON")
 
-        connection.exec_driver_sql(
-            "PRAGMA foreign_keys=ON"
-        )
-
-
-    violations = (
-        connection
-        .exec_driver_sql(
-            "PRAGMA foreign_key_check"
-        )
-        .fetchall()
-    )
-
+    violations = connection.exec_driver_sql("PRAGMA foreign_key_check").fetchall()
 
     if violations:
-
-        raise RuntimeError(
-            "Foreign key check thất bại "
-            f"sau downgrade: {violations}"
-        )
+        raise RuntimeError(f"Foreign key check thất bại sau downgrade: {violations}")

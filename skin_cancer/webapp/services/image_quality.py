@@ -22,9 +22,7 @@ def check_image_quality(pil_img):
     warnings = []
 
     if min(width, height) < MIN_SIZE:
-        warnings.append(
-            f"Ảnh quá nhỏ ({width}x{height}), nên dùng ảnh từ {MIN_SIZE}px trở lên."
-        )
+        warnings.append(f"Ảnh quá nhỏ ({width}x{height}), nên dùng ảnh từ {MIN_SIZE}px trở lên.")
     if blur_score < BLUR_THRESHOLD:
         warnings.append("Ảnh bị mờ, kết quả có thể kém chính xác.")
     if brightness < DARK_THRESHOLD:

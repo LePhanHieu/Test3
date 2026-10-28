@@ -15,9 +15,9 @@ from ..models.base import utcnow
 from ..services.access import require_roles
 from ..services.user_deletion import delete_unrelated_user, deletable_certificate, cleanup_doctor_certificate
 
-bp = Blueprint('auth', __name__, url_prefix='/api/auth')
+bp = Blueprint("auth", __name__, url_prefix="/api/auth")
 
-SAMPLE_DOCTOR_EMAIL = 'doctor@dermascan.local'
+SAMPLE_DOCTOR_EMAIL = "doctor@dermascan.local"
 
 
 def _hash_token(value):
@@ -25,14 +25,16 @@ def _hash_token(value):
 
 
 def _audit(email, event, success, user=None):
-    db.session.add(AuditLog(
-        email=email,
-        event=event,
-        success=success,
-        user_id=user.id if user else None,
-        ip_address=request.remote_addr,
-        user_agent=request.headers.get("User-Agent", "")[:500],
-    ))
+    db.session.add(
+        AuditLog(
+            email=email,
+            event=event,
+            success=success,
+            user_id=user.id if user else None,
+            ip_address=request.remote_addr,
+            user_agent=request.headers.get("User-Agent", "")[:500],
+        )
+    )
 
 
 def _mask_phone(phone):
@@ -69,50 +71,52 @@ def _create_and_log_otp(user):
 def _doctor_email_otp_required(user):
     """Only approved, registered doctors receive an email OTP at each login."""
     return (
-        user.role == 'DOCTOR'
+        user.role == "DOCTOR"
         and user.email != SAMPLE_DOCTOR_EMAIL
-        and db.session.scalar(
-            db.select(DoctorApplication.status).where(DoctorApplication.user_id == user.id)
-        ) == 'APPROVED'
+        and db.session.scalar(db.select(DoctorApplication.status).where(DoctorApplication.user_id == user.id))
+        == "APPROVED"
     )
 
 
 def _requires_login_otp(user):
-    if user.role == 'DOCTOR' and user.email == SAMPLE_DOCTOR_EMAIL:
+    if user.role == "DOCTOR" and user.email == SAMPLE_DOCTOR_EMAIL:
         return False
     return _doctor_email_otp_required(user) or user.two_factor_enabled or _admin_2fa_required(user)
 
 
 def _email_hint(email):
-    name, separator, domain = email.partition('@')
-    return f"{name[:1]}***@{domain}" if separator else '***'
+    name, separator, domain = email.partition("@")
+    return f"{name[:1]}***@{domain}" if separator else "***"
 
 
 def _issue_login_otp(user):
     """Send approved doctors' OTP through configured SMTP; other roles keep existing 2FA."""
     if not _doctor_email_otp_required(user):
         _create_and_log_otp(user)
-        return 'Mã xác thực đã được tạo. Vui lòng lấy OTP trong cửa sổ Terminal để tiếp tục.'
+        return "Mã xác thực đã được tạo. Vui lòng lấy OTP trong cửa sổ Terminal để tiếp tục."
 
-    if not all(current_app.config.get(key) for key in (
-        'MAIL_SERVER', 'MAIL_USERNAME', 'MAIL_PASSWORD', 'MAIL_DEFAULT_SENDER'
-    )):
-        raise RuntimeError('SMTP chưa được cấu hình đầy đủ.')
+    if not all(
+        current_app.config.get(key) for key in ("MAIL_SERVER", "MAIL_USERNAME", "MAIL_PASSWORD", "MAIL_DEFAULT_SENDER")
+    ):
+        raise RuntimeError("SMTP chưa được cấu hình đầy đủ.")
 
     otp = f"{secrets.randbelow(1000000):06d}"
     user.two_factor_code_hash = _hash_token(otp)
     user.two_factor_code_expires_at = utcnow() + timedelta(minutes=5)
-    mail.send(Message(
-        subject='DermaScan AI - Mã xác thực đăng nhập bác sĩ',
-        recipients=[user.email],
-        html=render_template('emails/doctor_otp.html', USER_NAME=user.full_name, OTP_CODE=otp),
-        body=(
-            f'Mã OTP đăng nhập DermaScan AI của bạn là: {otp}\n'
-            'Mã có hiệu lực trong 5 phút và chỉ sử dụng một lần.\n'
-            'Nếu bạn không đăng nhập, hãy bỏ qua email này.'
-        ),
-    ))
-    return f'Mã OTP 6 chữ số đã được gửi đến {_email_hint(user.email)}.'
+    mail.send(
+        Message(
+            subject="DermaScan AI - Mã xác thực đăng nhập bác sĩ",
+            recipients=[user.email],
+            html=render_template("emails/doctor_otp.html", USER_NAME=user.full_name, OTP_CODE=otp),
+            body=(
+                f"Mã OTP đăng nhập DermaScan AI của bạn là: {otp}\n"
+                "Mã có hiệu lực trong 5 phút và chỉ sử dụng một lần.\n"
+                "Nếu bạn không đăng nhập, hãy bỏ qua email này."
+            ),
+        )
+    )
+    return f"Mã OTP 6 chữ số đã được gửi đến {_email_hint(user.email)}."
+
 
 def _issue_token(user, kind, minutes=30):
     token = secrets.token_urlsafe(32)
@@ -146,30 +150,30 @@ def load_user(user_id):
 
 @login_manager.unauthorized_handler
 def unauthorized():
-    return jsonify(success=False, message='Cần đăng nhập'), 401
+    return jsonify(success=False, message="Cần đăng nhập"), 401
 
 
 def public_user(user):
     return {
-        'id': user.id,
-        'full_name': user.full_name,
-        'email': user.email,
-        'role': user.role,
-        'phone': user.phone,
-        'gender': user.gender,
-        'date_of_birth': user.date_of_birth.isoformat() if user.date_of_birth else None,
-        'avatar_url': user.avatar_url,
-        'email_verified': user.email_verified,
-        'two_factor_enabled': user.two_factor_enabled,
+        "id": user.id,
+        "full_name": user.full_name,
+        "email": user.email,
+        "role": user.role,
+        "phone": user.phone,
+        "gender": user.gender,
+        "date_of_birth": user.date_of_birth.isoformat() if user.date_of_birth else None,
+        "avatar_url": user.avatar_url,
+        "email_verified": user.email_verified,
+        "two_factor_enabled": user.two_factor_enabled,
     }
 
 
 def role_redirect(role):
     return {
-        'ADMIN': '/admin',
-        'DOCTOR': '/doctor',
-        'USER': '/patient',
-    }.get(role, '/')
+        "ADMIN": "/admin",
+        "DOCTOR": "/doctor",
+        "USER": "/patient",
+    }.get(role, "/")
 
 
 def login_response(user):
@@ -181,27 +185,25 @@ def login_response(user):
     )
 
 
-@bp.get('/csrf')
+@bp.get("/csrf")
 def get_csrf():
     return jsonify(csrf_token=generate_csrf())
 
 
-@bp.post('/login')
-@limiter.limit(
-    lambda: current_app.config["RATELIMIT_LOGIN"]
-)
+@bp.post("/login")
+@limiter.limit(lambda: current_app.config["RATELIMIT_LOGIN"])
 def login():
     payload = request.get_json(silent=True)
     if not isinstance(payload, dict):
         abort(400)
-    email, password = payload.get('email'), payload.get('password')
-    if not isinstance(email,str) or not isinstance(password,str) or len(email)>254 or len(password)>256:
+    email, password = payload.get("email"), payload.get("password")
+    if not isinstance(email, str) or not isinstance(password, str) or len(email) > 254 or len(password) > 256:
         abort(400)
     user = db.session.scalar(db.select(User).where(User.email == email.strip().lower()))
     if not user or user.deleted_at is not None or not user.is_active or not user.check_password(password):
         _audit(email.strip().lower() if isinstance(email, str) else "", "LOGIN", False, user)
         db.session.commit()
-        return jsonify(success=False, message='Email hoặc mật khẩu không hợp lệ'), 401
+        return jsonify(success=False, message="Email hoặc mật khẩu không hợp lệ"), 401
     if not user.email_verified and not _doctor_email_otp_required(user):
         return jsonify(success=False, message="Vui lòng xác thực email trước khi đăng nhập."), 403
     if _requires_login_otp(user):
@@ -217,45 +219,41 @@ def login():
         return jsonify(success=True, requires_2fa=True, message=message)
     session.clear()
     login_user(user, remember=False, fresh=True)
-    session['role'] = user.role
+    session["role"] = user.role
     _audit(user.email, "LOGIN", True, user)
     db.session.commit()
     return login_response(user)
 
 
-@bp.post('/admin/login')
-@limiter.limit(
-    lambda: current_app.config["RATELIMIT_LOGIN"]
-)
+@bp.post("/admin/login")
+@limiter.limit(lambda: current_app.config["RATELIMIT_LOGIN"])
 def admin_login():
     """Authenticate an administrator for the Admin Portal."""
     payload = request.get_json(silent=True)
     if not isinstance(payload, dict):
         abort(400)
 
-    email = payload.get('email', payload.get('username'))
-    password = payload.get('password')
+    email = payload.get("email", payload.get("username"))
+    password = payload.get("password")
     if (
         not isinstance(email, str)
         or not isinstance(password, str)
         or not 1 <= len(email.strip()) <= 254
         or not 1 <= len(password) <= 256
     ):
-        return jsonify(success=False, message='Sai tài khoản hoặc mật khẩu'), 401
+        return jsonify(success=False, message="Sai tài khoản hoặc mật khẩu"), 401
 
-    user = db.session.scalar(
-        db.select(User).where(User.email == email.strip().lower())
-    )
+    user = db.session.scalar(db.select(User).where(User.email == email.strip().lower()))
     if user is None or user.deleted_at is not None or not user.is_active or not user.check_password(password):
         _audit(email.strip().lower() if isinstance(email, str) else "", "ADMIN_LOGIN", False, user)
         db.session.commit()
-        return jsonify(success=False, message='Sai tài khoản hoặc mật khẩu'), 401
+        return jsonify(success=False, message="Sai tài khoản hoặc mật khẩu"), 401
     if not user.email_verified:
         return jsonify(success=False, message="Vui lòng xác thực email trước khi đăng nhập."), 403
-    if user.role != 'ADMIN':
+    if user.role != "ADMIN":
         return jsonify(
             success=False,
-            message='Tài khoản không có quyền quản trị',
+            message="Tài khoản không có quyền quản trị",
         ), 403
 
     if _requires_login_otp(user):
@@ -263,16 +261,20 @@ def admin_login():
         db.session.commit()
         session.clear()
         session["pending_2fa_user_id"] = user.id
-        return jsonify(success=True, requires_2fa=True, message="Mã xác thực đã được tạo. Vui lòng lấy OTP trong cửa sổ Terminal để tiếp tục.")
+        return jsonify(
+            success=True,
+            requires_2fa=True,
+            message="Mã xác thực đã được tạo. Vui lòng lấy OTP trong cửa sổ Terminal để tiếp tục.",
+        )
     session.clear()
     login_user(user, remember=False, fresh=True)
-    session['role'] = user.role
+    session["role"] = user.role
     _audit(user.email, "ADMIN_LOGIN", True, user)
     db.session.commit()
     return login_response(user)
 
 
-@bp.post('/resend-2fa')
+@bp.post("/resend-2fa")
 @limiter.limit("3 per minute")
 def resend_two_factor():
     """Issue a fresh OTP only for the account with a pending 2FA login."""
@@ -296,13 +298,19 @@ def resend_two_factor():
     return jsonify(success=True, message=message)
 
 
-@bp.post('/verify-2fa')
+@bp.post("/verify-2fa")
 @limiter.limit("5 per minute")
 def verify_two_factor():
     payload = request.get_json(silent=True) or {}
     code = str(payload.get("code", "")).strip()
     user = db.session.get(User, session.get("pending_2fa_user_id"))
-    if not user or user.deleted_at is not None or not user.is_active or not _requires_login_otp(user) or not user.two_factor_code_expires_at:
+    if (
+        not user
+        or user.deleted_at is not None
+        or not user.is_active
+        or not _requires_login_otp(user)
+        or not user.two_factor_code_expires_at
+    ):
         return jsonify(success=False, message="Phiên xác thực 2 lớp không hợp lệ."), 401
     if user.two_factor_code_expires_at < utcnow() or not secrets.compare_digest(
         user.two_factor_code_hash or "", _hash_token(code)
@@ -323,7 +331,7 @@ def verify_two_factor():
     return login_response(user)
 
 
-@bp.route('/logout', methods=['GET', 'POST'])
+@bp.route("/logout", methods=["GET", "POST"])
 @csrf.exempt
 def logout():
     """Đăng xuất an toàn cho mọi vai trò (Doctor, User, v.v.), xóa sạch session và cookie."""
@@ -341,19 +349,19 @@ def logout():
         pass
     session.clear()
 
-    if request.method == 'GET':
-        resp = redirect('/')
+    if request.method == "GET":
+        resp = redirect("/")
     else:
-        resp = jsonify(success=True, redirect_url='/')
+        resp = jsonify(success=True, redirect_url="/")
 
-    cookie_name = current_app.config.get('SESSION_COOKIE_NAME', 'session')
-    remember_cookie = current_app.config.get('REMEMBER_COOKIE_NAME', 'remember_token')
-    resp.delete_cookie(cookie_name, path='/')
-    resp.delete_cookie(remember_cookie, path='/')
+    cookie_name = current_app.config.get("SESSION_COOKIE_NAME", "session")
+    remember_cookie = current_app.config.get("REMEMBER_COOKIE_NAME", "remember_token")
+    resp.delete_cookie(cookie_name, path="/")
+    resp.delete_cookie(remember_cookie, path="/")
     return resp
 
 
-@bp.route('/admin/logout', methods=['GET', 'POST'])
+@bp.route("/admin/logout", methods=["GET", "POST"])
 @csrf.exempt
 def admin_logout():
     """End the administrator session and remove all session data and cookies."""
@@ -371,84 +379,85 @@ def admin_logout():
         pass
     session.clear()
 
-    if request.method == 'GET':
-        resp = redirect('/')
+    if request.method == "GET":
+        resp = redirect("/")
     else:
-        resp = jsonify(success=True, redirect_url='/')
+        resp = jsonify(success=True, redirect_url="/")
 
-    cookie_name = current_app.config.get('SESSION_COOKIE_NAME', 'session')
-    remember_cookie = current_app.config.get('REMEMBER_COOKIE_NAME', 'remember_token')
-    resp.delete_cookie(cookie_name, path='/')
-    resp.delete_cookie(remember_cookie, path='/')
+    cookie_name = current_app.config.get("SESSION_COOKIE_NAME", "session")
+    remember_cookie = current_app.config.get("REMEMBER_COOKIE_NAME", "remember_token")
+    resp.delete_cookie(cookie_name, path="/")
+    resp.delete_cookie(remember_cookie, path="/")
     return resp
 
 
-@bp.get('/admin/me')
-@require_roles('ADMIN')
+@bp.get("/admin/me")
+@require_roles("ADMIN")
 def admin_me():
     return jsonify(public_user(current_user))
 
 
-@bp.get('/me')
+@bp.get("/me")
 @require_roles()
 def me():
     return jsonify(public_user(current_user))
 
 
-@bp.put('/profile')
+@bp.put("/profile")
 @require_roles()
 def update_profile():
     payload = request.get_json(silent=True)
     if not isinstance(payload, dict):
         abort(400)
-    
-    full_name = payload.get('full_name')
+
+    full_name = payload.get("full_name")
     if full_name is not None:
         if not isinstance(full_name, str) or not (2 <= len(full_name.strip()) <= 150):
-            return jsonify(success=False, message='Họ tên không hợp lệ (2-150 ký tự).'), 400
+            return jsonify(success=False, message="Họ tên không hợp lệ (2-150 ký tự)."), 400
         current_user.full_name = full_name.strip()
-    
-    phone = payload.get('phone')
+
+    phone = payload.get("phone")
     if phone is not None:
         phone_str = str(phone).strip() if phone else None
         if phone_str and len(phone_str) > 30:
-            return jsonify(success=False, message='Số điện thoại không hợp lệ.'), 400
+            return jsonify(success=False, message="Số điện thoại không hợp lệ."), 400
         current_user.phone = phone_str
-    if 'avatar_url' in payload:
-        avatar = payload.get('avatar_url')
+    if "avatar_url" in payload:
+        avatar = payload.get("avatar_url")
         if avatar and (not isinstance(avatar, str) or len(avatar) > 500):
-            return jsonify(success=False, message='Avatar không hợp lệ.'), 400
+            return jsonify(success=False, message="Avatar không hợp lệ."), 400
         current_user.avatar_url = avatar or None
-    if 'two_factor_enabled' in payload:
-        enabled = bool(payload.get('two_factor_enabled'))
+    if "two_factor_enabled" in payload:
+        enabled = bool(payload.get("two_factor_enabled"))
         if current_user.role == "ADMIN" and _security_setting().require_admin_2fa and not enabled:
             return jsonify(success=False, message="Chính sách hệ thống yêu cầu Admin bật 2FA."), 400
         current_user.two_factor_enabled = enabled
-        
-    gender = payload.get('gender')
+
+    gender = payload.get("gender")
     if gender is not None:
         gender_str = str(gender).strip() if gender else None
         if gender_str and len(gender_str) > 30:
-            return jsonify(success=False, message='Giới tính không hợp lệ.'), 400
+            return jsonify(success=False, message="Giới tính không hợp lệ."), 400
         current_user.gender = gender_str
-        
-    dob = payload.get('date_of_birth')
+
+    dob = payload.get("date_of_birth")
     if dob is not None:
         if dob:
             from datetime import date
+
             try:
                 current_user.date_of_birth = date.fromisoformat(str(dob).strip())
             except (ValueError, TypeError):
-                return jsonify(success=False, message='Ngày sinh không đúng định dạng YYYY-MM-DD.'), 400
+                return jsonify(success=False, message="Ngày sinh không đúng định dạng YYYY-MM-DD."), 400
         else:
             current_user.date_of_birth = None
-            
+
     _audit(current_user.email, "PROFILE_UPDATED", True, current_user)
     db.session.commit()
     return jsonify(success=True, user=public_user(current_user))
 
 
-@bp.post('/change-password')
+@bp.post("/change-password")
 @require_roles()
 def change_password():
     payload = request.get_json(silent=True) or {}
@@ -465,7 +474,7 @@ def change_password():
     return jsonify(success=True)
 
 
-@bp.post('/forgot-password')
+@bp.post("/forgot-password")
 @limiter.limit("5 per minute")
 def forgot_password():
     payload = request.get_json(silent=True) or {}
@@ -479,10 +488,12 @@ def forgot_password():
         _print_terminal("\n==================================================")
         _print_terminal(f" [DERMASCAN AI - PASSWORD RESET] Mã OTP của tài khoản {user.email} là: {otp_code}")
         _print_terminal("==================================================\n")
-    return jsonify(success=True, message="Nếu email tồn tại, mã OTP đặt lại mật khẩu đã được tạo và hiển thị trong Terminal.")
+    return jsonify(
+        success=True, message="Nếu email tồn tại, mã OTP đặt lại mật khẩu đã được tạo và hiển thị trong Terminal."
+    )
 
 
-@bp.post('/reset-password')
+@bp.post("/reset-password")
 @limiter.limit("5 per minute")
 def reset_password():
     payload = request.get_json(silent=True) or {}
@@ -490,7 +501,9 @@ def reset_password():
     password = payload.get("new_password")
     user = db.session.scalar(db.select(User).where(User.password_reset_token_hash == _hash_token(token)))
     if not user or not user.password_reset_expires_at or user.password_reset_expires_at < utcnow():
-        return jsonify(success=False, message="Mã OTP đặt lại mật khẩu không hợp lệ hoặc đã hết hạn. Hãy yêu cầu mã mới."), 400
+        return jsonify(
+            success=False, message="Mã OTP đặt lại mật khẩu không hợp lệ hoặc đã hết hạn. Hãy yêu cầu mã mới."
+        ), 400
     if not isinstance(password, str) or len(password) < _security_setting().password_min_length:
         return jsonify(success=False, message="Mật khẩu mới chưa đủ mạnh."), 400
     user.set_password(password)
@@ -502,7 +515,8 @@ def reset_password():
     db.session.commit()
     return jsonify(success=True)
 
-@bp.post('/verify-email')
+
+@bp.post("/verify-email")
 def verify_email():
     token = request.get_json(silent=True).get("token", "") if request.is_json else request.args.get("token", "")
     user = db.session.scalar(db.select(User).where(User.email_verification_token_hash == _hash_token(str(token))))
@@ -518,51 +532,50 @@ def verify_email():
     return jsonify(success=True, message="Email đã được xác thực.")
 
 
-@bp.post('/register')
-@limiter.limit(
-    lambda: current_app.config["RATELIMIT_LOGIN"]
-)
+@bp.post("/register")
+@limiter.limit(lambda: current_app.config["RATELIMIT_LOGIN"])
 def register():
     payload = request.get_json(silent=True)
     if not isinstance(payload, dict):
         abort(400)
 
-    full_name = payload.get('full_name')
-    email = payload.get('email')
-    password = payload.get('password')
-    role = payload.get('role', 'USER')
+    full_name = payload.get("full_name")
+    email = payload.get("email")
+    password = payload.get("password")
+    role = payload.get("role", "USER")
 
     if not isinstance(full_name, str) or not (2 <= len(full_name.strip()) <= 150):
         return jsonify(
             success=False,
-            message='Họ tên không hợp lệ (2-150 ký tự).',
+            message="Họ tên không hợp lệ (2-150 ký tự).",
         ), 400
 
-    if not isinstance(email, str) or not (3 <= len(email.strip()) <= 254) or '@' not in email:
-        return jsonify(success=False, message='Email không hợp lệ.'), 400
+    if not isinstance(email, str) or not (3 <= len(email.strip()) <= 254) or "@" not in email:
+        return jsonify(success=False, message="Email không hợp lệ."), 400
 
     # User.set_password yêu cầu 12-256 ký tự
     if not isinstance(password, str) or not (12 <= len(password) <= 256):
         return jsonify(
             success=False,
-            message='Mật khẩu phải có 12–256 ký tự',
+            message="Mật khẩu phải có 12–256 ký tự",
         ), 400
 
     # Không cho phép tự đăng ký quyền ADMIN
-    if role not in ('DOCTOR', 'USER'):
-        role = 'USER'
+    if role not in ("DOCTOR", "USER"):
+        role = "USER"
 
-    existing = db.session.scalar(
-        db.select(User).where(User.email == email.strip().lower())
-    )
+    existing = db.session.scalar(db.select(User).where(User.email == email.strip().lower()))
     old_certificate = None
     if existing:
         if existing.deleted_at is None:
-            return jsonify(success=False, message='Email đã được sử dụng.'), 409
+            return jsonify(success=False, message="Email đã được sử dụng."), 409
         old_certificate = deletable_certificate(existing)
         blocker = delete_unrelated_user(existing)
         if blocker:
-            return jsonify(success=False, message='Email thuộc tài khoản cũ có dữ liệu cần lưu giữ. Vui lòng liên hệ quản trị viên.'), 409
+            return jsonify(
+                success=False,
+                message="Email thuộc tài khoản cũ có dữ liệu cần lưu giữ. Vui lòng liên hệ quản trị viên.",
+            ), 409
 
     try:
         user = User(
@@ -584,12 +597,14 @@ def register():
         db.session.commit()
     except IntegrityError:
         db.session.rollback()
-        return jsonify(success=False, message='Email đã được sử dụng.'), 409
+        return jsonify(success=False, message="Email đã được sử dụng."), 409
 
     cleanup_doctor_certificate(old_certificate)
     if verification_token:
         _print_terminal("\n==================================================")
-        _print_terminal(f" [DERMASCAN AI - EMAIL VERIFICATION] Mã xác thực của tài khoản {user.email} là: {verification_token}")
+        _print_terminal(
+            f" [DERMASCAN AI - EMAIL VERIFICATION] Mã xác thực của tài khoản {user.email} là: {verification_token}"
+        )
         _print_terminal("==================================================\n")
     return jsonify(
         success=True,

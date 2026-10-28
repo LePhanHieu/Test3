@@ -54,12 +54,7 @@ SPREADSHEET_FORMULA_PREFIXES = (
 
 
 def spreadsheet_safe(value):
-    if (
-        isinstance(value, str)
-        and value.startswith(
-            SPREADSHEET_FORMULA_PREFIXES
-        )
-    ):
+    if isinstance(value, str) and value.startswith(SPREADSHEET_FORMULA_PREFIXES):
         return f"'{value}"
     return value
 
@@ -71,34 +66,23 @@ class BatchUploadResult:
 
     @property
     def success_count(self):
-        return sum(
-            item["status"] == "UPLOADED"
-            for item in self.items
-        )
+        return sum(item["status"] == "UPLOADED" for item in self.items)
 
     @property
     def failed_count(self):
-        return sum(
-            item["status"] == "FAILED"
-            for item in self.items
-        )
+        return sum(item["status"] == "FAILED" for item in self.items)
 
 
 class BatchUploadService:
-
     def __init__(self, app, batch, case, actor):
         self.app = app
         self.batch = batch
         self.case = case
         self.actor = actor
 
-        self.upload_root = Path(
-            app.config["UPLOAD_FOLDER"]
-        ).resolve()
+        self.upload_root = Path(app.config["UPLOAD_FOLDER"]).resolve()
 
-        self.max_file_bytes = int(
-            app.config["BATCH_MAX_FILE_BYTES"]
-        )
+        self.max_file_bytes = int(app.config["BATCH_MAX_FILE_BYTES"])
 
         self.max_image_pixels = int(
             app.config.get(
@@ -126,7 +110,6 @@ class BatchUploadService:
 
         try:
             for file in files:
-
                 item, row = self._process_one(
                     file,
                     image_dir,
@@ -138,9 +121,7 @@ class BatchUploadService:
                 rows.append(row)
         except Exception:
             for created_path in created_paths:
-                created_path.unlink(
-                    missing_ok=True
-                )
+                created_path.unlink(missing_ok=True)
             raise
 
         return BatchUploadResult(
@@ -156,13 +137,9 @@ class BatchUploadService:
         created_paths,
     ):
 
-        original = (
-            file.filename or ""
-        )[:255]
+        original = (file.filename or "")[:255]
 
-        extension = Path(
-            original
-        ).suffix.lower()
+        extension = Path(original).suffix.lower()
 
         item = {
             "case_image_id": None,
@@ -188,16 +165,10 @@ class BatchUploadService:
         # ==========================================
 
         if error is None:
-
-            data = file.stream.read(
-                self.max_file_bytes + 1
-            )
+            data = file.stream.read(self.max_file_bytes + 1)
 
             if len(data) > self.max_file_bytes:
-                error = (
-                    "File exceeds maximum size of "
-                    f"{self.max_file_bytes} bytes"
-                )
+                error = f"File exceeds maximum size of {self.max_file_bytes} bytes"
 
         # ==========================================
         # DUPLICATE TRONG CÙNG BATCH
@@ -206,14 +177,10 @@ class BatchUploadService:
         digest = None
 
         if error is None:
-
             digest = sha256(data).hexdigest()
 
             if digest in seen_hashes:
-                error = (
-                    "Duplicate image content "
-                    "in this batch"
-                )
+                error = "Duplicate image content in this batch"
             else:
                 seen_hashes.add(digest)
 
@@ -222,7 +189,6 @@ class BatchUploadService:
         # ==========================================
 
         if error is None:
-
             try:
                 with warnings.catch_warnings():
                     warnings.simplefilter(
@@ -230,31 +196,17 @@ class BatchUploadService:
                         Image.DecompressionBombWarning,
                     )
 
-                    with Image.open(
-                        io.BytesIO(data)
-                    ) as image:
-                        detected_format = (
-                            image.format or ""
-                        ).upper()
+                    with Image.open(io.BytesIO(data)) as image:
+                        detected_format = (image.format or "").upper()
                         width, height = image.size
                         image.verify()
 
-                expected_format = (
-                    EXPECTED_IMAGE_FORMAT[
-                        extension
-                    ]
-                )
+                expected_format = EXPECTED_IMAGE_FORMAT[extension]
 
                 if detected_format != expected_format:
-                    error = (
-                        "Decoded image format does not "
-                        "match file extension"
-                    )
+                    error = "Decoded image format does not match file extension"
                 elif width * height > self.max_image_pixels:
-                    error = (
-                        "Image exceeds maximum pixel "
-                        f"count of {self.max_image_pixels}"
-                    )
+                    error = f"Image exceeds maximum pixel count of {self.max_image_pixels}"
 
             except (
                 UnidentifiedImageError,
@@ -263,34 +215,22 @@ class BatchUploadService:
                 Image.DecompressionBombWarning,
                 Image.DecompressionBombError,
             ):
-                error = (
-                    "Uploaded file is not "
-                    "a valid image"
-                )
+                error = "Uploaded file is not a valid image"
 
         # ==========================================
         # SAVE FILE
         # ==========================================
 
         if error is None:
+            stored_name = f"{uuid4()}{extension}"
 
-            stored_name = (
-                f"{uuid4()}{extension}"
-            )
-
-            destination = (
-                image_dir / stored_name
-            ).resolve()
+            destination = (image_dir / stored_name).resolve()
 
             if image_dir not in destination.parents:
-
                 error = "Invalid storage path"
 
             else:
-
-                created_paths.append(
-                    destination
-                )
+                created_paths.append(destination)
                 destination.write_bytes(data)
 
                 path = str(destination)
@@ -310,7 +250,6 @@ class BatchUploadService:
         # ==========================================
 
         if error is not None:
-
             item["error_message"] = error
             row["error_message"] = error
 
@@ -322,23 +261,10 @@ class BatchUploadService:
             case_id=self.case.id,
             batch_id=self.batch.id,
             image_path=path,
-            original_filename=(
-                original or "unnamed-file"
-            ),
-            mime_type=(
-                file.mimetype
-                or "application/octet-stream"
-            ),
+            original_filename=(original or "unnamed-file"),
+            mime_type=(file.mimetype or "application/octet-stream"),
             file_size=len(data),
-            sha256_hash=(
-                digest
-                if digest
-                else (
-                    sha256(data).hexdigest()
-                    if data
-                    else None
-                )
-            ),
+            sha256_hash=(digest if digest else (sha256(data).hexdigest() if data else None)),
             uploaded_by=self.actor.id,
             status=item["status"],
             error_message=error,
@@ -364,33 +290,20 @@ class BatchUploadService:
         if not original:
             return "Filename is empty"
 
-        expected_mime = ALLOWED.get(
-            extension
-        )
+        expected_mime = ALLOWED.get(extension)
 
         if expected_mime is None:
-            return (
-                "Unsupported file extension"
-            )
+            return "Unsupported file extension"
 
-        if (
-            mimetype
-            and mimetype != expected_mime
-        ):
-            return (
-                "MIME type does not match "
-                "file extension"
-            )
+        if mimetype and mimetype != expected_mime:
+            return "MIME type does not match file extension"
 
         return None
 
     def _empty_row(self, item):
 
         return {
-            "filename": (
-                item["filename"]
-                or item["original_filename"]
-            ),
+            "filename": (item["filename"] or item["original_filename"]),
             "case_code": self.case.case_code,
             "analysis_id": "",
             "predicted_class": "",
@@ -399,9 +312,7 @@ class BatchUploadService:
             "lesion_perimeter_px": "",
             "lesion_ratio": "",
             "status": item["status"],
-            "error_message": (
-                item["error_message"] or ""
-            ),
+            "error_message": (item["error_message"] or ""),
         }
 
     @staticmethod
@@ -414,13 +325,7 @@ class BatchUploadService:
             exist_ok=True,
         )
 
-        safe_rows = [
-            {
-                key: spreadsheet_safe(value)
-                for key, value in row.items()
-            }
-            for row in rows
-        ]
+        safe_rows = [{key: spreadsheet_safe(value) for key, value in row.items()} for row in rows]
 
         pd.DataFrame.from_records(
             safe_rows,

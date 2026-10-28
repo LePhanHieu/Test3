@@ -62,9 +62,7 @@ def export(name, num_classes, dropout):
     session = ort.InferenceSession(str(onnx_path), providers=["CPUExecutionProvider"])
     actual = session.run(None, {"input": x.numpy()})[0]
     diff = float(np.abs(expected - actual).max())
-    print(
-        f"[{name}] đã lưu {onnx_path.name}, sai khác lớn nhất so với PyTorch: {diff:.6f}"
-    )
+    print(f"[{name}] đã lưu {onnx_path.name}, sai khác lớn nhất so với PyTorch: {diff:.6f}")
     assert diff < 1e-3, "ONNX lệch quá nhiều so với PyTorch, hãy kiểm tra lại!"
 
 

@@ -40,6 +40,7 @@ from skin_cancer.webapp.services.result_cache import image_hash, get_cached, sav
 from skin_cancer.webapp.services.onnx_inference import OnnxPredictor
 from skin_cancer.webapp.tasks import _run_analysis
 
+
 def run_tests():
     print("=" * 60)
     print("DERMASCAN AI - SUITE TEST TOÀN DIỆN CÁC TÍNH NĂNG")
@@ -50,20 +51,20 @@ def run_tests():
     # -------------------------------------------------------------
     print("\n[TEST 1/8] Feature 2: Kiểm tra chất lượng ảnh (image_quality.py)")
     expected = {
-        'test_mo.jpg': 'Ảnh bị mờ',
-        'test_toi.jpg': 'Ảnh quá tối',
-        'test_sang.jpg': 'Ảnh quá sáng',
-        'test_nho.jpg': 'Ảnh quá nhỏ',
+        "test_mo.jpg": "Ảnh bị mờ",
+        "test_toi.jpg": "Ảnh quá tối",
+        "test_sang.jpg": "Ảnh quá sáng",
+        "test_nho.jpg": "Ảnh quá nhỏ",
     }
     for fname, exp_sub in expected.items():
         res = check_image_quality(Image.open(fname))
-        assert not res['ok'], f"{fname} phải có lỗi chất lượng"
-        matched = any(exp_sub in w for w in res['warnings'])
+        assert not res["ok"], f"{fname} phải có lỗi chất lượng"
+        matched = any(exp_sub in w for w in res["warnings"])
         assert matched, f"{fname} không chứa cảnh báo mong đợi '{exp_sub}': {res['warnings']}"
         print(f"  + {fname}: [PASS] Cảnh báo đúng -> {res['warnings']}")
 
     goc_res = check_image_quality(Image.open("goc.jpg"))
-    assert goc_res['ok'], f"goc.jpg phải có ok=True nhưng nhận: {goc_res}"
+    assert goc_res["ok"], f"goc.jpg phải có ok=True nhưng nhận: {goc_res}"
     print("  + goc.jpg: [PASS] Ảnh chuẩn ok=True, 0 cảnh báo.")
 
     # -------------------------------------------------------------
@@ -71,18 +72,23 @@ def run_tests():
     # -------------------------------------------------------------
     print("\n[TEST 2/8] Feature 3: Độ không chắc chắn (uncertainty.py)")
     res_certain = check_uncertainty([0.92, 0.04, 0.01, 0.01, 0.01, 0.005, 0.003, 0.002])
-    assert not res_certain['is_uncertain'], "Trường hợp tin cậy cao không được báo uncertain"
-    print(f"  + Tin cậy cao (margin={res_certain['margin']}, entropy={res_certain['entropy']}): [PASS] is_uncertain=False")
+    assert not res_certain["is_uncertain"], "Trường hợp tin cậy cao không được báo uncertain"
+    print(
+        f"  + Tin cậy cao (margin={res_certain['margin']}, entropy={res_certain['entropy']}): [PASS] is_uncertain=False"
+    )
 
     res_uncertain = check_uncertainty([0.48, 0.44, 0.02, 0.02, 0.01, 0.01, 0.01, 0.01])
-    assert res_uncertain['is_uncertain'], "Trường hợp margin nhỏ phải báo uncertain"
-    assert res_uncertain['message'] == "Ca này khó, nên hỏi bác sĩ."
-    print(f"  + Phân vân top-1 & top-2 (margin={res_uncertain['margin']}): [PASS] is_uncertain=True, message='{res_uncertain['message']}'")
+    assert res_uncertain["is_uncertain"], "Trường hợp margin nhỏ phải báo uncertain"
+    assert res_uncertain["message"] == "Ca này khó, nên hỏi bác sĩ."
+    print(
+        f"  + Phân vân top-1 & top-2 (margin={res_uncertain['margin']}): [PASS] is_uncertain=True, message='{res_uncertain['message']}'"
+    )
 
     # -------------------------------------------------------------
     # 3. TEST FEATURE 8: Native Persistent Disk Cache (No Docker Needed)
     # -------------------------------------------------------------
     from skin_cancer.webapp.services.result_cache import get_cache_backend_name
+
     print(f"\n[TEST 3/8] Feature 8: Cache kết quả ({get_cache_backend_name()})")
 
     img_goc = Image.open("goc.jpg")
@@ -108,19 +114,19 @@ def run_tests():
     print("\n[TEST 4/8] Feature 1: Khoanh vùng tổn thương (focus_region.py)")
     # Thử validate
     try:
-        parse_polygon({"points": [[0,0],[1,1]]})
+        parse_polygon({"points": [[0, 0], [1, 1]]})
         assert False, "Dưới 3 điểm phải báo lỗi"
     except ValueError as e:
         print(f"  + Validate < 3 điểm: [PASS] {e}")
 
     try:
-        parse_polygon({"points": [[0,0],[2,0],[1,1]]})
+        parse_polygon({"points": [[0, 0], [2, 0], [1, 1]]})
         assert False, "Toạ độ > 1 phải báo lỗi"
     except ValueError as e:
         print(f"  + Validate ngoài [0,1]: [PASS] {e}")
 
     try:
-        parse_polygon({"points": [[.1,.1],[.11,.1],[.1,.11]]})
+        parse_polygon({"points": [[0.1, 0.1], [0.11, 0.1], [0.1, 0.11]]})
         assert False, "Diện tích < 1% phải báo lỗi"
     except ValueError as e:
         print(f"  + Validate diện tích nhỏ: [PASS] {e}")
@@ -140,10 +146,13 @@ def run_tests():
     onnx_bin = Path("skin_cancer/checkpoints/binary.onnx")
     onnx_mc = Path("skin_cancer/checkpoints/multiclass.onnx")
     assert onnx_bin.exists() and onnx_mc.exists(), "Cần có binary.onnx và multiclass.onnx"
-    print(f"  + File model ONNX: {onnx_bin.name} ({onnx_bin.stat().st_size/1e6:.1f}MB), {onnx_mc.name} ({onnx_mc.stat().st_size/1e6:.1f}MB)")
+    print(
+        f"  + File model ONNX: {onnx_bin.name} ({onnx_bin.stat().st_size / 1e6:.1f}MB), {onnx_mc.name} ({onnx_mc.stat().st_size / 1e6:.1f}MB)"
+    )
 
     predictor = OnnxPredictor(Path("skin_cancer/checkpoints"))
     from skin_cancer.webapp.app import preprocess
+
     inp_np = preprocess(img_goc).unsqueeze(0).numpy()
     p_malig_onnx, probs_mc_onnx = predictor.predict(inp_np)
     print(f"  + ONNX dự đoán: p_malignant={p_malig_onnx:.4f}, class={probs_mc_onnx.argmax()} [PASS]")
@@ -157,8 +166,12 @@ def run_tests():
     assert int8_bin.exists() and int8_mc.exists(), "Cần có binary_int8.onnx và multiclass_int8.onnx"
     ratio_bin = onnx_bin.stat().st_size / int8_bin.stat().st_size
     ratio_mc = onnx_mc.stat().st_size / int8_mc.stat().st_size
-    print(f"  + Binary FP32 ({onnx_bin.stat().st_size/1e6:.1f}MB) -> INT8 ({int8_bin.stat().st_size/1e6:.1f}MB): Nhỏ hơn {ratio_bin:.1f} lần [PASS]")
-    print(f"  + Multiclass FP32 ({onnx_mc.stat().st_size/1e6:.1f}MB) -> INT8 ({int8_mc.stat().st_size/1e6:.1f}MB): Nhỏ hơn {ratio_mc:.1f} lần [PASS]")
+    print(
+        f"  + Binary FP32 ({onnx_bin.stat().st_size / 1e6:.1f}MB) -> INT8 ({int8_bin.stat().st_size / 1e6:.1f}MB): Nhỏ hơn {ratio_bin:.1f} lần [PASS]"
+    )
+    print(
+        f"  + Multiclass FP32 ({onnx_mc.stat().st_size / 1e6:.1f}MB) -> INT8 ({int8_mc.stat().st_size / 1e6:.1f}MB): Nhỏ hơn {ratio_mc:.1f} lần [PASS]"
+    )
 
     pred_int8 = OnnxPredictor(Path("skin_cancer/checkpoints"), suffix="_int8")
     p_malig_int8, probs_mc_int8 = pred_int8.predict(inp_np)
@@ -173,10 +186,7 @@ def run_tests():
     client = app.test_client()
 
     # Đăng nhập bác sĩ
-    login_resp = client.post("/api/auth/login", json={
-        "email": "doctor@dermascan.local",
-        "password": "123456123456"
-    })
+    login_resp = client.post("/api/auth/login", json={"email": "doctor@dermascan.local", "password": "123456123456"})
     assert login_resp.status_code == 200, f"Đăng nhập bác sĩ thất bại: {login_resp.data}"
     print("  + Đăng nhập tài khoản doctor@dermascan.local thành công.")
 
@@ -184,12 +194,9 @@ def run_tests():
     with app.app_context():
         doctor = User.query.filter_by(email="doctor@dermascan.local").first()
         patient = User.query.filter_by(email="patient@dermascan.local").first()
-        
+
         test_case = Case(
-            doctor_id=doctor.id,
-            patient_user_id=patient.id,
-            case_code=f"TEST-CASE-{os.getpid()}",
-            status="CREATED"
+            doctor_id=doctor.id, patient_user_id=patient.id, case_code=f"TEST-CASE-{os.getpid()}", status="CREATED"
         )
         db.session.add(test_case)
         db.session.commit()
@@ -207,7 +214,7 @@ def run_tests():
             file_size=dest_img.stat().st_size,
             sha256_hash="dummysha256",
             uploaded_by=doctor.id,
-            status="UPLOADED"
+            status="UPLOADED",
         )
         db.session.add(test_img)
         db.session.commit()
@@ -217,9 +224,9 @@ def run_tests():
     print(f"  + Đã tạo ca kiểm thử: case_id={case_id}, case_image_id={case_image_id}")
 
     # Gán focus region qua API (Feature 1 API test)
-    put_reg = client.put(f"/api/case-images/{case_image_id}/focus-region", json={
-        "points": [[0.2, 0.2], [0.8, 0.2], [0.5, 0.8]]
-    })
+    put_reg = client.put(
+        f"/api/case-images/{case_image_id}/focus-region", json={"points": [[0.2, 0.2], [0.8, 0.2], [0.5, 0.8]]}
+    )
     assert put_reg.status_code == 200, f"PUT focus-region thất bại: {put_reg.data}"
     print("  + PUT /api/case-images/<id>/focus-region: [PASS] 200 OK")
 
@@ -234,12 +241,15 @@ def run_tests():
     # Kiểm tra API status khi đang PENDING/trước khi hoàn thành
     status_resp_pending = client.get(f"/api/analyses/{analysis_id}/status")
     assert status_resp_pending.status_code == 200
-    print(f"  + GET /api/analyses/{analysis_id}/status (trước xử lý): [PASS] status={status_resp_pending.get_json()['status']}")
+    print(
+        f"  + GET /api/analyses/{analysis_id}/status (trước xử lý): [PASS] status={status_resp_pending.get_json()['status']}"
+    )
 
     # Thực thi task xử lý (mô phỏng worker hoặc worker nền)
     task_res = _run_analysis(analysis_id, case_image_id)
     assert task_res is not None, "Worker thực thi phân tích phải trả kết quả"
     from skin_cancer.webapp.celery_app import celery
+
     if celery is not None:
         try:
             celery.backend.store_result(f"analysis-{analysis_id}", task_res, "SUCCESS")
@@ -255,7 +265,9 @@ def run_tests():
     assert "result" in data_done
     assert "quality" in data_done["result"]
     assert "uncertainty" in data_done["result"]
-    print(f"  + GET /api/analyses/{analysis_id}/status (sau xử lý): [PASS] COMPLETED kèm result={list(data_done['result'].keys())}")
+    print(
+        f"  + GET /api/analyses/{analysis_id}/status (sau xử lý): [PASS] COMPLETED kèm result={list(data_done['result'].keys())}"
+    )
 
     # -------------------------------------------------------------
     # 8. TEST FEATURE 4: Timeline Progress API
@@ -265,21 +277,23 @@ def run_tests():
     assert tl_resp.status_code == 200, f"Timeline trả lỗi: {tl_resp.data}"
     tl_data = tl_resp.get_json()
     assert "points" in tl_data
-    print(f"  + Timeline ca bệnh {case_id}: [PASS] Có {len(tl_data['points'])} điểm phân tích, trend={tl_data['trend']}")
+    print(
+        f"  + Timeline ca bệnh {case_id}: [PASS] Có {len(tl_data['points'])} điểm phân tích, trend={tl_data['trend']}"
+    )
 
     # Kiểm tra phân quyền timeline: Bệnh nhân khác (patient2) không được xem
     client.post("/api/auth/logout")
-    client.post("/api/auth/login", json={
-        "email": "patient2@dermascan.local",
-        "password": "123456123456"
-    })
+    client.post("/api/auth/login", json={"email": "patient2@dermascan.local", "password": "123456123456"})
     tl_unauthorized = client.get(f"/api/cases/{case_id}/timeline")
-    assert tl_unauthorized.status_code in (403, 404), f"Bệnh nhân khác phải bị chặn xem timeline: {tl_unauthorized.status_code}"
+    assert tl_unauthorized.status_code in (403, 404), (
+        f"Bệnh nhân khác phải bị chặn xem timeline: {tl_unauthorized.status_code}"
+    )
     print(f"  + Kiểm tra bảo mật: patient2 truy cập timeline nhận {tl_unauthorized.status_code} [PASS]")
 
     print("\n" + "=" * 60)
     print("HOÀN THÀNH TOÀN BỘ 8/8 TÍNH NĂNG - TẤT CẢ ĐỀU VƯỢT QUA TEST!")
     print("=" * 60)
+
 
 if __name__ == "__main__":
     run_tests()

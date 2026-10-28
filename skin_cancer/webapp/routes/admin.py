@@ -1,4 +1,5 @@
 """Admin portal pages and the small set of admin dashboard APIs."""
+
 from datetime import date, datetime, timedelta
 
 from flask import Blueprint, abort, current_app, jsonify, render_template, request, send_from_directory, send_file
@@ -28,10 +29,12 @@ def _patient_name(case):
 
 def _case_summary(case):
     return {
-        "id": case.id, "code": case.case_code,
+        "id": case.id,
+        "code": case.case_code,
         "patient": _patient_name(case),
         "doctor": case.doctor.full_name if case.doctor else "Chưa phân công",
-        "doctor_id": case.doctor_id, "status": case.status,
+        "doctor_id": case.doctor_id,
+        "status": case.status,
         "created_at": case.created_at.isoformat() if case.created_at else None,
         "lesion_location": case.lesion_location,
     }
@@ -62,12 +65,21 @@ def admin_cases():
         pattern = f"%{search}%"
         # Account-backed patient names need their own alias to avoid joining users twice.
         from sqlalchemy.orm import aliased
+
         patient_user = aliased(User)
-        query = db.select(Case).join(User, Case.doctor_id == User.id).outerjoin(
-            patient_user, Case.patient_user_id == patient_user.id
-        ).where(or_(Case.case_code.ilike(pattern), User.full_name.ilike(pattern),
+        query = (
+            db.select(Case)
+            .join(User, Case.doctor_id == User.id)
+            .outerjoin(patient_user, Case.patient_user_id == patient_user.id)
+            .where(
+                or_(
+                    Case.case_code.ilike(pattern),
+                    User.full_name.ilike(pattern),
                     patient_user.full_name.ilike(pattern),
-                    Case.patient_snapshot["full_name"].as_string().ilike(pattern)))
+                    Case.patient_snapshot["full_name"].as_string().ilike(pattern),
+                )
+            )
+        )
     if status:
         query = query.where(Case.status == status)
     if doctor:
@@ -78,15 +90,26 @@ def admin_cases():
         query = query.where(Case.created_at < datetime.combine(date_end + timedelta(days=1), datetime.min.time()))
     total = db.session.scalar(db.select(func.count()).select_from(query.order_by(None).subquery())) or 0
     page_size = 15
-    items = db.session.scalars(query.options(selectinload(Case.patient), selectinload(Case.doctor))
-                               .order_by(Case.created_at.desc(), Case.id.desc())
-                               .offset((page - 1) * page_size).limit(page_size)).all()
+    items = db.session.scalars(
+        query.options(selectinload(Case.patient), selectinload(Case.doctor))
+        .order_by(Case.created_at.desc(), Case.id.desc())
+        .offset((page - 1) * page_size)
+        .limit(page_size)
+    ).all()
     counts = dict(db.session.execute(db.select(Case.status, func.count(Case.id)).group_by(Case.status)).all())
     doctors = db.session.scalars(db.select(User).where(User.role == "DOCTOR").order_by(User.full_name)).all()
-    return jsonify(cases=[_case_summary(item) for item in items], page=page,
-                   pages=max(1, (total + page_size - 1) // page_size), total=total,
-                   metrics={"total": sum(counts.values()), "processing": sum(counts.get(key, 0) for key in ("CREATED", "UPLOADED", "ANALYZED", "REVIEWED")), "completed": counts.get("COMPLETED", 0)},
-                   doctors=[{"id": item.id, "name": item.full_name} for item in doctors])
+    return jsonify(
+        cases=[_case_summary(item) for item in items],
+        page=page,
+        pages=max(1, (total + page_size - 1) // page_size),
+        total=total,
+        metrics={
+            "total": sum(counts.values()),
+            "processing": sum(counts.get(key, 0) for key in ("CREATED", "UPLOADED", "ANALYZED", "REVIEWED")),
+            "completed": counts.get("COMPLETED", 0),
+        },
+        doctors=[{"id": item.id, "name": item.full_name} for item in doctors],
+    )
 
 
 @bp.get("/api/admin/cases/<int:case_id>")
@@ -96,24 +119,48 @@ def admin_case_detail(case_id):
     if not case:
         abort(404)
     data = _case_summary(case)
-    data["images"] = [{"id": item.id, "filename": item.original_filename,
-                        "status": item.status,
-                        "url": f"/api/admin/cases/{case.id}/images/{item.id}/original"}
-                       for item in case.images]
-    data["analyses"] = [{
-        "id": item.id, "image_id": item.case_image_id, "status": item.status,
-        "area": item.lesion_area_px, "perimeter": item.lesion_perimeter_px,
-        "ratio": item.lesion_ratio,
-        "gradcam_url": f"/api/admin/cases/{case.id}/images/{item.id}/gradcam" if item.gradcam_path else None,
-        "contour_url": f"/api/admin/cases/{case.id}/images/{item.id}/contour" if item.contour_path else None,
-        "results": [{"model": result.model_name, "class": result.predicted_class,
-                     "probability": result.predicted_probability, "binary": result.binary_result,
-                     "class_probabilities": result.class_probabilities}
-                    for result in item.results],
-    } for item in case.analyses]
-    data["reviews"] = [{"status": item.review_status, "doctor": item.doctor.full_name if item.doctor else "-",
-                        "note": item.clinical_note, "conclusion": item.doctor_conclusion,
-                        "recommendation": item.recommendation} for item in case.reviews]
+    data["images"] = [
+        {
+            "id": item.id,
+            "filename": item.original_filename,
+            "status": item.status,
+            "url": f"/api/admin/cases/{case.id}/images/{item.id}/original",
+        }
+        for item in case.images
+    ]
+    data["analyses"] = [
+        {
+            "id": item.id,
+            "image_id": item.case_image_id,
+            "status": item.status,
+            "area": item.lesion_area_px,
+            "perimeter": item.lesion_perimeter_px,
+            "ratio": item.lesion_ratio,
+            "gradcam_url": f"/api/admin/cases/{case.id}/images/{item.id}/gradcam" if item.gradcam_path else None,
+            "contour_url": f"/api/admin/cases/{case.id}/images/{item.id}/contour" if item.contour_path else None,
+            "results": [
+                {
+                    "model": result.model_name,
+                    "class": result.predicted_class,
+                    "probability": result.predicted_probability,
+                    "binary": result.binary_result,
+                    "class_probabilities": result.class_probabilities,
+                }
+                for result in item.results
+            ],
+        }
+        for item in case.analyses
+    ]
+    data["reviews"] = [
+        {
+            "status": item.review_status,
+            "doctor": item.doctor.full_name if item.doctor else "-",
+            "note": item.clinical_note,
+            "conclusion": item.doctor_conclusion,
+            "recommendation": item.recommendation,
+        }
+        for item in case.reviews
+    ]
     return jsonify(data)
 
 
@@ -134,7 +181,11 @@ def admin_case_image(case_id, image_id, kind):
         if not analysis or analysis.case_id != case_id:
             abort(404)
         path = analysis.gradcam_path if kind == "gradcam" else analysis.contour_path
-        root = (Path(current_app.config["PROJECT_ROOT"]) / "instance" / "gradcam").resolve() if kind == "gradcam" else Path(current_app.config["MEASUREMENT_FOLDER"]).resolve()
+        root = (
+            (Path(current_app.config["PROJECT_ROOT"]) / "instance" / "gradcam").resolve()
+            if kind == "gradcam"
+            else Path(current_app.config["MEASUREMENT_FOLDER"]).resolve()
+        )
     else:
         abort(404)
     if not path:
@@ -187,14 +238,16 @@ def upload_doctor_certificate(application_id):
 
 
 def _admin_audit(event, target, success=True):
-    db.session.add(AuditLog(
-        user_id=current_user.id,
-        email=current_user.email,
-        event=event,
-        success=success,
-        ip_address=request.remote_addr,
-        user_agent=request.headers.get("User-Agent", "")[:500],
-    ))
+    db.session.add(
+        AuditLog(
+            user_id=current_user.id,
+            email=current_user.email,
+            event=event,
+            success=success,
+            ip_address=request.remote_addr,
+            user_agent=request.headers.get("User-Agent", "")[:500],
+        )
+    )
 
 
 @bp.get("/admin")
@@ -210,16 +263,10 @@ def overview():
         "users": db.session.scalar(db.select(func.count(User.id))) or 0,
         "cases": db.session.scalar(db.select(func.count(Case.id))) or 0,
         "analyses": db.session.scalar(db.select(func.count(Analysis.id))) or 0,
-        "doctors": db.session.scalar(
-            db.select(func.count(User.id)).where(User.role == "DOCTOR")
-        ) or 0,
+        "doctors": db.session.scalar(db.select(func.count(User.id)).where(User.role == "DOCTOR")) or 0,
     }
-    recent_cases = db.session.scalars(
-        db.select(Case).order_by(Case.created_at.desc()).limit(6)
-    ).all()
-    recent_analyses = db.session.scalars(
-        db.select(Analysis).order_by(Analysis.created_at.desc()).limit(6)
-    ).all()
+    recent_cases = db.session.scalars(db.select(Case).order_by(Case.created_at.desc()).limit(6)).all()
+    recent_analyses = db.session.scalars(db.select(Analysis).order_by(Analysis.created_at.desc()).limit(6)).all()
     class_labels = {
         "MEL": ("Melanoma", "Nghi ngờ ác tính", "warning"),
         "NV": ("Nevus", "Nốt ruồi lành tính", "benign"),
@@ -261,9 +308,7 @@ def overview():
     cursor = date.today().replace(day=1)
     for _ in range(6):
         month_keys.append(cursor.strftime("%Y-%m"))
-        cursor = (
-            cursor.replace(day=1) - date.resolution
-        ).replace(day=1)
+        cursor = (cursor.replace(day=1) - date.resolution).replace(day=1)
     month_keys.reverse()
     case_by_month = dict(
         db.session.execute(
@@ -310,16 +355,12 @@ def overview():
             {
                 "id": analysis.id,
                 "status": analysis.status,
-                "model": (
-                    analysis.results[0].model_name
-                    if analysis.results
-                    else "EfficientNet-B0"
-                ),
+                "model": (analysis.results[0].model_name if analysis.results else "EfficientNet-B0"),
                 "prediction": (
                     analysis.results[0].predicted_class
                     if analysis.results and analysis.results[0].predicted_class
                     else "Đang xử lý",
-            ),
+                ),
             }
             for analysis in recent_analyses
         ],
@@ -454,14 +495,19 @@ def doctor_applications():
         .where(DoctorApplication.status == "PENDING")
         .order_by(DoctorApplication.created_at.asc())
     ).all()
-    return jsonify(applications=[{
-        "id": item.id,
-        "user_id": item.user_id,
-        "name": item.user.full_name,
-        "email": item.user.email,
-        "certificate_path": item.certificate_path,
-        "created_at": item.created_at.isoformat(),
-    } for item in applications])
+    return jsonify(
+        applications=[
+            {
+                "id": item.id,
+                "user_id": item.user_id,
+                "name": item.user.full_name,
+                "email": item.user.email,
+                "certificate_path": item.certificate_path,
+                "created_at": item.created_at.isoformat(),
+            }
+            for item in applications
+        ]
+    )
 
 
 @bp.get("/api/admin/doctor-applications/history")
@@ -486,17 +532,28 @@ def doctor_application_history():
             query = query.where(DoctorApplication.reviewed_at < datetime.strptime(end, "%Y-%m-%d") + timedelta(days=1))
     except ValueError:
         return jsonify(success=False, message="Ngày lọc không hợp lệ."), 400
-    applications = db.session.scalars(query.options(
-        selectinload(DoctorApplication.user), selectinload(DoctorApplication.reviewer)
-    ).order_by(DoctorApplication.reviewed_at.desc(), DoctorApplication.id.desc())).all()
-    return jsonify(applications=[{
-        "id": item.id, "user_id": item.user_id, "name": item.user.full_name,
-        "email": item.user.email, "certificate_path": item.certificate_path,
-        "status": item.status, "reviewed_at": item.reviewed_at.isoformat() if item.reviewed_at else None,
-        "reviewer_name": item.reviewer.full_name if item.reviewer else "Không xác định",
-        "rejection_reason": item.rejection_reason,
-        "email_status": item.email_notification_status,
-    } for item in applications])
+    applications = db.session.scalars(
+        query.options(selectinload(DoctorApplication.user), selectinload(DoctorApplication.reviewer)).order_by(
+            DoctorApplication.reviewed_at.desc(), DoctorApplication.id.desc()
+        )
+    ).all()
+    return jsonify(
+        applications=[
+            {
+                "id": item.id,
+                "user_id": item.user_id,
+                "name": item.user.full_name,
+                "email": item.user.email,
+                "certificate_path": item.certificate_path,
+                "status": item.status,
+                "reviewed_at": item.reviewed_at.isoformat() if item.reviewed_at else None,
+                "reviewer_name": item.reviewer.full_name if item.reviewer else "Không xác định",
+                "rejection_reason": item.rejection_reason,
+                "email_status": item.email_notification_status,
+            }
+            for item in applications
+        ]
+    )
 
 
 @bp.patch("/api/admin/doctor-applications/<int:application_id>")
@@ -521,8 +578,11 @@ def review_doctor_application(application_id):
     application.user.is_active = decision == "APPROVE"
     _admin_audit("DOCTOR_APPLICATION_" + decision, application.user)
     db.session.commit()
-    notification = (_send_doctor_approval_email(application.user) if decision == "APPROVE"
-                    else _send_doctor_rejection_email(application.user, reason))
+    notification = (
+        _send_doctor_approval_email(application.user)
+        if decision == "APPROVE"
+        else _send_doctor_rejection_email(application.user, reason)
+    )
     application.email_notification_status = "SENT" if notification["sent"] else "FAILED"
     db.session.commit()
     return jsonify(success=True, status=application.status, email_notification=notification)
@@ -532,23 +592,28 @@ def _send_doctor_approval_email(doctor):
     """Notify after committing approval; SMTP failures never undo activation."""
     warning = "Tài khoản bác sĩ đã được phê duyệt nhưng chưa gửi được email thông báo."
     try:
-        if not all(current_app.config.get(key) for key in (
-            "MAIL_SERVER", "MAIL_USERNAME", "MAIL_PASSWORD", "MAIL_DEFAULT_SENDER"
-        )):
+        if not all(
+            current_app.config.get(key)
+            for key in ("MAIL_SERVER", "MAIL_USERNAME", "MAIL_PASSWORD", "MAIL_DEFAULT_SENDER")
+        ):
             raise RuntimeError("SMTP chưa được cấu hình đầy đủ")
-        mail.send(Message(
-            subject="[DermaScan AI] Tài khoản bác sĩ đã được phê duyệt",
-            recipients=[doctor.email],
-            html=render_template('emails/doctor_approved.html', DOCTOR_NAME=doctor.full_name, LOGIN_URL=request.url_root),
-            body=(
-                f"Kính gửi Bác sĩ {doctor.full_name},\n\n"
-                "Tài khoản bác sĩ của bạn trên hệ thống DermaScan AI đã được "
-                "quản trị viên phê duyệt thành công và hiện đã được kích hoạt.\n\n"
-                "Bạn có thể đăng nhập bằng email và mật khẩu đã đăng ký. "
-                "Hệ thống sẽ gửi mã OTP qua email mỗi khi bạn đăng nhập.\n\n"
-                "Trân trọng,\nĐội ngũ DermaScan AI"
-            ),
-        ))
+        mail.send(
+            Message(
+                subject="[DermaScan AI] Tài khoản bác sĩ đã được phê duyệt",
+                recipients=[doctor.email],
+                html=render_template(
+                    "emails/doctor_approved.html", DOCTOR_NAME=doctor.full_name, LOGIN_URL=request.url_root
+                ),
+                body=(
+                    f"Kính gửi Bác sĩ {doctor.full_name},\n\n"
+                    "Tài khoản bác sĩ của bạn trên hệ thống DermaScan AI đã được "
+                    "quản trị viên phê duyệt thành công và hiện đã được kích hoạt.\n\n"
+                    "Bạn có thể đăng nhập bằng email và mật khẩu đã đăng ký. "
+                    "Hệ thống sẽ gửi mã OTP qua email mỗi khi bạn đăng nhập.\n\n"
+                    "Trân trọng,\nĐội ngũ DermaScan AI"
+                ),
+            )
+        )
     except Exception:
         current_app.logger.exception("Không thể gửi email phê duyệt cho bác sĩ id=%s", doctor.id)
         return {"sent": False, "message": warning}
@@ -558,21 +623,30 @@ def _send_doctor_approval_email(doctor):
 def _send_doctor_rejection_email(doctor, reason):
     """Send rejection after commit so SMTP failures never reverse the decision."""
     try:
-        if not all(current_app.config.get(key) for key in (
-            "MAIL_SERVER", "MAIL_USERNAME", "MAIL_PASSWORD", "MAIL_DEFAULT_SENDER"
-        )):
+        if not all(
+            current_app.config.get(key)
+            for key in ("MAIL_SERVER", "MAIL_USERNAME", "MAIL_PASSWORD", "MAIL_DEFAULT_SENDER")
+        ):
             raise RuntimeError("SMTP chưa được cấu hình đầy đủ")
-        mail.send(Message(
-            subject="[DermaScan AI] Thông báo kết quả xét duyệt hồ sơ bác sĩ",
-            recipients=[doctor.email],
-            html=render_template('emails/doctor_rejected.html', DOCTOR_NAME=doctor.full_name, REJECTION_REASON=reason, SUPPORT_URL='mailto:' + (current_app.config.get('SUPPORT_EMAIL') or current_app.config['MAIL_DEFAULT_SENDER'])),
-            body=(
-                f"Kính gửi Bác sĩ {doctor.full_name},\n\n"
-                "Hồ sơ đăng ký bác sĩ của bạn trên DermaScan AI chưa được chấp thuận.\n"
-                f"Lý do: {reason}\n\n"
-                "Trân trọng,\nĐội ngũ DermaScan AI"
-            ),
-        ))
+        mail.send(
+            Message(
+                subject="[DermaScan AI] Thông báo kết quả xét duyệt hồ sơ bác sĩ",
+                recipients=[doctor.email],
+                html=render_template(
+                    "emails/doctor_rejected.html",
+                    DOCTOR_NAME=doctor.full_name,
+                    REJECTION_REASON=reason,
+                    SUPPORT_URL="mailto:"
+                    + (current_app.config.get("SUPPORT_EMAIL") or current_app.config["MAIL_DEFAULT_SENDER"]),
+                ),
+                body=(
+                    f"Kính gửi Bác sĩ {doctor.full_name},\n\n"
+                    "Hồ sơ đăng ký bác sĩ của bạn trên DermaScan AI chưa được chấp thuận.\n"
+                    f"Lý do: {reason}\n\n"
+                    "Trân trọng,\nĐội ngũ DermaScan AI"
+                ),
+            )
+        )
     except Exception:
         current_app.logger.exception("Không thể gửi email từ chối hồ sơ bác sĩ id=%s", doctor.id)
         return {"sent": False, "message": "Đã từ chối hồ sơ nhưng không gửi được email thông báo."}
@@ -607,13 +681,27 @@ def audit_logs():
     except ValueError:
         abort(400, description="Khoảng ngày audit log không hợp lệ.")
     total = db.session.scalar(db.select(func.count()).select_from(query.subquery())) or 0
-    records = db.session.scalars(query.order_by(AuditLog.created_at.desc()).offset((page - 1) * per_page).limit(per_page)).all()
-    return jsonify(logs=[{
-        "id": item.id, "email": item.email, "event": item.event,
-        "ip_address": item.ip_address, "user_agent": item.user_agent,
-        "success": item.success, "created_at": item.created_at.isoformat(),
-    } for item in records], page=page, per_page=per_page, total=total,
-        pages=max(1, (total + per_page - 1) // per_page))
+    records = db.session.scalars(
+        query.order_by(AuditLog.created_at.desc()).offset((page - 1) * per_page).limit(per_page)
+    ).all()
+    return jsonify(
+        logs=[
+            {
+                "id": item.id,
+                "email": item.email,
+                "event": item.event,
+                "ip_address": item.ip_address,
+                "user_agent": item.user_agent,
+                "success": item.success,
+                "created_at": item.created_at.isoformat(),
+            }
+            for item in records
+        ],
+        page=page,
+        per_page=per_page,
+        total=total,
+        pages=max(1, (total + per_page - 1) // per_page),
+    )
 
 
 @bp.get("/api/admin/audit-logs.csv")
@@ -630,16 +718,31 @@ def export_audit_logs():
     except ValueError:
         abort(400, description="Kho?ng ng?y audit log kh?ng h?p l?.")
     records = db.session.scalars(query.order_by(AuditLog.created_at.desc()).limit(10000)).all()
+
     def csv_cell(value):
         return '"' + str(value or "").replace('"', '""') + '"'
+
     rows = ["created_at,email,event,ip_address,success"]
-    rows.extend(",".join(csv_cell(value) for value in (
-        item.created_at.isoformat(), item.email, item.event, item.ip_address,
-        "true" if item.success else "false",
-    )) for item in records)
+    rows.extend(
+        ",".join(
+            csv_cell(value)
+            for value in (
+                item.created_at.isoformat(),
+                item.email,
+                item.event,
+                item.ip_address,
+                "true" if item.success else "false",
+            )
+        )
+        for item in records
+    )
     from flask import Response
-    return Response("\ufeff" + "\r\n".join(rows), mimetype="text/csv",
-                    headers={"Content-Disposition": "attachment; filename=audit-log.csv"})
+
+    return Response(
+        "\ufeff" + "\r\n".join(rows),
+        mimetype="text/csv",
+        headers={"Content-Disposition": "attachment; filename=audit-log.csv"},
+    )
 
 
 @bp.get("/api/admin/security-settings")
@@ -675,7 +778,9 @@ def update_security_settings():
     setting.password_min_length = minimum
     setting.require_admin_2fa = bool(payload.get("require_admin_2fa", setting.require_admin_2fa))
     if setting.require_admin_2fa:
-        active_admins = db.session.scalars(db.select(User).where(User.role == "ADMIN", User.deleted_at.is_(None), User.is_active.is_(True))).all()
+        active_admins = db.session.scalars(
+            db.select(User).where(User.role == "ADMIN", User.deleted_at.is_(None), User.is_active.is_(True))
+        ).all()
         for admin_user in active_admins:
             admin_user.two_factor_enabled = True
     _admin_audit("SECURITY_SETTINGS_UPDATED", current_user)

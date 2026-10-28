@@ -49,7 +49,8 @@ def _run_analysis(analysis_id, case_image_id):
 
             context = {
                 "lesion_location": case.lesion_location or "",
-                "patient": case.patient_snapshot or (
+                "patient": case.patient_snapshot
+                or (
                     {
                         "full_name": getattr(case.patient, "full_name", None),
                         "gender": getattr(case.patient, "gender", None),
@@ -103,15 +104,14 @@ def _run_analysis(analysis_id, case_image_id):
             mark_analysis_failed(analysis_id, case_image_id, exc)
             if gradcam_path:
                 gradcam_path.unlink(missing_ok=True)
-            webapp.app.logger.exception(
-                "AI analysis failed for case image %s", case_image_id
-            )
+            webapp.app.logger.exception("AI analysis failed for case image %s", case_image_id)
             return None
 
 
 if celery is not None:
     analyze_task = celery.task(name="analyze_case_image")(_run_analysis)
 else:
+
     def analyze_task(analysis_id, case_image_id):
         return _run_analysis(analysis_id, case_image_id)
 

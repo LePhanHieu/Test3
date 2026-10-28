@@ -93,9 +93,7 @@ class AnalysisExcelService:
             cell = sheet.cell(5, column, label)
             cell.fill = PatternFill("solid", fgColor=GREEN)
             cell.font = Font(name="Calibri", size=10, bold=True, color=WHITE)
-            cell.alignment = Alignment(
-                horizontal="center", vertical="center", wrap_text=True
-            )
+            cell.alignment = Alignment(horizontal="center", vertical="center", wrap_text=True)
             cell.border = Border(left=thin, right=thin, top=thin, bottom=thin)
 
         widths = (9, 24, 24, 30, 18, 17, 17, 18, 17)

@@ -45,9 +45,7 @@ def quantize(name, samples):
     )
     before = src.stat().st_size / 1e6
     after = dst.stat().st_size / 1e6
-    print(
-        f"[{name}] {before:.1f} MB -> {after:.1f} MB (nhỏ hơn {before / after:.1f} lần)"
-    )
+    print(f"[{name}] {before:.1f} MB -> {after:.1f} MB (nhỏ hơn {before / after:.1f} lần)")
 
 
 if __name__ == "__main__":

@@ -1,10 +1,10 @@
 """Register the Phase 1 API, shared by both app entrypoints."""
+
 from flask import jsonify, request
 from flask_wtf.csrf import CSRFError
 from sqlalchemy.exc import SQLAlchemyError
 from werkzeug.exceptions import HTTPException, RequestEntityTooLarge
 from .extensions import db, login_manager, csrf, limiter
-
 
 
 def register_database_api(app):
@@ -43,33 +43,40 @@ def register_database_api(app):
 
     @app.errorhandler(CSRFError)
     def csrf_error(_error):
-        return jsonify(success=False, message='CSRF token thiếu hoặc hết hạn', error='CSRF token thiếu hoặc hết hạn'), 400
+        return jsonify(
+            success=False, message="CSRF token thiếu hoặc hết hạn", error="CSRF token thiếu hoặc hết hạn"
+        ), 400
 
     @app.errorhandler(RequestEntityTooLarge)
     def request_too_large(_error):
-        return jsonify(success=False, message='Dung lượng request upload vượt giới hạn',
-                       error='Dung lượng request upload vượt giới hạn'), 413
+        return jsonify(
+            success=False,
+            message="Dung lượng request upload vượt giới hạn",
+            error="Dung lượng request upload vượt giới hạn",
+        ), 413
 
     @app.errorhandler(HTTPException)
     def http_error(error):
-        orig = getattr(error, 'original_exception', None)
+        orig = getattr(error, "original_exception", None)
         if error.code == 500 or orig is not None:
-            app.logger.exception('HTTP Exception %s: %s', error.code, orig or error.description)
+            app.logger.exception("HTTP Exception %s: %s", error.code, orig or error.description)
         return jsonify(success=False, message=error.description, error=error.description), error.code
 
     @app.errorhandler(Exception)
     def unhandled_error(error):
-        app.logger.exception('Unhandled Exception: %s', error)
-        return jsonify(success=False, message='Đã xảy ra lỗi trên máy chủ. Vui lòng thử lại sau.', error=str(error)), 500
+        app.logger.exception("Unhandled Exception: %s", error)
+        return jsonify(
+            success=False, message="Đã xảy ra lỗi trên máy chủ. Vui lòng thử lại sau.", error=str(error)
+        ), 500
 
     @app.errorhandler(SQLAlchemyError)
     def database_error(_error):
         db.session.rollback()
-        app.logger.exception('Database operation failed')
-        return jsonify(success=False, message='Không thể xử lý dữ liệu'), 500
+        app.logger.exception("Database operation failed")
+        return jsonify(success=False, message="Không thể xử lý dữ liệu"), 500
 
     @app.after_request
     def private_api_cache(response):
-        if request.path.startswith('/api/'):
-            response.headers['Cache-Control'] = 'private, no-store'
+        if request.path.startswith("/api/"):
+            response.headers["Cache-Control"] = "private, no-store"
         return response

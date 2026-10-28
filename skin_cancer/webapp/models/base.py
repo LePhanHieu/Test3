@@ -12,8 +12,10 @@ class Created:
 
 
 class Timestamps(Created):
-    updated_at = db.Column(db.DateTime, nullable=False, default=utcnow, onupdate=utcnow, server_default=db.func.current_timestamp())
+    updated_at = db.Column(
+        db.DateTime, nullable=False, default=utcnow, onupdate=utcnow, server_default=db.func.current_timestamp()
+    )
 
 
 def fk(table):
-    return db.ForeignKey(f'{table}.id', ondelete='RESTRICT')
+    return db.ForeignKey(f"{table}.id", ondelete="RESTRICT")

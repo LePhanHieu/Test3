@@ -1,4 +1,5 @@
 from PIL import Image, ImageFilter, ImageEnhance
+
 img = Image.open("goc.jpg").convert("RGB")
 img.filter(ImageFilter.GaussianBlur(8)).save("test_mo.jpg")
 ImageEnhance.Brightness(img).enhance(0.15).save("test_toi.jpg")

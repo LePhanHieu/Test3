@@ -1,4 +1,5 @@
 """Safely remove accounts with no protected dependent records."""
+
 from pathlib import Path
 from sqlalchemy import select
 from werkzeug.utils import secure_filename
@@ -8,9 +9,7 @@ from ..models import DoctorApplication, User
 
 
 def deletable_certificate(user):
-    application = db.session.scalar(
-        select(DoctorApplication).where(DoctorApplication.user_id == user.id)
-    )
+    application = db.session.scalar(select(DoctorApplication).where(DoctorApplication.user_id == user.id))
     if application is not None and application.status in {"PENDING", "APPROVED", "REJECTED"}:
         return application.certificate_path
     return None
@@ -18,9 +17,7 @@ def deletable_certificate(user):
 
 def deletion_blocker(user: User) -> str | None:
     """Guard all protected references; application status alone is not a blocker."""
-    application = db.session.scalar(
-        select(DoctorApplication).where(DoctorApplication.user_id == user.id)
-    )
+    application = db.session.scalar(select(DoctorApplication).where(DoctorApplication.user_id == user.id))
     for table in db.metadata.tables.values():
         if table.name == "users":
             continue
@@ -30,14 +27,11 @@ def deletion_blocker(user: User) -> str | None:
                     continue
                 # Only the target doctor application is deleted together with its owner.
                 # Other references remain protected, regardless of cascade settings.
-                if (table.name == "doctor_applications" and column.name == "user_id"
-                        and application is not None):
+                if table.name == "doctor_applications" and column.name == "user_id" and application is not None:
                     continue
                 if (fk.ondelete or "").upper() == "SET NULL":
                     continue
-                if db.session.execute(
-                    select(column).where(column == user.id).limit(1)
-                ).first():
+                if db.session.execute(select(column).where(column == user.id).limit(1)).first():
                     return f"Không thể xóa: tài khoản còn dữ liệu y khoa."
     return None
 
@@ -47,9 +41,7 @@ def delete_unrelated_user(user: User) -> str | None:
     blocker = deletion_blocker(user)
     if blocker:
         return blocker
-    application = db.session.scalar(
-        select(DoctorApplication).where(DoctorApplication.user_id == user.id)
-    )
+    application = db.session.scalar(select(DoctorApplication).where(DoctorApplication.user_id == user.id))
     if application is not None:
         db.session.delete(application)
         db.session.flush()
@@ -62,9 +54,10 @@ def cleanup_doctor_certificate(filename: str | None) -> None:
     """Only after a successful DB commit, remove a unique, in-folder certificate."""
     if not filename or filename != secure_filename(filename):
         return
-    if db.session.scalar(
-        select(DoctorApplication.id).where(DoctorApplication.certificate_path == filename).limit(1)
-    ) is not None:
+    if (
+        db.session.scalar(select(DoctorApplication.id).where(DoctorApplication.certificate_path == filename).limit(1))
+        is not None
+    ):
         return
     root = (Path(current_app.config["UPLOAD_FOLDER"]) / "doctor-certificates").resolve()
     candidate = (root / filename).resolve()

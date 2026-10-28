@@ -41,16 +41,10 @@ class ComparisonService:
         before_ratio = self._lesion_ratio(before)
         after_ratio = self._lesion_ratio(after)
         if before_ratio is None or after_ratio is None:
-            raise ValueError(
-                "Không nhận diện được vùng tổn thương rõ ràng trong một hoặc cả hai ảnh."
-            )
+            raise ValueError("Không nhận diện được vùng tổn thương rõ ràng trong một hoặc cả hai ảnh.")
 
         area_change = ((after_ratio - before_ratio) / before_ratio) * 100
-        color_variance = float(
-            np.mean(cv2.absdiff(before.astype(np.float32), after.astype(np.float32)))
-            / 255
-            * 100
-        )
+        color_variance = float(np.mean(cv2.absdiff(before.astype(np.float32), after.astype(np.float32))) / 255 * 100)
         before_risk = self._risk_score(before_ratio, before)
         after_risk = self._risk_score(after_ratio, after)
         return ComparisonResult(

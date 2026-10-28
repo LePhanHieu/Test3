@@ -13,6 +13,7 @@ from openai import OpenAI
 
 logger = logging.getLogger(__name__)
 
+
 def get_openai_client() -> Optional[OpenAI]:
     api_key = os.getenv("OPENAI_API_KEY", "").strip()
     if not api_key:
@@ -60,11 +61,7 @@ def generate_chatgpt_consultation(
         if patient.get("notes"):
             patient_summary_parts.append(f"Ghi chú: {patient['notes']}")
 
-    patient_desc = (
-        ", ".join(patient_summary_parts)
-        if patient_summary_parts
-        else "Thông tin cơ bản tiêu chuẩn"
-    )
+    patient_desc = ", ".join(patient_summary_parts) if patient_summary_parts else "Thông tin cơ bản tiêu chuẩn"
 
     # Lấy top 3 chẩn đoán phân biệt
     sorted_probs = sorted(probs_dict.items(), key=lambda x: -x[1])
@@ -126,7 +123,9 @@ def generate_chatgpt_consultation(
         if not isinstance(data.get("headline"), str):
             data["headline"] = f"Phân tích tổn thương da {class_info.get('name_vi', pred_class)}"
         if not isinstance(data.get("summary"), str):
-            data["summary"] = f"Mô hình nhận định khả năng cao là {class_info.get('name_vi', pred_class)} tại {lesion_location}."
+            data["summary"] = (
+                f"Mô hình nhận định khả năng cao là {class_info.get('name_vi', pred_class)} tại {lesion_location}."
+            )
         if not isinstance(data.get("detail"), str):
             if isinstance(data.get("detail"), (dict, list)):
                 data["detail"] = json.dumps(data["detail"], ensure_ascii=False)
@@ -140,9 +139,7 @@ def generate_chatgpt_consultation(
                 "Sử dụng kem chống nắng và bảo vệ da khi ra ngoài.",
             ]
         if not isinstance(data.get("conclusion"), str):
-            data["conclusion"] = (
-                "Kết quả phân tích từ AI là công cụ hỗ trợ quan trọng giúp định hướng thăm khám sớm."
-            )
+            data["conclusion"] = "Kết quả phân tích từ AI là công cụ hỗ trợ quan trọng giúp định hướng thăm khám sớm."
 
         data["chatgpt_powered"] = True
         return data

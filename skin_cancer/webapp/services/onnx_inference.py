@@ -37,12 +37,8 @@ class OnnxPredictor:
         # suffix = "_int8" -> binary_int8.onnx, multiclass_int8.onnx
         ckpt_dir = Path(ckpt_dir)
         providers = ["CPUExecutionProvider"]
-        self.binary = ort.InferenceSession(
-            str(ckpt_dir / f"binary{suffix}.onnx"), providers=providers
-        )
-        self.multiclass = ort.InferenceSession(
-            str(ckpt_dir / f"multiclass{suffix}.onnx"), providers=providers
-        )
+        self.binary = ort.InferenceSession(str(ckpt_dir / f"binary{suffix}.onnx"), providers=providers)
+        self.multiclass = ort.InferenceSession(str(ckpt_dir / f"multiclass{suffix}.onnx"), providers=providers)
 
     def predict(self, x):
         """x: numpy float32 (1, 3, 224, 224).
