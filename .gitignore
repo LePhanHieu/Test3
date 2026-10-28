@@ -1,0 +1,41 @@
+# ============ DATASET LỚN ============
+data/
+*.zip
+*.rar
+*.7z
+
+# ============ ENVIRONMENT & SECRETS ============
+.env
+.env.*
+.env.local
+!.env.example
+
+# ============ VIRTUAL ENV ============
+env/
+venv/
+.venv/
+*.egg-info/
+
+# ============ CACHE ============
+__pycache__/
+*.py[cod]
+*$py.class
+.ipynb_checkpoints/
+.pytest_cache/
+
+# ============ IDE ============
+.vscode/
+.idea/
+*.swp
+
+# ============ OUTPUT TẠM & RUNTIME ============
+*.log
+*.tmp
+temp/
+instance/*.db-journal
+instance/*.db-wal
+instance/site_media/
+
+# ============ HỆ ĐIỀU HÀNH ============
+.DS_Store
+Thumbs.db

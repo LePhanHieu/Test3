@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mã Xác Thực Đăng Nhập</title>
+</head>
+<body style="margin: 0; padding: 0; background-color: #f4f6f8; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; -webkit-font-smoothing: antialiased;">
+    <table width="100%" border="0" cellspacing="0" cellpadding="0" style="background-color: #f4f6f8; padding: 40px 20px;">
+        <tr>
+            <td align="center">
+                <table width="100%" max-width="600" border="0" cellspacing="0" cellpadding="0" style="max-width: 600px; background-color: #ffffff; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border: 1px solid #e5e7eb;">
+                    
+                    <!-- Header (Xanh chữ trắng) -->
+                    <tr>
+                        <td align="center" style="padding: 30px 20px; background-color: #2ba149;">
+                            <h1 style="margin: 0; color: #ffffff; font-size: 24px; font-weight: 700; letter-spacing: 0.5px;">DermaScan AI</h1>
+                            <p style="margin: 6px 0 0 0; color: #e6f5eb; font-size: 13px; font-weight: 500; text-transform: uppercase; letter-spacing: 1px;">Hệ thống hỗ trợ chẩn đoán</p>
+                        </td>
+                    </tr>
+                    
+                    <!-- Body -->
+                    <tr>
+                        <td style="padding: 40px 32px;">
+                            <p style="margin: 0 0 16px 0; color: #374151; font-size: 16px;">Xin chào <strong>{{USER_NAME}}</strong>,</p>
+                            <p style="margin: 0 0 24px 0; color: #4b5563; font-size: 15px; line-height: 1.6;">Hệ thống ghi nhận yêu cầu đăng nhập vào tài khoản DermaScan AI của bạn. Vui lòng sử dụng mã xác thực dưới đây để hoàn tất quá trình đăng nhập:</p>
+                            
+                            <!-- OTP Box -->
+                            <div style="background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 6px; padding: 24px; text-align: center; margin-bottom: 24px;">
+                                <span style="display: block; font-size: 34px; font-weight: 700; color: #2ba149; letter-spacing: 12px; margin-left: 12px; font-family: monospace;">{{OTP_CODE}}</span>
+                            </div>
+                            
+                            <!-- Warning Box -->
+                            <table width="100%" border="0" cellspacing="0" cellpadding="0" style="margin-bottom: 24px;">
+                                <tr>
+                                    <td valign="top" style="width: 24px; padding-top: 2px;">
+                                        <!-- SVG Icon Cảnh báo -->
+                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fd8624" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <circle cx="12" cy="12" r="10"></circle>
+                                            <line x1="12" y1="8" x2="12" y2="12"></line>
+                                            <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                                        </svg>
+                                    </td>
+                                    <td valign="top" style="padding-left: 10px;">
+                                        <p style="margin: 0; color: #b5520a; font-size: 14px; font-weight: 600;">Lưu ý bảo mật</p>
+                                        <p style="margin: 4px 0 0 0; color: #6b7280; font-size: 14px; line-height: 1.5;">Mã này có hiệu lực trong vòng <strong>5 phút</strong> và chỉ được sử dụng <strong>1 lần</strong>. Tuyệt đối không chia sẻ mã cho bất kỳ ai.</p>
+                                    </td>
+                                </tr>
+                            </table>
+                            
+                            <p style="margin: 0; color: #9ca3af; font-size: 13px; line-height: 1.6; border-top: 1px solid #f3f4f6; padding-top: 20px;">Nếu bạn không thực hiện yêu cầu này, xin hãy bỏ qua email. Tài khoản của bạn vẫn an toàn.</p>
+                        </td>
+                    </tr>
+                    
+                    <!-- Footer -->
+                    <tr>
+                        <td align="center" style="padding: 20px; background-color: #f9fafb; border-top: 1px solid #e5e7eb;">
+                            <p style="margin: 0; color: #9ca3af; font-size: 12px;">Email tự động từ DermaScan AI. Vui lòng không phản hồi email này.</p>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>

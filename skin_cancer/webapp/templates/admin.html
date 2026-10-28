@@ -1,0 +1,1656 @@
+<!doctype html>
+<html lang="vi" data-theme="light">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#2ba149" />
+    <script>
+      (function () {
+        try {
+          var theme = localStorage.getItem("hpTheme");
+          document.documentElement.dataset.theme =
+            theme === "dark" ? "dark" : "light";
+          var language = localStorage.getItem("hpLang");
+          document.documentElement.lang = language === "en" ? "en" : "vi";
+        } catch (error) {
+          document.documentElement.dataset.theme = "light";
+          document.documentElement.lang = "vi";
+        }
+      })();
+    </script>
+    <title>Admin Portal · DermaScan AI</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Sora:wght@600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/admin.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/admin-doctor-theme.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/homepage-management.css') }}"
+    />
+  </head>
+  <body>
+    <aside class="sidebar" id="sidebar">
+      <a
+        href="/"
+        class="brand admin-sidebar-brand"
+        aria-label="DermaScan AI - Trang chủ"
+      >
+        <span class="brand-mark">
+          <img id="admin-site-logo" class="brand-logo hidden" src="" alt="" />
+          <svg
+            class="hp-brand-icon"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.8"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <path d="M4 8V6a2 2 0 0 1 2-2h2"></path>
+            <path d="M16 4h2a2 2 0 0 1 2 2v2"></path>
+            <path d="M20 16v2a2 2 0 0 1-2 2h-2"></path>
+            <path d="M8 20H6a2 2 0 0 1-2-2v-2"></path>
+            <path d="M7 12h2.5l1.5-3 2 6 1.5-3H17"></path>
+          </svg>
+        </span>
+        <span class="brand-text"
+          ><span class="brand-name" id="admin-site-brand-name"
+            >DermaScan AI</span
+          ><span class="brand-sub" id="admin-site-brand-subtitle"
+            >Chỉ dùng cho mục đích nghiên cứu.</span
+          ></span
+        >
+      </a>
+      <button
+        class="collapse-btn"
+        id="collapse-sidebar"
+        aria-label="Thu gọn menu"
+      >
+        ‹
+      </button>
+      <nav class="nav">
+        <p class="nav-label">QUẢN TRỊ HỆ THỐNG</p>
+        <button class="nav-item active" data-module="dashboard">
+          <span class="nav-icon"
+            ><svg
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+              <polyline points="9 22 9 12 15 12 15 22" /></svg></span
+          ><span>Dashboard Tổng Quan</span>
+        </button>
+        <button class="nav-item" data-module="homepage">
+          <span class="nav-icon"
+            ><svg
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <rect x="3" y="4" width="18" height="16" rx="2" />
+              <path d="M3 9h18M8 14h8M8 17h5" /></svg
+          ></span>
+          <span>Quản lý trang chủ</span>
+        </button>
+        <button class="nav-item" data-module="accounts">
+          <span class="nav-icon"
+            ><svg
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+              <circle cx="9" cy="7" r="4" />
+              <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
+              <path d="M16 3.13a4 4 0 0 1 0 7.75" /></svg></span
+          ><span>Quản Lý Tài Khoản</span>
+        </button>
+        <button class="nav-item" data-module="security">
+          <span class="nav-icon"
+            ><svg
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+              <circle cx="12" cy="11" r="1.5" /></svg></span
+          ><span>Phiên Đăng Nhập &amp; Bảo Mật</span>
+        </button>
+        <button class="nav-item" data-module="profile">
+          <span class="nav-icon"
+            ><svg
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <circle cx="12" cy="8" r="4" />
+              <path d="M6 21v-2a6 6 0 0 1 12 0v2" /></svg></span
+          ><span>Hồ sơ &amp; Bảo mật cá nhân</span>
+        </button>
+        <button class="nav-item" data-module="ai">
+          <span class="nav-icon"
+            ><svg
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <path
+                d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"
+              />
+              <path d="M14 2v6h6M8 13h8M8 17h8" /></svg></span
+          ><span>Quản lý ca khám</span>
+        </button>
+        <button class="nav-item" data-module="doctors">
+          <span class="nav-icon"
+            ><svg
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <path
+                d="M4.8 2.3A.3.3 0 1 0 5 2H4a2 2 0 0 0-2 2v5a6 6 0 0 0 6 6v0a6 6 0 0 0 6-6V4a2 2 0 0 0-2-2h-1a.2.2 0 1 0 .3.3"
+              />
+              <path d="M8 15v1a6 6 0 0 0 6 6v0a6 6 0 0 0 6-6v-4" />
+              <circle cx="20" cy="10" r="2" /></svg></span
+          ><span>Quản Lý Bác Sĩ &amp; Duyệt</span>
+        </button>
+        <button class="nav-item" data-module="reports">
+          <span class="nav-icon"
+            ><svg
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <line x1="12" y1="20" x2="12" y2="10" />
+              <line x1="18" y1="20" x2="18" y2="4" />
+              <line x1="6" y1="20" x2="6" y2="16" /></svg></span
+          ><span>Thống Kê &amp; Báo Cáo</span>
+        </button>
+      </nav>
+      <div class="sidebar-foot">
+        <span class="shield"
+          ><svg
+            width="14"
+            height="14"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <polyline points="20 6 9 17 4 12" /></svg
+        ></span>
+        <div>
+          <b>Hệ thống an toàn</b><small>Mã hóa đầu cuối · v2.4.0</small>
+        </div>
+      </div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <div class="topbar-leading">
+          <button
+            class="mobile-menu"
+            id="mobile-menu"
+            aria-label="Mở menu điều hướng"
+          >
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+            >
+              <line x1="3" y1="6" x2="21" y2="6" />
+              <line x1="3" y1="12" x2="21" y2="12" />
+              <line x1="3" y1="18" x2="21" y2="18" />
+            </svg>
+          </button>
+          <div class="topbar-heading">
+            <p class="eyebrow">
+              DERMASCAN AI / <span id="breadcrumb">DASHBOARD</span>
+            </p>
+            <h1 id="page-title">Dashboard Tổng Quan</h1>
+          </div>
+        </div>
+        <div
+          class="hp-auth top-actions"
+          role="group"
+          aria-label="Công cụ và tài khoản"
+        >
+          <div class="hp-tool">
+            <button
+              type="button"
+              class="hp-icon-btn"
+              id="admin-lang-button"
+              aria-haspopup="true"
+              aria-expanded="false"
+              aria-label="Đổi ngôn ngữ"
+              title="Đổi ngôn ngữ"
+            >
+              <svg
+                class="admin-globe-icon"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.8"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <circle cx="12" cy="12" r="9"></circle>
+                <path d="M3 12h18"></path>
+                <path
+                  d="M12 3c2.5 2.6 3.9 5.7 3.9 9S14.5 18.4 12 21c-2.5-2.6-3.9-5.7-3.9-9S9.5 5.6 12 3Z"
+                ></path>
+              </svg>
+              <span class="hp-icon-label" id="admin-lang-label">VI</span>
+              <svg
+                class="hp-chev"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <path d="m6 9 6 6 6-6"></path>
+              </svg>
+            </button>
+            <div
+              class="hp-lang-menu admin-lang-menu hidden"
+              id="admin-lang-menu"
+              role="menu"
+            >
+              <button
+                type="button"
+                class="hp-lang-item admin-lang-item is-active active"
+                data-lang="vi"
+                role="menuitem"
+              >
+                <span class="hp-flag">🇻🇳</span><span>Tiếng Việt</span
+                ><svg
+                  class="hp-lang-check"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2.4"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <path d="m5 13 4 4 10-10"></path>
+                </svg>
+              </button>
+              <button
+                type="button"
+                class="hp-lang-item admin-lang-item"
+                data-lang="en"
+                role="menuitem"
+              >
+                <span class="hp-flag">🇬🇧</span><span>English</span
+                ><svg
+                  class="hp-lang-check"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2.4"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <path d="m5 13 4 4 10-10"></path>
+                </svg>
+              </button>
+            </div>
+          </div>
+          <button
+            type="button"
+            class="hp-icon-btn"
+            id="theme-toggle"
+            aria-label="Chuyển giao diện tối"
+            title="Chế độ Sáng / Tối"
+          >
+            <svg
+              class="hp-sun-icon theme-sun hidden"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <circle cx="12" cy="12" r="4"></circle>
+              <path
+                d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"
+              ></path>
+            </svg>
+            <svg
+              class="hp-moon-icon theme-moon"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <path
+                d="M21 12.8A8.5 8.5 0 1 1 11.2 3a6.6 6.6 0 0 0 9.8 9.8Z"
+              ></path>
+            </svg>
+          </button>
+          <span class="hp-auth-divider top-divider" aria-hidden="true"></span>
+          <div class="hp-auth-user">
+            <span class="hp-user-pill">
+              <span class="hp-user-avatar"
+                >{{ admin.full_name[:1]|upper }}</span
+              >
+              <span class="hp-user-meta">
+                <strong>{{ admin.full_name }}</strong>
+                <small>Quản trị viên</small>
+              </span>
+            </span>
+          </div>
+          <button type="button" class="hp-auth-logout" id="logout">
+            Đăng xuất
+          </button>
+        </div>
+      </header>
+
+      <div class="content">
+        <section class="module active" id="module-dashboard">
+          <div class="welcome">
+            <div>
+              <span class="live-dot"></span> HỆ THỐNG ĐANG VẬN HÀNH
+              <p>
+                Chào buổi sáng, {{ admin.full_name.split(' ')[-1] }}. Đây là
+                tổng quan hoạt động hôm nay.
+              </p>
+            </div>
+            <span class="date" id="today"></span>
+          </div>
+          <div class="stat-grid">
+            <article class="stat-card green">
+              <div class="stat-head">
+                <span>TỔNG TÀI KHOẢN</span
+                ><i
+                  ><svg
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.8"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+                    <circle cx="9" cy="7" r="4" />
+                    <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
+                    <path d="M16 3.13a4 4 0 0 1 0 7.75" /></svg
+                ></i>
+              </div>
+              <strong id="stat-users">—</strong><small>Dữ liệu hiện tại</small>
+            </article>
+            <article class="stat-card orange">
+              <div class="stat-head">
+                <span>CA KHÁM</span
+                ><i
+                  ><svg
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.8"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <path
+                      d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"
+                    />
+                    <polyline points="14 2 14 8 20 8" />
+                    <line x1="16" y1="13" x2="8" y2="13" />
+                    <line x1="16" y1="17" x2="8" y2="17" />
+                    <polyline points="10 9 9 9 8 9" /></svg
+                ></i>
+              </div>
+              <strong id="stat-cases">—</strong><small>Dữ liệu hiện tại</small>
+            </article>
+            <article class="stat-card green">
+              <div class="stat-head">
+                <span>LƯỢT PHÂN TÍCH AI</span
+                ><i
+                  ><svg
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.8"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <path
+                      d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3Z"
+                    /></svg
+                ></i>
+              </div>
+              <strong id="stat-analyses">—</strong
+              ><small>Dữ liệu hiện tại</small>
+            </article>
+            <article class="stat-card orange">
+              <div class="stat-head">
+                <span>BÁC SĨ ĐANG HOẠT ĐỘNG</span
+                ><i
+                  ><svg
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.8"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <path
+                      d="M4.8 2.3A.3.3 0 1 0 5 2H4a2 2 0 0 0-2 2v5a6 6 0 0 0 6 6v0a6 6 0 0 0 6-6V4a2 2 0 0 0-2-2h-1a.2.2 0 1 0 .3.3"
+                    />
+                    <path d="M8 15v1a6 6 0 0 0 6 6v0a6 6 0 0 0 6-6v-4" />
+                    <circle cx="20" cy="10" r="2" /></svg
+                ></i>
+              </div>
+              <strong id="stat-doctors">—</strong
+              ><small>Dữ liệu hiện tại</small>
+            </article>
+          </div>
+          <div class="two-col">
+            <article class="panel chart-panel">
+              <div class="panel-title">
+                <div>
+                  <h2>Tăng trưởng hệ thống</h2>
+                  <p>Số ca khám và lượt phân tích từ cơ sở dữ liệu</p>
+                </div>
+                <span class="model-badge">6 tháng</span>
+              </div>
+              <div class="chart">
+                <div class="y-axis">
+                  <span id="chart-max">0</span><span id="chart-mid">0</span
+                  ><span>0</span>
+                </div>
+                <div class="chart-area">
+                  <div class="grid-lines"></div>
+                  <svg viewBox="0 0 700 220" preserveAspectRatio="none">
+                    <defs>
+                      <linearGradient
+                        id="fillGreen"
+                        x1="0"
+                        x2="0"
+                        y1="0"
+                        y2="1"
+                      >
+                        <stop
+                          offset="0"
+                          stop-color="#2ba149"
+                          stop-opacity=".25"
+                        />
+                        <stop
+                          offset="1"
+                          stop-color="#2ba149"
+                          stop-opacity="0"
+                        />
+                      </linearGradient>
+                    </defs>
+                    <path id="chart-area-path" class="area"></path>
+                    <path id="chart-cases-path" class="line"></path>
+                    <path
+                      id="chart-analyses-path"
+                      class="line orange-line"
+                    ></path>
+                  </svg>
+                  <div class="x-axis" id="chart-labels"></div>
+                </div>
+              </div>
+              <div class="legend">
+                <span><i class="dot green-dot"></i> Ca khám</span
+                ><span><i class="dot orange-dot"></i> Phân tích AI</span>
+              </div>
+            </article>
+            <article class="panel distribution-panel">
+              <div class="panel-title">
+                <div>
+                  <h2>Phân bổ kết quả AI</h2>
+                  <p>Đầy đủ 8 nhóm EfficientNet-B0 phân loại</p>
+                </div>
+                <span class="model-badge"
+                  ><svg
+                    width="13"
+                    height="13"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    style="
+                      display: inline-block;
+                      vertical-align: middle;
+                      margin-right: 4px;
+                    "
+                  >
+                    <path
+                      d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3z"
+                    /></svg
+                  >EfficientNet-B0</span
+                >
+              </div>
+              <div class="donut-wrap">
+                <div class="donut" id="analysis-donut">
+                  <span
+                    ><b id="analysis-total">0</b><small>TỔNG LƯỢT</small></span
+                  >
+                </div>
+                <div
+                  class="donut-legend"
+                  id="analysis-legend"
+                  aria-live="polite"
+                >
+                  <span class="loading">Đang tải phân bổ…</span>
+                </div>
+              </div>
+              <div class="notice">
+                <span
+                  style="
+                    display: inline-flex;
+                    align-items: center;
+                    justify-content: center;
+                  "
+                  ><svg
+                    width="15"
+                    height="15"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  >
+                    <path
+                      d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3z"
+                    /></svg
+                ></span>
+                <div>
+                  <b>Hiệu suất mô hình</b
+                  ><small
+                    >EfficientNet-B0 · Độ chính xác
+                    <strong>94.7%</strong></small
+                  >
+                </div>
+              </div>
+            </article>
+          </div>
+          <div class="two-col lower">
+            <article class="panel">
+              <div class="panel-title">
+                <div>
+                  <h2>Ca khám gần đây</h2>
+                  <p>Cập nhật theo thời gian thực</p>
+                </div>
+                <button class="text-btn" data-jump="ai">Xem tất cả →</button>
+              </div>
+              <div class="table-wrap">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>MÃ CA</th>
+                      <th>BÁC SĨ PHỤ TRÁCH</th>
+                      <th>NGÀY TẠO</th>
+                      <th>TRẠNG THÁI</th>
+                    </tr>
+                  </thead>
+                  <tbody id="recent-cases">
+                    <tr>
+                      <td colspan="4" class="loading">Đang tải dữ liệu…</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </article>
+            <article class="panel quick">
+              <div class="panel-title">
+                <div>
+                  <h2>Truy cập nhanh</h2>
+                  <p>Các tác vụ thường dùng</p>
+                </div>
+              </div>
+              <button data-jump="accounts">
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.8"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+                  <circle cx="9" cy="7" r="4" />
+                  <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
+                  <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                </svg>
+                <span
+                  ><b>Quản lý tài khoản</b
+                  ><small>Thêm, sửa và phân quyền</small></span
+                ><b>→</b></button
+              ><button data-jump="doctors">
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.8"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path
+                    d="M4.8 2.3A.3.3 0 1 0 5 2H4a2 2 0 0 0-2 2v5a6 6 0 0 0 6 6v0a6 6 0 0 0 6-6V4a2 2 0 0 0-2-2h-1a.2.2 0 1 0 .3.3"
+                  />
+                  <path d="M8 15v1a6 6 0 0 0 6 6v0a6 6 0 0 0 6-6v-4" />
+                  <circle cx="20" cy="10" r="2" />
+                </svg>
+                <span
+                  ><b>Duyệt hồ sơ bác sĩ</b
+                  ><small>3 hồ sơ đang chờ duyệt</small></span
+                ><b>→</b></button
+              ><button data-jump="reports">
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.8"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <line x1="12" y1="20" x2="12" y2="10" />
+                  <line x1="18" y1="20" x2="18" y2="4" />
+                  <line x1="6" y1="20" x2="6" y2="16" />
+                </svg>
+                <span
+                  ><b>Xuất báo cáo hệ thống</b
+                  ><small>PDF hoặc Excel</small></span
+                ><b>→</b>
+              </button>
+            </article>
+          </div>
+        </section>
+
+        <section class="module" id="module-homepage">
+          <div class="hm-shell">
+            <div class="hm-heading">
+              <div class="hm-actions">
+                <span id="hm-status" role="status" aria-live="polite"></span
+                ><button type="button" class="primary" id="hm-save">
+                  Lưu thay đổi
+                </button>
+              </div>
+            </div>
+            <div class="hm-layout">
+              <div class="hm-editor">
+                <div
+                  class="hm-sections"
+                  role="tablist"
+                  aria-label="Các mục quản lý trang chủ"
+                >
+                  <button type="button" class="active" data-hm-tab="branding">
+                    Thương hiệu
+                  </button>
+                  <button type="button" data-hm-tab="banners">Banner</button>
+                  <button type="button" data-hm-tab="content">Nội dung</button>
+                  <button type="button" data-hm-tab="contact">Liên hệ</button>
+                  <button type="button" data-hm-tab="footer">Footer</button>
+                </div>
+                <div id="hm-editor-fields"></div>
+              </div>
+              <div class="hm-preview-column">
+                <div class="hm-preview-toolbar">
+                  <strong>Xem trước trang chủ</strong>
+                  <div>
+                    <button
+                      type="button"
+                      class="active"
+                      data-hm-device="desktop"
+                    >
+                      Desktop</button
+                    ><button type="button" data-hm-device="mobile">
+                      Mobile
+                    </button>
+                  </div>
+                </div>
+                <div class="hm-preview-screen desktop" id="hm-preview-screen">
+                  <div
+                    id="hm-preview"
+                    aria-label="Bản xem trước chưa lưu"
+                  ></div>
+                </div>
+                <p class="hm-preview-caption">
+                  Bản xem trước không ghi dữ liệu vào website thật. Nội dung chỉ
+                  được áp dụng khi nhấn Lưu.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section class="module" id="module-accounts">
+          <div
+            class="module-actions"
+            style="
+              display: flex;
+              justify-content: flex-end;
+              margin-bottom: 16px;
+            "
+          >
+            <button class="primary" id="add-user">
+              <svg
+                width="14"
+                height="14"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.5"
+                style="
+                  display: inline-block;
+                  vertical-align: middle;
+                  margin-right: 6px;
+                "
+              >
+                <line x1="12" y1="5" x2="12" y2="19" />
+                <line x1="5" y1="12" x2="19" y2="12" /></svg
+              >Thêm tài khoản
+            </button>
+          </div>
+          <div class="panel">
+            <div class="toolbar">
+              <label class="search">
+                <svg
+                  width="14"
+                  height="14"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  style="
+                    display: inline-block;
+                    vertical-align: middle;
+                    margin-right: 6px;
+                    color: #94a3b8;
+                  "
+                >
+                  <circle cx="11" cy="11" r="8" />
+                  <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                </svg>
+                <input
+                  type="search"
+                  id="user-search"
+                  name="admin_user_search_query"
+                  autocomplete="off"
+                  autocorrect="off"
+                  autocapitalize="off"
+                  spellcheck="false"
+                  role="searchbox"
+                  class="text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-400"
+                  placeholder="Tìm theo tên hoặc email…" /></label
+              ><select id="role-filter" class="text-gray-900 dark:text-white">
+                <option value="">Tất cả vai trò</option>
+                <option value="ADMIN">Admin</option>
+                <option value="DOCTOR">Doctor</option>
+                <option value="USER">User</option></select
+              ><select id="status-filter" class="text-gray-900 dark:text-white">
+                <option value="">Mọi trạng thái</option>
+                <option value="ACTIVE">Đang hoạt động</option>
+                <option value="LOCKED">Đã khóa</option>
+              </select>
+              <button type="button" class="outline" id="user-reset-filters">
+                Xóa bộ lọc
+              </button>
+            </div>
+            <p
+              class="account-results-count"
+              id="users-count"
+              aria-live="polite"
+            >
+              Đang tải danh sách tài khoản...
+            </p>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>NGƯỜI DÙNG</th>
+                    <th>EMAIL</th>
+                    <th>VAI TRÒ</th>
+                    <th>TRẠNG THÁI</th>
+                    <th>THAO TÁC</th>
+                  </tr>
+                </thead>
+                <tbody id="users-table"></tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+        <section class="module" id="module-security"></section>
+        <section class="module" id="module-profile">
+          <div class="profile-grid">
+            <section
+              class="panel profile-form-card"
+              id="profile-info-card"
+              aria-labelledby="profile-info-title"
+            >
+              <div class="panel-title">
+                <div>
+                  <h3 id="profile-info-title">Thông tin cá nhân</h3>
+                  <p>Thông tin này được hiển thị trong hệ thống.</p>
+                </div>
+                <span class="profile-card-icon" aria-hidden="true"
+                  ><svg
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <circle cx="12" cy="8" r="4" />
+                    <path d="M6 21v-2a6 6 0 0 1 12 0v2" /></svg
+                ></span>
+              </div>
+              <div class="form-grid">
+                <label for="profile-name"
+                  >Họ và tên
+                  <input
+                    id="profile-name"
+                    name="full_name"
+                    type="text"
+                    autocomplete="name"
+                    value="{{ admin.full_name }}"
+                  />
+                </label>
+                <label for="profile-phone"
+                  >Số điện thoại
+                  <span class="profile-optional">Không bắt buộc</span>
+                  <input
+                    id="profile-phone"
+                    name="phone"
+                    type="tel"
+                    autocomplete="tel"
+                    value="{{ admin.phone or '' }}"
+                  />
+                </label>
+              </div>
+              <button class="primary" id="save-profile" type="button">
+                Lưu thay đổi
+              </button>
+            </section>
+
+            <section
+              class="panel profile-form-card"
+              id="password-card"
+              aria-labelledby="profile-password-title"
+            >
+              <div class="panel-title">
+                <div>
+                  <h3 id="profile-password-title">Đổi mật khẩu</h3>
+                  <p>Sử dụng mật khẩu mạnh cho tài khoản quản trị.</p>
+                </div>
+                <span
+                  class="profile-card-icon profile-card-icon-orange"
+                  aria-hidden="true"
+                  ><svg
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+                    <path d="M7 11V7a5 5 0 0 1 10 0v4" /></svg
+                ></span>
+              </div>
+              <div class="form-grid">
+                <label for="current-password"
+                  >Mật khẩu hiện tại
+                  <input
+                    id="current-password"
+                    name="current_password"
+                    type="password"
+                    autocomplete="current-password"
+                  />
+                </label>
+                <label for="new-password"
+                  >Mật khẩu mới
+                  <input
+                    id="new-password"
+                    name="new_password"
+                    type="password"
+                    autocomplete="new-password"
+                  />
+                </label>
+              </div>
+              <button class="primary" id="change-password" type="button">
+                Cập nhật mật khẩu
+              </button>
+            </section>
+
+            <section
+              class="panel profile-form-card two-factor-card"
+              aria-labelledby="profile-2fa-title"
+            >
+              <div class="two-factor-copy">
+                <span class="profile-card-icon" aria-hidden="true"
+                  ><svg
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <polyline points="20 6 9 17 4 12" /></svg
+                ></span>
+                <div>
+                  <h3 id="profile-2fa-title">Xác thực hai lớp (2FA)</h3>
+                  <p>
+                    Bảo vệ tài khoản bằng mã xác thực bổ sung khi đăng nhập.
+                  </p>
+                  <span class="two-factor-status"
+                    >{% if admin.two_factor_enabled %}Đang bật{% else %}Đang
+                    tắt{% endif %}</span
+                  >
+                </div>
+              </div>
+              <label
+                class="switch"
+                for="profile-2fa"
+                aria-label="Bật hoặc tắt xác thực hai lớp"
+              >
+                <input
+                  id="profile-2fa"
+                  type="checkbox"
+                  {%
+                  if
+                  admin.two_factor_enabled
+                  %}checked{%
+                  endif
+                  %}
+                />
+                <span></span>
+              </label>
+            </section>
+          </div>
+        </section>
+        <section class="module" id="module-ai">
+          <div class="case-stats" aria-label="Thống kê ca khám">
+            <div class="panel">
+              <small>TỔNG CA KHÁM</small><b id="case-total">—</b>
+            </div>
+            <div class="panel">
+              <small>CHƯA HOÀN THÀNH</small><b id="case-processing">—</b>
+            </div>
+            <div class="panel">
+              <small>HOÀN THÀNH</small><b id="case-completed">—</b>
+            </div>
+          </div>
+          <div class="panel case-list-panel">
+            <div class="case-filters">
+              <label
+                >Tìm kiếm<input
+                  id="case-search"
+                  placeholder="Mã ca, bệnh nhân hoặc bác sĩ"
+                  autocomplete="off"
+              /></label>
+              <label
+                >Trạng thái<select id="case-status">
+                  <option value="">Tất cả</option>
+                  <option value="CREATED">Mới tạo</option>
+                  <option value="UPLOADED">Đã tải ảnh</option>
+                  <option value="ANALYZED">Đã phân tích</option>
+                  <option value="REVIEWED">Đã đánh giá</option>
+                  <option value="COMPLETED">Hoàn thành</option>
+                </select></label
+              >
+              <label
+                >Bác sĩ<select id="case-doctor">
+                  <option value="">Tất cả bác sĩ</option>
+                </select></label
+              >
+              <label>Từ ngày<input id="case-from" type="date" /></label>
+              <label>Đến ngày<input id="case-to" type="date" /></label>
+              <button class="outline" id="case-reset" type="button">
+                Xóa bộ lọc
+              </button>
+            </div>
+            <p id="case-count" aria-live="polite">Đang tải danh sách...</p>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Mã ca</th>
+                    <th>Bệnh nhân</th>
+                    <th>Bác sĩ</th>
+                    <th>Ngày tạo</th>
+                    <th>Trạng thái</th>
+                    <th>Chi tiết</th>
+                  </tr>
+                </thead>
+                <tbody id="admin-cases-table">
+                  <tr>
+                    <td colspan="6" class="loading">Đang tải...</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="case-pages">
+              <button
+                type="button"
+                class="outline case-page-arrow"
+                id="case-prev"
+                aria-label="Trang trước"
+                title="Trang trước"
+              >
+                <svg
+                  viewBox="0 0 24 24"
+                  width="18"
+                  height="18"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2.3"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <path d="m15 18-6-6 6-6" />
+                </svg></button
+              ><span id="case-page">Trang 1/1</span
+              ><button
+                type="button"
+                class="outline case-page-arrow"
+                id="case-next"
+                aria-label="Trang sau"
+                title="Trang sau"
+              >
+                <svg
+                  viewBox="0 0 24 24"
+                  width="18"
+                  height="18"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2.3"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <path d="m9 18 6-6-6-6" />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </section>
+        <section class="module" id="module-doctors">
+          <div class="panel doctor-approval-live" id="doctor-approval-panel">
+            <div
+              class="doctor-review-tabs"
+              role="tablist"
+              aria-label="Xét duyệt hồ sơ bác sĩ"
+            >
+              <button
+                type="button"
+                class="active"
+                data-review-tab="pending"
+                role="tab"
+                aria-selected="true"
+              >
+                Chờ phê duyệt
+              </button>
+              <button
+                type="button"
+                data-review-tab="history"
+                role="tab"
+                aria-selected="false"
+              >
+                Lịch sử xét duyệt
+              </button>
+            </div>
+            <div id="doctor-review-pending" role="tabpanel">
+              <h2>Hồ sơ chờ duyệt</h2>
+              <div class="approval-list" id="doctor-approval-list"></div>
+            </div>
+            <div id="doctor-review-history" role="tabpanel" hidden>
+              <h2>Lịch sử xét duyệt</h2>
+              <div class="doctor-history-filters">
+                <label
+                  >Tìm kiếm<input
+                    id="doctor-history-search"
+                    type="search"
+                    placeholder="Tên hoặc email bác sĩ"
+                /></label>
+                <label
+                  >Trạng thái<select id="doctor-history-status">
+                    <option value="">Tất cả</option>
+                    <option value="APPROVED">Đã duyệt</option>
+                    <option value="REJECTED">Từ chối</option>
+                  </select></label
+                >
+                <label
+                  >Từ ngày<input id="doctor-history-from" type="date"
+                /></label>
+                <label
+                  >Đến ngày<input id="doctor-history-to" type="date"
+                /></label>
+                <button
+                  type="button"
+                  class="outline"
+                  id="doctor-history-filter"
+                >
+                  Lọc
+                </button>
+              </div>
+              <div
+                id="doctor-history-list"
+                class="approval-list"
+                aria-live="polite"
+              ></div>
+            </div>
+          </div>
+          <dialog
+            id="doctor-rejection-dialog"
+            class="doctor-rejection-dialog"
+            aria-labelledby="doctor-rejection-title"
+          >
+            <form method="dialog" id="doctor-rejection-form">
+              <h3 id="doctor-rejection-title">Từ chối hồ sơ bác sĩ</h3>
+              <p>Nhập lý do từ chối để thông báo cho bác sĩ.</p>
+              <label
+                >Lý do từ chối<textarea
+                  id="doctor-rejection-reason"
+                  maxlength="1000"
+                  rows="4"
+                  required
+                  placeholder="Ví dụ: Chứng chỉ chưa hợp lệ"
+                ></textarea>
+              </label>
+              <div class="doctor-rejection-actions">
+                <button
+                  type="button"
+                  class="outline"
+                  id="doctor-rejection-cancel"
+                >
+                  Hủy</button
+                ><button type="submit" class="approval-reject">
+                  Xác nhận từ chối
+                </button>
+              </div>
+            </form>
+          </dialog>
+        </section>
+        <section class="module placeholder" id="module-reports">
+          <div
+            class="module-actions"
+            style="
+              display: flex;
+              justify-content: flex-end;
+              gap: 8px;
+              margin-bottom: 16px;
+            "
+          >
+            <button class="outline">
+              <svg
+                width="14"
+                height="14"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                style="
+                  display: inline-block;
+                  vertical-align: middle;
+                  margin-right: 4px;
+                "
+              >
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                <polyline points="7 10 12 15 17 10" />
+                <line x1="12" y1="15" x2="12" y2="3" />
+              </svg>
+              PDF
+            </button>
+            <button class="primary">
+              <svg
+                width="14"
+                height="14"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                style="
+                  display: inline-block;
+                  vertical-align: middle;
+                  margin-right: 4px;
+                "
+              >
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                <polyline points="7 10 12 15 17 10" />
+                <line x1="12" y1="15" x2="12" y2="3" />
+              </svg>
+              Excel
+            </button>
+          </div>
+          <div class="report-grid">
+            <div
+              class="panel report-number orange"
+              style="
+                background:
+                  radial-gradient(
+                    circle at 88% 18%,
+                    rgba(253, 134, 36, 0.32) 0%,
+                    rgba(253, 134, 36, 0.08) 50%,
+                    transparent 75%
+                  ),
+                  linear-gradient(135deg, #182435 0%, #3a2216 100%) !important;
+                border: 1px solid rgba(253, 134, 36, 0.45) !important;
+                box-shadow:
+                  0 10px 28px -5px rgba(0, 0, 0, 0.5),
+                  0 0 20px rgba(253, 134, 36, 0.2) !important;
+              "
+            >
+              <div
+                style="
+                  display: flex;
+                  justify-content: space-between;
+                  align-items: center;
+                "
+              >
+                <small
+                  style="
+                    color: #94a3b8 !important;
+                    font-size: 11px;
+                    font-weight: 700;
+                    letter-spacing: 0.8px;
+                  "
+                  >TỔNG CA KHÁM</small
+                >
+                <i
+                  style="
+                    color: #fd8624;
+                    filter: drop-shadow(0 2px 8px rgba(253, 134, 36, 0.45));
+                  "
+                >
+                  <svg
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.8"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <path
+                      d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"
+                    />
+                    <polyline points="14 2 14 8 20 8" />
+                    <line x1="16" y1="13" x2="8" y2="13" />
+                    <line x1="16" y1="17" x2="8" y2="17" />
+                  </svg>
+                </i>
+              </div>
+              <b
+                style="
+                  color: #ffffff !important;
+                  font-size: 34px;
+                  font-weight: 800;
+                  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
+                  display: block;
+                  margin: 10px 0 6px;
+                "
+                >1,842</b
+              >
+              <span
+                style="
+                  color: #fb923c !important;
+                  font-size: 12px;
+                  font-weight: 600;
+                "
+                >↗ 18.6% so với quý trước</span
+              >
+            </div>
+            <div
+              class="panel report-number green"
+              style="
+                background:
+                  radial-gradient(
+                    circle at 88% 18%,
+                    rgba(43, 161, 73, 0.32) 0%,
+                    rgba(43, 161, 73, 0.08) 50%,
+                    transparent 75%
+                  ),
+                  linear-gradient(135deg, #152739 0%, #0c3826 100%) !important;
+                border: 1px solid rgba(43, 161, 73, 0.45) !important;
+                box-shadow:
+                  0 10px 28px -5px rgba(0, 0, 0, 0.5),
+                  0 0 20px rgba(43, 161, 73, 0.2) !important;
+              "
+            >
+              <div
+                style="
+                  display: flex;
+                  justify-content: space-between;
+                  align-items: center;
+                "
+              >
+                <small
+                  style="
+                    color: #94a3b8 !important;
+                    font-size: 11px;
+                    font-weight: 700;
+                    letter-spacing: 0.8px;
+                  "
+                  >THỜI GIAN PHÂN TÍCH TB</small
+                >
+                <i
+                  style="
+                    color: #2ba149;
+                    filter: drop-shadow(0 2px 8px rgba(43, 161, 73, 0.45));
+                  "
+                >
+                  <svg
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.8"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <circle cx="12" cy="12" r="10" />
+                    <polyline points="12 6 12 12 16 14" />
+                  </svg>
+                </i>
+              </div>
+              <b
+                style="
+                  color: #ffffff !important;
+                  font-size: 34px;
+                  font-weight: 800;
+                  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
+                  display: block;
+                  margin: 10px 0 6px;
+                "
+                >1.24s</b
+              >
+              <span
+                style="
+                  color: #4ade80 !important;
+                  font-size: 12px;
+                  font-weight: 600;
+                "
+                >↘ 12.4% nhanh hơn</span
+              >
+            </div>
+            <div class="panel empty-panel">
+              <span
+                style="
+                  display: inline-flex;
+                  align-items: center;
+                  justify-content: center;
+                  width: 48px;
+                  height: 48px;
+                  border-radius: 50%;
+                  background: #f0fbf4;
+                  color: #2ba149;
+                  margin-bottom: 12px;
+                "
+              >
+                <svg
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <line x1="12" y1="20" x2="12" y2="10" />
+                  <line x1="18" y1="20" x2="18" y2="4" />
+                  <line x1="6" y1="20" x2="6" y2="16" />
+                </svg>
+              </span>
+              <h3>Báo cáo theo thời gian</h3>
+              <p>
+                Chọn khoảng thời gian để xuất báo cáo hoạt động và hiệu suất AI.
+              </p>
+              <div class="date-range">
+                <input type="date" /><span>→</span><input type="date" />
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+    <div class="modal-backdrop" id="admin-case-modal">
+      <section
+        class="modal case-detail-modal"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="case-detail-title"
+      >
+        <header class="case-detail-header">
+          <span class="case-detail-heartbeat" aria-hidden="true"
+            ><svg
+              viewBox="0 0 24 24"
+              width="21"
+              height="21"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M2 12h4l3-7 4 14 3-7h6" /></svg
+          ></span>
+          <div class="case-detail-heading">
+            <h2 id="case-detail-title">
+              Chi tiết chẩn đoán &amp; Hướng điều trị
+            </h2>
+            <p id="case-detail-subtitle">Thông tin ca khám đã lưu</p>
+          </div>
+          <button
+            type="button"
+            class="case-detail-close"
+            id="close-case-detail"
+            aria-label="Đóng cửa sổ"
+          >
+            <svg
+              viewBox="0 0 24 24"
+              width="16"
+              height="16"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8"
+              stroke-linecap="round"
+              aria-hidden="true"
+            >
+              <path d="M18 6 6 18M6 6l12 12" />
+            </svg>
+          </button>
+        </header>
+        <div id="admin-case-detail" aria-live="polite"></div>
+      </section>
+    </div>
+    <div class="modal-backdrop" id="account-status-modal">
+      <section
+        class="modal account-status-modal"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="account-status-title"
+        aria-describedby="account-status-description"
+      >
+        <div class="account-status-icon" aria-hidden="true">!</div>
+        <h2 id="account-status-title">Thay đổi trạng thái tài khoản?</h2>
+        <p id="account-status-description" aria-live="polite"></p>
+        <div class="account-status-actions">
+          <button type="button" class="outline" id="account-status-cancel">
+            Hủy bỏ
+          </button>
+          <button type="button" class="primary" id="account-status-confirm">
+            Xác nhận
+          </button>
+        </div>
+      </section>
+    </div>
+    <div class="modal-backdrop" id="delete-account-modal">
+      <section
+        class="modal delete-account-modal"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="delete-account-title"
+      >
+        <div class="delete-account-icon" aria-hidden="true">
+          <svg
+            viewBox="0 0 24 24"
+            width="25"
+            height="25"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.8"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M3 6h18M8 6V4h8v2m3 0-1 14H6L5 6m5 4v6m4-6v6" />
+          </svg>
+        </div>
+        <h2 id="delete-account-title">Xóa vĩnh viễn tài khoản?</h2>
+        <p id="delete-account-description">
+          Tài khoản sẽ bị xóa nếu không có dữ liệu cần lưu giữ. Email có thể
+          đăng ký lại sau khi xóa thành công.
+        </p>
+        <p
+          class="delete-account-error"
+          id="delete-account-error"
+          role="alert"
+          aria-live="polite"
+          hidden
+        ></p>
+        <div class="delete-account-actions">
+          <button type="button" class="outline" id="delete-account-cancel">
+            Hủy bỏ
+          </button>
+          <button
+            type="button"
+            class="delete-account-confirm"
+            id="delete-account-confirm"
+          >
+            Xác nhận xóa
+          </button>
+        </div>
+      </section>
+    </div>
+    <div class="modal-backdrop" id="user-modal">
+      <form class="modal" id="user-form">
+        <button type="button" class="modal-close" id="close-modal">×</button>
+        <p class="eyebrow">TÀI KHOẢN MỚI</p>
+        <h2>Thêm tài khoản</h2>
+        <label>Họ và tên<input name="name" required minlength="2" /></label
+        ><label>Email<input name="email" type="email" required /></label
+        ><label
+          >Vai trò<select name="role">
+            <option value="USER">User</option>
+            <option value="DOCTOR">Doctor</option>
+            <option value="ADMIN">Admin</option>
+          </select></label
+        ><label
+          >Mật khẩu tạm thời<input
+            name="password"
+            type="password"
+            minlength="12"
+            required
+            placeholder="Tối thiểu 12 ký tự" /></label
+        ><button class="primary full" type="submit">Tạo tài khoản</button>
+        <p class="form-message" id="form-message"></p>
+      </form>
+    </div>
+    <script src="{{ url_for('static', filename='js/admin.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/admin_cases.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/homepage_management.js') }}"></script>
+  </body>
+</html>

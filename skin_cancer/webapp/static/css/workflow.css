@@ -1,0 +1,1084 @@
+/* ============================================================
+   DERMASCAN AI - WORKFLOW EXTENSIONS
+   Auth + Batch + Measurement + Report
+============================================================ */
+
+/* ================= AUTH ================= */
+
+.workflow-auth {
+  max-width: 1320px;
+  margin: 0 auto 22px;
+  padding: 14px;
+
+  display: grid;
+  grid-template-columns:
+    minmax(180px, 1fr)
+    minmax(180px, 260px)
+    minmax(160px, 220px)
+    auto
+    auto;
+
+  gap: 10px;
+  align-items: center;
+
+  background: #fff;
+
+  border: 1px solid var(--border);
+
+  border-radius: var(--radius-lg);
+
+  box-shadow: var(--shadow-xs);
+}
+
+.workflow-auth-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.workflow-auth-info strong {
+  font-family: "Sora", sans-serif;
+
+  color: var(--ink-900);
+}
+
+.workflow-auth-info span {
+  font-size: 13px;
+
+  color: var(--ink-400);
+}
+
+.workflow-auth input,
+.case-selector input {
+  width: 100%;
+
+  padding: 10px 12px;
+
+  border: 1px solid var(--border-strong);
+
+  border-radius: 9px;
+
+  outline: none;
+
+  font: inherit;
+
+  background: #fff;
+
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s;
+}
+
+.workflow-auth input:focus,
+.case-selector input:focus {
+  border-color: var(--p-500);
+
+  box-shadow: 0 0 0 3px rgba(43, 161, 73, 0.12);
+}
+
+/* ================= BUTTONS ================= */
+
+.workflow-small-btn {
+  min-height: 38px;
+
+  padding: 8px 14px;
+
+  border-radius: 9px;
+
+  border: 1px solid var(--border-strong);
+
+  background: #fff;
+
+  color: var(--ink-700);
+
+  font-weight: 600;
+}
+
+.workflow-small-btn.primary {
+  border-color: var(--p-500);
+
+  background: var(--p-500);
+
+  color: #fff;
+}
+
+.workflow-small-btn:hover {
+  transform: translateY(-1px);
+}
+
+.workflow-small-btn:disabled {
+  opacity: 0.5;
+
+  cursor: not-allowed;
+}
+
+/* ================= CASE ================= */
+
+.case-selector {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+
+  margin-bottom: 18px;
+}
+
+.case-selector label {
+  font-weight: 700;
+
+  color: var(--ink-700);
+}
+
+.case-selector small {
+  color: var(--ink-400);
+}
+
+/* ================= SELECTED FILES ================= */
+
+.selected-files-container {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+
+  margin-top: 14px;
+}
+
+.selected-files-title {
+  font-weight: 700;
+
+  color: var(--ink-700);
+
+  margin-bottom: 2px;
+}
+
+.selected-file-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  gap: 12px;
+
+  padding: 8px 11px;
+
+  background: var(--ink-50);
+
+  border: 1px solid var(--border);
+
+  border-radius: 9px;
+
+  font-size: 13px;
+}
+
+.selected-file-row span {
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.selected-file-row button {
+  flex: 0 0 auto;
+  height: 28px;
+  border-radius: 7px;
+  background: #fff;
+  border: 1px solid var(--border-strong);
+  color: var(--ink-700);
+  font-size: 13px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+
+.selected-file-row button.btn-region-select {
+  width: auto;
+  min-width: fit-content;
+  padding: 0 12px;
+  white-space: nowrap;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--ink-700);
+  background: #ffffff;
+}
+
+.selected-file-row button.btn-region-select:hover {
+  background: var(--ink-50);
+  border-color: var(--brand);
+  color: var(--brand);
+}
+
+.selected-file-row button.btn-file-remove,
+.selected-file-row button:not(.btn-region-select) {
+  width: 28px;
+  padding: 0;
+  font-size: 17px;
+  color: var(--ink-500);
+}
+
+html[data-theme="dark"] .selected-file-row {
+  background: var(--surface);
+  border-color: var(--border);
+}
+
+html[data-theme="dark"] .selected-file-row span {
+  color: var(--ink-100);
+}
+
+html[data-theme="dark"] .selected-file-row button {
+  background: var(--surface-raised, #242b35);
+  border-color: var(--border, #3a4555);
+  color: var(--ink-200, #e2e8f0);
+}
+
+html[data-theme="dark"] .selected-file-row button.btn-region-select:hover {
+  background: var(--surface);
+  border-color: var(--brand);
+  color: var(--brand);
+}
+
+/* ================= BATCH ================= */
+
+.batch-status {
+  margin: 14px 0;
+
+  padding: 10px 12px;
+
+  border-radius: 9px;
+
+  background: var(--p-50);
+
+  border: 1px solid var(--p-200);
+
+  color: var(--p-800);
+
+  font-weight: 600;
+
+  font-size: 13px;
+}
+
+.batch-items {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  margin-top: 16px;
+}
+
+.batch-items h4 {
+  margin-bottom: 2px;
+
+  font-family: "Sora", sans-serif;
+
+  font-size: 14px;
+}
+
+.batch-item {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  gap: 12px;
+
+  padding: 10px 11px;
+
+  border: 1px solid var(--border);
+
+  border-radius: 10px;
+
+  background: #fff;
+}
+
+.batch-item > div {
+  display: flex;
+  flex-direction: column;
+
+  min-width: 0;
+}
+
+.batch-item strong {
+  overflow: hidden;
+
+  text-overflow: ellipsis;
+
+  white-space: nowrap;
+
+  font-size: 13px;
+
+  color: var(--ink-700);
+}
+
+.batch-item small {
+  color: var(--ink-400);
+}
+
+/* ================= ACTION TOOLS ================= */
+
+.workflow-tools {
+  margin-top: 18px;
+}
+
+.workflow-actions {
+  display: grid;
+
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+
+  gap: 10px;
+
+  margin-top: 12px;
+}
+
+.workflow-action-btn {
+  min-height: 44px;
+
+  padding: 10px 14px;
+
+  border-radius: 10px;
+
+  border: 1px solid var(--p-200);
+
+  background: var(--p-50);
+
+  color: var(--p-800);
+
+  font-weight: 700;
+
+  transition: 0.2s ease;
+}
+
+.workflow-action-btn:hover:not(:disabled) {
+  border-color: var(--p-500);
+
+  background: var(--p-100);
+
+  transform: translateY(-1px);
+}
+
+.workflow-action-btn:disabled {
+  opacity: 0.42;
+
+  cursor: not-allowed;
+
+  transform: none;
+}
+
+/* ================= MEASUREMENT ================= */
+
+.measurement-result {
+  margin-top: 16px;
+
+  padding: 15px;
+
+  border: 1px solid var(--border);
+
+  border-radius: 12px;
+
+  background: var(--ink-50);
+}
+
+.measurement-result h5 {
+  margin-bottom: 12px;
+
+  font-family: "Sora", sans-serif;
+
+  color: var(--ink-800);
+}
+
+.measurement-grid {
+  display: grid;
+
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+
+  gap: 10px;
+}
+
+.measurement-grid > div {
+  padding: 11px;
+
+  text-align: center;
+
+  background: #fff;
+
+  border: 1px solid var(--border);
+
+  border-radius: 9px;
+}
+
+.measurement-grid span {
+  display: block;
+
+  font-size: 12px;
+
+  color: var(--ink-400);
+}
+
+.measurement-grid strong {
+  display: block;
+
+  margin: 4px 0;
+
+  font-size: 18px;
+
+  color: var(--ink-900);
+}
+
+.measurement-grid small {
+  color: var(--ink-400);
+}
+
+/* ================= REPORT ================= */
+
+.report-status {
+  margin-top: 12px;
+
+  padding: 10px 12px;
+
+  border-radius: 9px;
+
+  background: var(--a-50);
+
+  border: 1px solid var(--a-200);
+
+  color: var(--a-700);
+
+  font-weight: 600;
+}
+
+/* ================= RESPONSIVE ================= */
+
+@media (max-width: 900px) {
+  .workflow-auth {
+    grid-template-columns:
+      1fr
+      1fr;
+  }
+
+  .workflow-auth-info {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 600px) {
+  .workflow-auth {
+    grid-template-columns: 1fr;
+  }
+
+  .workflow-actions {
+    grid-template-columns: 1fr;
+  }
+
+  .measurement-grid {
+    grid-template-columns: 1fr;
+  }
+}
+/* ============================================================
+   CONTOUR / LESION MEASUREMENT IMAGE
+============================================================ */
+
+.contour-result {
+  margin-top: 16px;
+
+  padding: 14px;
+
+  background: #ffffff;
+
+  border: 1px solid var(--border);
+
+  border-radius: 12px;
+}
+
+.contour-result-head {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  gap: 12px;
+
+  margin-bottom: 12px;
+}
+
+.contour-result-head strong {
+  font-family: "Sora", sans-serif;
+
+  font-size: 14px;
+
+  color: var(--ink-800);
+}
+
+.contour-result-head span {
+  padding: 4px 8px;
+
+  border-radius: 999px;
+
+  background: var(--p-50);
+
+  color: var(--p-700);
+
+  font-size: 11px;
+
+  font-weight: 700;
+}
+
+.contour-result img {
+  display: block;
+
+  width: 100%;
+
+  max-height: 440px;
+
+  object-fit: contain;
+
+  border-radius: 10px;
+
+  border: 1px solid var(--border);
+
+  background: #0a0e14;
+}
+
+.contour-note {
+  margin-top: 10px;
+
+  color: var(--ink-400);
+
+  font-size: 12px;
+
+  line-height: 1.6;
+}
+/* ============================================================
+   PATIENT SELECTOR
+============================================================ */
+
+.patient-selector {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  margin-bottom: 16px;
+}
+
+.patient-selector-head {
+  display: flex;
+
+  justify-content: space-between;
+  align-items: center;
+
+  gap: 10px;
+}
+
+.patient-selector-head > label,
+.lesion-location-field label,
+.model-selector-field label {
+  font-weight: 700;
+
+  color: var(--ink-700);
+  font-size: 13px;
+}
+
+.lesion-location-field label,
+.model-selector-field label {
+  margin-bottom: 6px;
+}
+
+.patient-selector select,
+.lesion-location-field input,
+.patient-form-field input,
+.patient-form-field select,
+.model-selector-field select {
+  width: 100%;
+
+  padding: 10px 12px;
+
+  border: 1px solid var(--border-strong);
+
+  border-radius: 9px;
+
+  outline: none;
+
+  background: #fff;
+
+  color: var(--ink-800);
+
+  font: inherit;
+
+  font-size: 14px;
+
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s;
+}
+
+.patient-selector select:focus,
+.lesion-location-field input:focus,
+.patient-form-field input:focus,
+.patient-form-field select:focus,
+.model-selector-field select:focus {
+  border-color: var(--p-500);
+
+  box-shadow: 0 0 0 3px rgba(43, 161, 73, 0.12);
+}
+
+.patient-selector > small {
+  color: var(--ink-400);
+
+  line-height: 1.5;
+}
+
+.patient-add-btn {
+  color: var(--p-700);
+
+  border-color: var(--p-200);
+
+  background: var(--p-50);
+}
+
+/* ================= SELECTED PATIENT ================= */
+
+.selected-patient-card {
+  padding: 12px;
+
+  margin-top: 3px;
+
+  border: 1px solid var(--p-200);
+
+  border-radius: 11px;
+
+  background: linear-gradient(135deg, var(--p-50), #fff);
+}
+
+.selected-patient-top {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  gap: 10px;
+}
+
+.selected-patient-top strong {
+  color: var(--ink-900);
+
+  font-family: "Sora", sans-serif;
+
+  font-size: 14px;
+}
+
+.patient-source-badge {
+  padding: 4px 8px;
+
+  border-radius: 999px;
+
+  background: var(--p-100);
+
+  color: var(--p-700);
+
+  font-size: 10px;
+
+  font-weight: 700;
+}
+
+.patient-source-badge.temporary {
+  background: var(--a-50);
+
+  color: var(--a-700);
+}
+
+.selected-patient-meta,
+.selected-patient-contact {
+  margin-top: 6px;
+
+  color: var(--ink-500);
+
+  font-size: 12px;
+
+  line-height: 1.5;
+}
+
+.lesion-location-field {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 6px;
+
+  margin-top: 6px;
+}
+
+.model-selector-field {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 6px;
+
+  margin-top: 6px;
+}
+
+.model-selector-field small {
+  color: var(--ink-400);
+
+  line-height: 1.5;
+
+  font-size: 12px;
+}
+
+/* ============================================================
+   PATIENT MODAL
+============================================================ */
+
+.patient-modal {
+  position: fixed;
+
+  inset: 0;
+
+  z-index: 9999;
+
+  display: grid;
+
+  place-items: center;
+
+  padding: 20px;
+}
+
+.patient-modal.hidden {
+  display: none;
+}
+
+.patient-modal-backdrop {
+  position: absolute;
+
+  inset: 0;
+
+  background: rgba(10, 14, 20, 0.56);
+
+  backdrop-filter: blur(3px);
+}
+
+.patient-modal-dialog {
+  position: relative;
+
+  z-index: 1;
+
+  width: min(600px, 100%);
+
+  max-height: calc(100vh - 40px);
+
+  overflow-y: auto;
+
+  padding: 24px;
+
+  border: 1px solid var(--border);
+
+  border-radius: 18px;
+
+  background: #fff;
+
+  box-shadow: 0 24px 80px rgba(15, 23, 42, 0.22);
+}
+
+.patient-modal-head {
+  display: flex;
+
+  align-items: flex-start;
+
+  justify-content: space-between;
+
+  gap: 16px;
+}
+
+.patient-modal-eyebrow {
+  color: var(--p-600);
+
+  font-size: 11px;
+
+  font-weight: 700;
+
+  text-transform: uppercase;
+
+  letter-spacing: 0.08em;
+}
+
+.patient-modal-head h3 {
+  margin-top: 4px;
+
+  color: var(--ink-900);
+
+  font-family: "Sora", sans-serif;
+}
+
+.patient-modal-close {
+  display: grid;
+
+  place-items: center;
+
+  width: 34px;
+  height: 34px;
+
+  flex: 0 0 auto;
+
+  border: 1px solid var(--border);
+
+  border-radius: 9px;
+
+  background: #fff;
+
+  color: var(--ink-500);
+
+  font-size: 22px;
+}
+
+.patient-modal-note {
+  margin: 14px 0 18px;
+
+  padding: 10px 12px;
+
+  border-radius: 9px;
+
+  background: var(--p-50);
+
+  color: var(--ink-500);
+
+  font-size: 12px;
+
+  line-height: 1.6;
+}
+
+.patient-form-grid {
+  display: grid;
+
+  grid-template-columns: 1fr 1fr;
+
+  gap: 12px;
+
+  margin-bottom: 12px;
+}
+
+.patient-form-field {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 6px;
+}
+
+.patient-form-field.full {
+  margin-bottom: 12px;
+}
+
+.patient-form-field label {
+  color: var(--ink-700);
+
+  font-size: 13px;
+
+  font-weight: 700;
+}
+
+.patient-modal-actions {
+  display: flex;
+
+  justify-content: flex-end;
+
+  gap: 10px;
+
+  margin-top: 20px;
+
+  padding-top: 16px;
+
+  border-top: 1px solid var(--border);
+}
+
+@media (max-width: 600px) {
+  .patient-selector-head {
+    align-items: stretch;
+
+    flex-direction: column;
+  }
+
+  .patient-selector-head > button {
+    width: 100%;
+  }
+
+  .patient-form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .patient-modal-dialog {
+    padding: 18px;
+  }
+
+  .patient-modal-actions {
+    flex-direction: column-reverse;
+  }
+}
+/* ============================================================
+   DOCTOR DIAGNOSIS
+============================================================ */
+
+.doctor-diagnosis {
+  scroll-margin-top: 100px;
+
+  transition:
+    border-color 0.25s ease,
+    box-shadow 0.25s ease,
+    background 0.25s ease;
+}
+
+.doctor-diagnosis-sub {
+  margin-top: 4px;
+
+  color: var(--ink-400);
+
+  font-size: 12px;
+}
+
+.doctor-review-status {
+  padding: 5px 9px;
+
+  border-radius: 999px;
+
+  background: #f3f4f6;
+
+  color: var(--ink-500);
+
+  font-size: 10px;
+
+  font-weight: 700;
+
+  white-space: nowrap;
+}
+
+.doctor-review-status.saved {
+  background: var(--p-50);
+
+  color: var(--p-700);
+}
+
+.doctor-review-status.unsaved {
+  background: #fff7ed;
+
+  color: #c2410c;
+}
+
+/* ================= FORM ================= */
+
+.doctor-review-form {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 14px;
+
+  margin-top: 16px;
+}
+
+.doctor-review-field {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 7px;
+}
+
+.doctor-review-field label {
+  color: var(--ink-700);
+
+  font-size: 13px;
+
+  font-weight: 700;
+}
+
+.required-mark {
+  color: #dc2626;
+}
+
+.doctor-review-field textarea {
+  width: 100%;
+
+  min-height: 84px;
+
+  padding: 11px 13px;
+
+  resize: vertical;
+
+  border: 1px solid var(--border-strong);
+
+  border-radius: 10px;
+
+  outline: none;
+
+  background: #fff;
+
+  color: var(--ink-800);
+
+  font: inherit;
+
+  line-height: 1.55;
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.doctor-review-field textarea:focus {
+  border-color: var(--p-500);
+
+  box-shadow: 0 0 0 3px rgba(43, 161, 73, 0.12);
+}
+
+/* ================= FOOTER ================= */
+
+.doctor-review-footer {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  gap: 16px;
+}
+
+.doctor-review-note {
+  max-width: 520px;
+
+  color: var(--ink-400);
+
+  font-size: 11px;
+
+  line-height: 1.5;
+}
+
+.doctor-save-btn {
+  flex: 0 0 auto;
+
+  min-width: 145px;
+}
+
+/* ================= REQUIRED ATTENTION ================= */
+
+.doctor-diagnosis.needs-attention {
+  border-color: #f59e0b !important;
+
+  background: #fffbeb;
+
+  box-shadow: 0 0 0 4px rgba(245, 158, 11, 0.12);
+}
+
+.doctor-diagnosis.needs-attention #doctorConclusion {
+  border-color: #f59e0b;
+}
+
+@media (max-width: 650px) {
+  .doctor-review-footer {
+    align-items: stretch;
+
+    flex-direction: column;
+  }
+
+  .doctor-save-btn {
+    width: 100%;
+  }
+}

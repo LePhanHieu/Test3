@@ -1,0 +1,114 @@
+/* DermaScan AI | Doctor analysis page – visual layout only.
+ * Loaded after legacy inline rules; all original IDs, buttons and API hooks remain intact. */
+#analyze.analyzer {
+  box-sizing: border-box;
+  width: min(100%, 1320px);
+  max-width: 1320px;
+  padding: 42px clamp(18px, 3vw, 48px) 88px;
+  margin: 0 auto;
+}
+#analyze .section-head { margin: 0 auto 28px; text-align: center; }
+#analyze .section-title { font-size: clamp(25px, 2.5vw, 36px); line-height: 1.2; }
+#analyze .analyzer-grid {
+  width: 100%; max-width: none; margin: 0; gap: 24px;
+  display: grid; grid-template-columns: minmax(0, 1fr); align-items: start;
+}
+#analyze .panel {
+  box-sizing: border-box; width: 100%; min-width: 0;
+  padding: clamp(20px, 2.5vw, 32px);
+  border-radius: 18px;
+  border: 1px solid var(--border, #dbe6e1);
+  box-shadow: 0 10px 32px -26px rgba(19, 59, 44, .28);
+}
+#analyze .panel-head { display:flex; align-items:center; justify-content:space-between; gap:14px; flex-wrap:wrap; }
+#analyze .panel-title { font-size:clamp(17px,1.5vw,21px); line-height:1.35; }
+#analyze .hp-in-grid {
+  display: grid; grid-template-columns:repeat(2,minmax(0,1fr));
+  align-items:stretch; gap:22px; width:100%;
+}
+#analyze .hp-in-col { min-width:0; width:100%; }
+#analyze .hp-in-patient,
+#analyze .hp-in-upload {
+  min-width:0; padding:0;
+}
+#analyze .patient-selector {
+  box-sizing:border-box; height:100%; padding:22px;
+  border-radius:14px; border:1px solid var(--border,#dce9e1);
+}
+#analyze .patient-selector-head { display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:10px; }
+#analyze .patient-selector select,
+#analyze .patient-selector input { box-sizing:border-box; max-width:100%; width:100%; }
+#analyze .dropzone { box-sizing:border-box; width:100%; min-height:230px; border-radius:14px; }
+#analyze .dropzone-inner { min-width:0; padding:18px; }
+#analyze .preview { margin-inline:auto; max-width:100%; }
+#analyze .preview img { max-width:100%; max-height:360px; object-fit:contain; }
+#analyze .upload-action-row {
+  display:flex; flex-wrap:wrap; align-items:stretch; width:100%; gap:12px;
+}
+#analyze .upload-action-row > button {
+  box-sizing:border-box; flex:1 1 190px; min-width:0;
+  width:auto; max-width:100%; min-height:46px; padding:11px 16px;
+  white-space:normal; overflow-wrap:normal; word-break:normal;
+  line-height:1.4; text-align:center;
+}
+#analyze #analyzeBtn > span { display:inline; white-space:normal; overflow-wrap:normal; word-break:normal; }
+#analyze #batchStatus, #analyze #batchItems, #analyze #selectedFilesContainer { max-width:100%; min-width:0; overflow-wrap:anywhere; }
+#analyze .panel-results { min-height:210px; }
+#analyze #emptyState { min-height:200px; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; gap:9px; }
+#analyze #emptyState.hidden { display:none !important; }
+#analyze .verdict { margin-bottom:24px; }
+#analyze .hp-result-grid {
+  display:grid; width:100%; grid-template-columns:repeat(2,minmax(0,1fr));
+  grid-template-areas:"original heatmap" "probabilities probabilities";
+  gap:18px; align-items:start;
+}
+#analyze .hp-result-media { grid-area:original; min-width:0; }
+#analyze .hp-result-details { display:contents; }
+#analyze .hp-result-details > .block:first-child { grid-area:probabilities; min-width:0; }
+#analyze .hp-result-details > .block:nth-child(2) { grid-area:heatmap; min-width:0; }
+#analyze .hp-result-grid .block {
+  box-sizing:border-box; width:100%; min-width:0; height:100%;
+  border:1px solid var(--border,#dce9e1); border-radius:14px; padding:18px;
+}
+#analyze .hp-result-grid figure {
+  box-sizing:border-box; width:100%; max-width:100%; margin:0 auto;
+}
+#analyze .hp-result-grid figure img {
+  display:block; width:100%; max-width:100%; height:clamp(210px,23vw,320px);
+  object-fit:contain;
+}
+#analyze #probsList { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px 14px; }
+#analyze .interp, #analyze .doctor-diagnosis, #analyze .workflow-tools {
+  box-sizing:border-box; min-width:0; width:100%; border-radius:16px;
+  padding:clamp(16px,2vw,24px); margin-top:22px;
+}
+#analyze .doctor-diagnosis textarea,
+#analyze .doctor-diagnosis input { box-sizing:border-box; width:100%; max-width:100%; min-width:0; }
+#analyze .doctor-diagnosis textarea { min-height:100px; resize:vertical; }
+#analyze .workflow-actions {
+  display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:12px; width:100%;
+}
+#analyze .workflow-actions > button {
+  width:100%; max-width:100%; min-width:0; min-height:48px;
+  white-space:normal; word-break:normal; overflow-wrap:normal;
+  padding:10px 12px; line-height:1.35;
+}
+#analyze .block, #analyze .interp, #analyze .patient-selector { min-width:0; }
+@media (max-width:850px) {
+  #analyze.analyzer { padding-inline:18px; }
+  #analyze .hp-in-grid { grid-template-columns:minmax(0,1fr); }
+  #analyze .hp-result-grid {
+    grid-template-columns:minmax(0,1fr);
+    grid-template-areas:"original" "heatmap" "probabilities";
+  }
+  #analyze #probsList { grid-template-columns:minmax(0,1fr); }
+  #analyze .workflow-actions { grid-template-columns:repeat(2,minmax(0,1fr)); }
+}
+@media (max-width:520px) {
+  #analyze.analyzer { padding:26px 12px 55px; }
+  #analyze .panel { padding:16px; border-radius:14px; }
+  #analyze .patient-selector { padding:14px; }
+  #analyze .dropzone { min-height:190px; }
+  #analyze .workflow-actions { grid-template-columns:minmax(0,1fr); }
+  #analyze .upload-action-row > button { flex-basis:100%; }
+}
