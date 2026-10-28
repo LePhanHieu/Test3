@@ -278,7 +278,8 @@ def admin_login():
 @limiter.limit("3 per minute")
 def resend_two_factor():
     """Issue a fresh OTP only for the account with a pending 2FA login."""
-    user = db.session.get(User, session.get("pending_2fa_user_id"))
+    pending_user_id = session.get("pending_2fa_user_id")
+    user = db.session.get(User, pending_user_id) if pending_user_id is not None else None
     if (
         not user
         or user.deleted_at is not None
@@ -303,7 +304,8 @@ def resend_two_factor():
 def verify_two_factor():
     payload = request.get_json(silent=True) or {}
     code = str(payload.get("code", "")).strip()
-    user = db.session.get(User, session.get("pending_2fa_user_id"))
+    pending_user_id = session.get("pending_2fa_user_id")
+    user = db.session.get(User, pending_user_id) if pending_user_id is not None else None
     if (
         not user
         or user.deleted_at is not None
