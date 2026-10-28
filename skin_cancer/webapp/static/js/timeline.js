@@ -3,6 +3,11 @@
 
 let timelineChart = null;
 
+function timelineEscapeHtml(value) {
+  const entities = { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" };
+  return String(value ?? "").replace(/[&<>"']/g, (character) => entities[character]);
+}
+
 async function showTimeline(caseId) {
   if (!caseId) return;
   try {
@@ -124,8 +129,8 @@ function renderTimeline(data) {
 
     trendBox.style.cssText = `margin-bottom:16px;padding:12px 16px;border-radius:10px;background:${bg};border:1px solid ${border};color:${color};font-size:14px;`;
     trendBox.innerHTML = `
-      <strong>Đánh giá xu hướng:</strong> ${data.trend.label} 
-      (${sign}${data.trend.change}% xác suất ác tính so với lần khám đầu tiên).
+      <strong>Đánh giá xu hướng:</strong> ${timelineEscapeHtml(data.trend.label)}
+      (${sign}${timelineEscapeHtml(data.trend.change)}% xác suất ác tính so với lần khám đầu tiên).
     `;
     box.append(trendBox);
   }
@@ -133,40 +138,48 @@ function renderTimeline(data) {
   // Biểu đồ xác suất ác tính theo thời gian
   const chartWrap = document.createElement("div");
   chartWrap.style.cssText = "height:240px;margin-bottom:18px;";
-  const canvas = document.createElement("canvas");
-  chartWrap.append(canvas);
   box.append(chartWrap);
 
   const fmt = (iso) => new Date(iso).toLocaleDateString("vi-VN");
-  timelineChart = new Chart(canvas, {
-    type: "line",
-    data: {
-      labels: points.map((p) => fmt(p.date)),
-      datasets: [
-        {
-          label: "Xác suất ác tính (%)",
-          data: points.map((p) => p.prob_malignant),
-          tension: 0.25,
-          borderColor: "#dc2626",
-          backgroundColor: "rgba(220, 38, 38, 0.1)",
-          fill: true,
-          pointRadius: 5,
-          pointHoverRadius: 7,
-          pointBackgroundColor: "#dc2626",
+  if (typeof Chart === "function") {
+    const canvas = document.createElement("canvas");
+    chartWrap.append(canvas);
+    timelineChart = new Chart(canvas, {
+      type: "line",
+      data: {
+        labels: points.map((p) => fmt(p.date)),
+        datasets: [
+          {
+            label: "Xác suất ác tính (%)",
+            data: points.map((p) => p.prob_malignant),
+            tension: 0.25,
+            borderColor: "#dc2626",
+            backgroundColor: "rgba(220, 38, 38, 0.1)",
+            fill: true,
+            pointRadius: 5,
+            pointHoverRadius: 7,
+            pointBackgroundColor: "#dc2626",
+          },
+        ],
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { position: "top" },
         },
-      ],
-    },
-    options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      plugins: {
-        legend: { position: "top" },
+        scales: {
+          y: { min: 0, max: 100, ticks: { callback: (v) => v + "%" } },
+        },
       },
-      scales: {
-        y: { min: 0, max: 100, ticks: { callback: (v) => v + "%" } },
-      },
-    },
-  });
+    });
+  } else {
+    chartWrap.style.cssText = "margin-bottom:18px;padding:16px;border:1px dashed #cbd5e1;border-radius:12px;background:#f8fafc;";
+    const notice = document.createElement("p");
+    notice.style.cssText = "margin:0;color:#475569;font-size:13.5px;";
+    notice.textContent = "Biểu đồ tạm thời không khả dụng. Bạn vẫn có thể xem lịch sử trong bảng bên dưới.";
+    chartWrap.append(notice);
+  }
 
   // Bảng các lần chụp
   const tableWrap = document.createElement("div");
@@ -196,7 +209,9 @@ function renderTimeline(data) {
     tdCode.style.padding = "8px 10px";
 
     const tdClass = row.insertCell();
-    tdClass.innerHTML = `<strong>${p.predicted_class}</strong>`;
+    const classLabel = document.createElement("strong");
+    classLabel.textContent = p.predicted_class || "—";
+    tdClass.append(classLabel);
     tdClass.style.padding = "8px 10px";
 
     const tdMalignant = row.insertCell();
