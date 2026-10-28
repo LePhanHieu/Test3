@@ -12,31 +12,21 @@ function openFocusRegionModal(file, oldPoints) {
 
     img.onload = () => {
       // Co ảnh cho vừa màn hình, giữ nguyên tỉ lệ
-      const scale = Math.min(
-        700 / img.width,
-        (window.innerHeight * 0.65) / img.height,
-        1,
-      );
+      const scale = Math.min(700 / img.width, (window.innerHeight * 0.65) / img.height, 1);
       const canvas = document.createElement("canvas");
       canvas.width = Math.round(img.width * scale);
       canvas.height = Math.round(img.height * scale);
-      canvas.style.cssText =
-        "cursor:crosshair;display:block;border-radius:6px;";
+      canvas.style.cssText = "cursor:crosshair;display:block;border-radius:6px;";
       const ctx = canvas.getContext("2d");
 
       // Điểm lưu theo pixel canvas, đổi sang 0..1 khi trả về
-      let points = (oldPoints || []).map(([x, y]) => [
-        x * canvas.width,
-        y * canvas.height,
-      ]);
+      let points = (oldPoints || []).map(([x, y]) => [x * canvas.width, y * canvas.height]);
 
       function draw() {
         ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
         if (points.length >= 2) {
           ctx.beginPath();
-          points.forEach(([x, y], i) =>
-            i ? ctx.lineTo(x, y) : ctx.moveTo(x, y),
-          );
+          points.forEach(([x, y], i) => (i ? ctx.lineTo(x, y) : ctx.moveTo(x, y)));
           if (points.length >= 3) {
             ctx.closePath();
             ctx.fillStyle = "rgba(255, 200, 0, 0.25)";
@@ -63,21 +53,16 @@ function openFocusRegionModal(file, oldPoints) {
 
       // ----- giao diện modal -----
       const overlay = document.createElement("div");
-      overlay.style.cssText =
-        "position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:9999;" +
-        "display:flex;align-items:center;justify-content:center;";
+      overlay.style.cssText = "position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:9999;" + "display:flex;align-items:center;justify-content:center;";
       const box = document.createElement("div");
-      box.style.cssText =
-        "background:#fff;padding:16px;border-radius:10px;max-width:95vw;";
+      box.style.cssText = "background:#fff;padding:16px;border-radius:10px;max-width:95vw;";
 
       const hint = document.createElement("p");
-      hint.textContent =
-        "Bấm lên ảnh để chấm các điểm quanh vùng tổn thương (tối thiểu 3 điểm).";
+      hint.textContent = "Bấm lên ảnh để chấm các điểm quanh vùng tổn thương (tối thiểu 3 điểm).";
       hint.style.cssText = "margin:0 0 8px;font-size:14px;";
 
       const bar = document.createElement("div");
-      bar.style.cssText =
-        "display:flex;gap:8px;margin-top:10px;flex-wrap:wrap;";
+      bar.style.cssText = "display:flex;gap:8px;margin-top:10px;flex-wrap:wrap;";
 
       function makeButton(text, onClick) {
         const b = document.createElement("button");
@@ -105,9 +90,7 @@ function openFocusRegionModal(file, oldPoints) {
       });
       makeButton("Xóa vùng đã lưu", () => close([]));
       makeButton("Hủy", () => close(null));
-      const saveBtn = makeButton("Lưu vùng", () =>
-        close(points.map(([x, y]) => [x / canvas.width, y / canvas.height])),
-      );
+      const saveBtn = makeButton("Lưu vùng", () => close(points.map(([x, y]) => [x / canvas.width, y / canvas.height])));
       saveBtn.classList.add("primary");
 
       box.append(hint, canvas, bar);

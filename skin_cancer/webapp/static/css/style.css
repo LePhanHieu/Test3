@@ -53,14 +53,9 @@
   --radius-xl: 22px;
 
   --shadow-xs: 0 1px 2px rgba(16, 24, 40, 0.05);
-  --shadow-sm:
-    0 1px 3px rgba(16, 24, 40, 0.08), 0 1px 2px rgba(16, 24, 40, 0.04);
-  --shadow:
-    0 4px 14px -2px rgba(16, 24, 40, 0.08),
-    0 2px 6px -2px rgba(16, 24, 40, 0.05);
-  --shadow-lg:
-    0 12px 32px -6px rgba(16, 24, 40, 0.12),
-    0 4px 12px -4px rgba(16, 24, 40, 0.06);
+  --shadow-sm: 0 1px 3px rgba(16, 24, 40, 0.08), 0 1px 2px rgba(16, 24, 40, 0.04);
+  --shadow: 0 4px 14px -2px rgba(16, 24, 40, 0.08), 0 2px 6px -2px rgba(16, 24, 40, 0.05);
+  --shadow-lg: 0 12px 32px -6px rgba(16, 24, 40, 0.12), 0 4px 12px -4px rgba(16, 24, 40, 0.06);
   --shadow-xl: 0 24px 60px -12px rgba(16, 24, 40, 0.18);
 
   --glow-green: 0 8px 32px -8px rgba(43, 161, 73, 0.35);
@@ -175,9 +170,15 @@ html[data-theme="dark"] {
   font-size: 12px;
 }
 
-.doctor-stat-card.benign strong { color: var(--p-600); }
-.doctor-stat-card.malignant strong { color: #d64b4b; }
-.doctor-stat-card.confidence strong { color: var(--a-600); }
+.doctor-stat-card.benign strong {
+  color: var(--p-600);
+}
+.doctor-stat-card.malignant strong {
+  color: #d64b4b;
+}
+.doctor-stat-card.confidence strong {
+  color: var(--a-600);
+}
 
 .doctor-stats-grid {
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -1201,42 +1202,19 @@ html[data-theme="dark"] .model-selector-field small {
   inset: 0;
   z-index: -2;
   background:
-    radial-gradient(
-      ellipse 60% 50% at 15% 20%,
-      rgba(43, 161, 73, 0.16),
-      transparent 60%
-    ),
-    radial-gradient(
-      ellipse 55% 45% at 85% 15%,
-      rgba(253, 134, 36, 0.13),
-      transparent 55%
-    ),
-    radial-gradient(
-      ellipse 80% 60% at 50% 100%,
-      rgba(43, 161, 73, 0.09),
-      transparent 65%
-    ),
-    linear-gradient(180deg, #ffffff 0%, #fbfcfd 100%);
+    radial-gradient(ellipse 60% 50% at 15% 20%, rgba(43, 161, 73, 0.16), transparent 60%),
+    radial-gradient(ellipse 55% 45% at 85% 15%, rgba(253, 134, 36, 0.13), transparent 55%),
+    radial-gradient(ellipse 80% 60% at 50% 100%, rgba(43, 161, 73, 0.09), transparent 65%), linear-gradient(180deg, #ffffff 0%, #fbfcfd 100%);
 }
 
 .hero-grid {
   position: absolute;
   inset: 0;
   z-index: -1;
-  background-image:
-    linear-gradient(rgba(10, 14, 20, 0.028) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(10, 14, 20, 0.028) 1px, transparent 1px);
+  background-image: linear-gradient(rgba(10, 14, 20, 0.028) 1px, transparent 1px), linear-gradient(90deg, rgba(10, 14, 20, 0.028) 1px, transparent 1px);
   background-size: 46px 46px;
-  mask-image: radial-gradient(
-    ellipse 75% 60% at 50% 40%,
-    black 30%,
-    transparent 85%
-  );
-  -webkit-mask-image: radial-gradient(
-    ellipse 75% 60% at 50% 40%,
-    black 30%,
-    transparent 85%
-  );
+  mask-image: radial-gradient(ellipse 75% 60% at 50% 40%, black 30%, transparent 85%);
+  -webkit-mask-image: radial-gradient(ellipse 75% 60% at 50% 40%, black 30%, transparent 85%);
 }
 
 .hero-inner {
@@ -1287,12 +1265,7 @@ html[data-theme="dark"] .model-selector-field small {
 
 .hero-title-accent {
   display: inline-block;
-  background: linear-gradient(
-    120deg,
-    var(--p-500) 0%,
-    var(--p-600) 45%,
-    var(--a-500) 100%
-  );
+  background: linear-gradient(120deg, var(--p-500) 0%, var(--p-600) 45%, var(--a-500) 100%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -1731,12 +1704,7 @@ html[data-theme="dark"] .model-selector-field small {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    120deg,
-    transparent 20%,
-    rgba(255, 255, 255, 0.22) 50%,
-    transparent 80%
-  );
+  background: linear-gradient(120deg, transparent 20%, rgba(255, 255, 255, 0.22) 50%, transparent 80%);
   transform: translateX(-100%);
   transition: transform 0.7s var(--ease);
 }
@@ -3360,7 +3328,9 @@ html[data-theme="dark"] #modelName {
   color: #4ade80 !important;
   font-weight: 700 !important;
   text-shadow: 0 0 10px rgba(74, 222, 128, 0.3);
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35), 0 0 12px rgba(43, 161, 73, 0.25) !important;
+  box-shadow:
+    0 4px 14px rgba(0, 0, 0, 0.35),
+    0 0 12px rgba(43, 161, 73, 0.25) !important;
 }
 
 /* Badge mô hình (Tông Cam ấm thương hiệu #fd8624) */
@@ -3402,13 +3372,17 @@ html[data-theme="dark"] .nav-status {
 .status-dot.online,
 .live-dot {
   background: #2ba149;
-  box-shadow: 0 0 0 3px rgba(43, 161, 73, 0.25), 0 0 8px #2ba149;
+  box-shadow:
+    0 0 0 3px rgba(43, 161, 73, 0.25),
+    0 0 8px #2ba149;
 }
 
 html[data-theme="dark"] .status-dot.online,
 html[data-theme="dark"] .live-dot {
   background: #4ade80 !important;
-  box-shadow: 0 0 0 3px rgba(74, 222, 128, 0.3), 0 0 10px #4ade80 !important;
+  box-shadow:
+    0 0 0 3px rgba(74, 222, 128, 0.3),
+    0 0 10px #4ade80 !important;
 }
 
 .status-chip.success,
@@ -3429,17 +3403,17 @@ html[data-theme="dark"] .role-badge {
 
 /* 3. Đồng bộ khối Dropzone theo bảng màu nhận diện thương hiệu */
 html[data-theme="dark"] .dropzone {
-  background: radial-gradient(circle at 50% 10%, rgba(43, 161, 73, 0.12) 0%, transparent 65%),
-              linear-gradient(180deg, #162438 0%, #101a28 100%) !important;
+  background: radial-gradient(circle at 50% 10%, rgba(43, 161, 73, 0.12) 0%, transparent 65%), linear-gradient(180deg, #162438 0%, #101a28 100%) !important;
   border: 1.5px dashed rgba(43, 161, 73, 0.4) !important;
   box-shadow: 0 8px 24px -6px rgba(0, 0, 0, 0.5);
 }
 
 html[data-theme="dark"] .dropzone:hover {
   border-color: #2ba149 !important;
-  background: radial-gradient(circle at 50% 10%, rgba(43, 161, 73, 0.22) 0%, transparent 70%),
-              linear-gradient(180deg, #1a2a40 0%, #121e2e 100%) !important;
-  box-shadow: 0 12px 28px -4px rgba(0, 0, 0, 0.6), 0 0 20px rgba(43, 161, 73, 0.25) !important;
+  background: radial-gradient(circle at 50% 10%, rgba(43, 161, 73, 0.22) 0%, transparent 70%), linear-gradient(180deg, #1a2a40 0%, #121e2e 100%) !important;
+  box-shadow:
+    0 12px 28px -4px rgba(0, 0, 0, 0.6),
+    0 0 20px rgba(43, 161, 73, 0.25) !important;
 }
 
 html[data-theme="dark"] .dropzone-icon {
@@ -3461,7 +3435,6 @@ html[data-theme="dark"] .dropzone-sub {
 html[data-theme="dark"] .dropzone-meta {
   color: #64748b !important;
 }
-
 
 /* Homepage banners: match the 1920x1080 artwork on wide screens.
    Keep the image proportional without distortion; crop only on narrow screens. */

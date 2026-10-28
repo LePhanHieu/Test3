@@ -26,14 +26,38 @@
 
   // Translations / mapping for skin cancer types
   const CLASS_MAP = {
-    mel: { vi: "U hắc tố ác tính (Melanoma)", type: "malignant", desc: "Dạng ung thư da nguy hiểm nhất, bắt nguồn từ tế bào sinh sắc tố (melanocyte). Cần hội chẩn chuyên sâu và can thiệp kịp thời." },
-    nv: { vi: "Nốt ruồi / Bớt sắc tố lành tính (Melanocytic Nevus)", type: "benign", desc: "Tổn thương lành tính phổ biến gồm các cụm tế bào sắc tố. Cần theo dõi định kỳ nếu có dấu hiệu đổi màu hoặc kích thước." },
-    bcc: { vi: "Ung thư biểu mô tế bào đáy (Basal Cell Carcinoma)", type: "malignant", desc: "Dạng ung thư da phổ biến nhất, tiến triển chậm và hiếm khi di căn xa nhưng cần điều trị loại bỏ sớm." },
-    akiec: { vi: "Dày sừng quang hóa / Ung thư biểu mô tại chỗ (Actinic Keratosis)", type: "malignant", desc: "Tổn thương tiền ung thư hoặc ung thư biểu mô tại chỗ do tiếp xúc lâu ngày với tia cực tím (UV)." },
-    bkl: { vi: "Dày sừng lành tính (Benign Keratosis)", type: "benign", desc: "Tổn thương lành tính bao gồm dày sừng tiết bã, dày sừng dạng lichen hoặc hạt cơm sừng." },
+    mel: {
+      vi: "U hắc tố ác tính (Melanoma)",
+      type: "malignant",
+      desc: "Dạng ung thư da nguy hiểm nhất, bắt nguồn từ tế bào sinh sắc tố (melanocyte). Cần hội chẩn chuyên sâu và can thiệp kịp thời.",
+    },
+    nv: {
+      vi: "Nốt ruồi / Bớt sắc tố lành tính (Melanocytic Nevus)",
+      type: "benign",
+      desc: "Tổn thương lành tính phổ biến gồm các cụm tế bào sắc tố. Cần theo dõi định kỳ nếu có dấu hiệu đổi màu hoặc kích thước.",
+    },
+    bcc: {
+      vi: "Ung thư biểu mô tế bào đáy (Basal Cell Carcinoma)",
+      type: "malignant",
+      desc: "Dạng ung thư da phổ biến nhất, tiến triển chậm và hiếm khi di căn xa nhưng cần điều trị loại bỏ sớm.",
+    },
+    akiec: {
+      vi: "Dày sừng quang hóa / Ung thư biểu mô tại chỗ (Actinic Keratosis)",
+      type: "malignant",
+      desc: "Tổn thương tiền ung thư hoặc ung thư biểu mô tại chỗ do tiếp xúc lâu ngày với tia cực tím (UV).",
+    },
+    bkl: {
+      vi: "Dày sừng lành tính (Benign Keratosis)",
+      type: "benign",
+      desc: "Tổn thương lành tính bao gồm dày sừng tiết bã, dày sừng dạng lichen hoặc hạt cơm sừng.",
+    },
     df: { vi: "U xơ da lành tính (Dermatofibroma)", type: "benign", desc: "Khối u da lành tính dạng cục nhỏ, chắc, thường xuất hiện ở chi dưới." },
     vasc: { vi: "Tổn thương mạch máu (Vascular Lesion)", type: "benign", desc: "Bao gồm u máu, u hạt sinh mủ hoặc giãn mao mạch. Đa phần là lành tính." },
-    scc: { vi: "Ung thư biểu mô tế bào vảy (Squamous Cell Carcinoma)", type: "malignant", desc: "Dạng ung thư da bắt nguồn từ tế bào vảy ở lớp thượng bì, có khả năng xâm lấn mô xung quanh." }
+    scc: {
+      vi: "Ung thư biểu mô tế bào vảy (Squamous Cell Carcinoma)",
+      type: "malignant",
+      desc: "Dạng ung thư da bắt nguồn từ tế bào vảy ở lớp thượng bì, có khả năng xâm lấn mô xung quanh.",
+    },
   };
 
   // State
@@ -51,7 +75,7 @@
         month: "2-digit",
         day: "2-digit",
         hour: "2-digit",
-        minute: "2-digit"
+        minute: "2-digit",
       });
     } catch (e) {
       return isoStr;
@@ -66,7 +90,7 @@
 
     // 1. Sync Navbar active button (#patientNav [data-ptab])
     const navTabs = document.querySelectorAll("#patientNav [data-ptab]");
-    navTabs.forEach(function(btn) {
+    navTabs.forEach(function (btn) {
       const isTarget = btn.getAttribute("data-ptab") === targetPage;
       btn.classList.toggle("is-active", isTarget);
     });
@@ -75,11 +99,11 @@
     const pageSections = {
       timeline: document.getElementById("patientTimelinePage"),
       profile: document.getElementById("patientProfilePage"),
-      reports: document.getElementById("patientReportsPage")
+      reports: document.getElementById("patientReportsPage"),
     };
 
     // 3. Ẩn tất cả, chỉ hiện đúng trang target
-    Object.keys(pageSections).forEach(function(key) {
+    Object.keys(pageSections).forEach(function (key) {
       const section = pageSections[key];
       if (!section) return;
       if (key === targetPage) {
@@ -105,7 +129,7 @@
     if (doScroll) {
       const activeSection = pageSections[targetPage];
       if (activeSection) {
-        window.requestAnimationFrame(function() {
+        window.requestAnimationFrame(function () {
           activeSection.scrollIntoView({ behavior: "smooth", block: "start" });
         });
       }
@@ -176,7 +200,7 @@
         patientCases.forEach((c) => {
           const item = document.createElement("div");
           item.className = `patient-timeline-item status-${String(c.status || "created").toLowerCase()}`;
-          
+
           let statusLabel = "Mới tạo";
           let statusPillClass = "created";
           if (c.status === "COMPLETED") {
@@ -351,7 +375,8 @@
       // Doctor Review
       const conclusion = (latestReview && latestReview.doctor_conclusion) || "Bác sĩ đang xem xét và hoàn tất kết luận chuyên khoa.";
       const clinicalNote = (latestReview && latestReview.clinical_note) || "Hình ảnh tổn thương đang trong quá trình theo dõi.";
-      const recommendation = (latestReview && latestReview.recommendation) || "Tuân thủ hướng dẫn vệ sinh da, tránh tiếp xúc trực tiếp tia UV và tái khám định kỳ theo lịch hẹn.";
+      const recommendation =
+        (latestReview && latestReview.recommendation) || "Tuân thủ hướng dẫn vệ sinh da, tránh tiếp xúc trực tiếp tia UV và tái khám định kỳ theo lịch hẹn.";
       const doctorName = c.doctor_name || "Bác sĩ chuyên khoa DermaScan AI";
 
       // Report download button if available
@@ -507,14 +532,14 @@
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
-          "X-CSRFToken": patientCsrfToken
+          "X-CSRFToken": patientCsrfToken,
         },
         body: JSON.stringify({
           full_name: fullName,
           phone: phone,
           gender: gender,
-          date_of_birth: dob || null
-        })
+          date_of_birth: dob || null,
+        }),
       });
 
       const d = await res.json();
@@ -551,17 +576,13 @@
 
     // Navbar tab buttons click (#patientNav [data-ptab])
     // Also handle legacy .patient-portal-tab if any
-    const allTabSelectors = [
-      "#patientNav [data-ptab]",
-      ".patient-portal-tab[data-ptab]",
-      ".patient-portal-tab[data-tab]"
-    ];
-    allTabSelectors.forEach(function(selector) {
-      document.querySelectorAll(selector).forEach(function(tab) {
+    const allTabSelectors = ["#patientNav [data-ptab]", ".patient-portal-tab[data-ptab]", ".patient-portal-tab[data-tab]"];
+    allTabSelectors.forEach(function (selector) {
+      document.querySelectorAll(selector).forEach(function (tab) {
         // Prevent duplicate listeners
         if (tab.dataset._ptabBound) return;
         tab.dataset._ptabBound = "1";
-        tab.addEventListener("click", function() {
+        tab.addEventListener("click", function () {
           const target = tab.getAttribute("data-ptab") || tab.getAttribute("data-tab");
           if (target) switchPatientPage(target, true);
         });

@@ -303,8 +303,7 @@ async function compareImages() {
       headers: { "X-CSRFToken": csrfToken },
     });
     const data = await responseJson(response);
-    if (!response.ok)
-      throw new Error(getErrorMessage(data, "Không thể so sánh hai ảnh."));
+    if (!response.ok) throw new Error(getErrorMessage(data, "Không thể so sánh hai ảnh."));
 
     compareAreaChange.textContent = `${data.area_change_percent > 0 ? "+" : ""}${data.area_change_percent}%`;
     compareColorChange.textContent = `${data.color_variance_percent}%`;
@@ -316,8 +315,7 @@ async function compareImages() {
     compareResult.classList.remove("hidden");
   } catch (error) {
     compareResultNote.classList.add("error");
-    compareResultNote.textContent =
-      error.message || "Pipeline so sánh ảnh thất bại.";
+    compareResultNote.textContent = error.message || "Pipeline so sánh ảnh thất bại.";
     compareResult.classList.remove("hidden");
   } finally {
     syncComparisonButton();
@@ -370,20 +368,13 @@ function resetClinicalLightbox() {
   clinicalZoom = 1;
   clinicalPanX = 0;
   clinicalPanY = 0;
-  if (
-    clinicalLightboxImage &&
-    clinicalLightboxStage &&
-    clinicalLightboxImage.naturalWidth
-  ) {
+  if (clinicalLightboxImage && clinicalLightboxStage && clinicalLightboxImage.naturalWidth) {
     const fit = Math.min(
-      (clinicalLightboxStage.clientWidth - 48) /
-        clinicalLightboxImage.naturalWidth,
-      (clinicalLightboxStage.clientHeight - 48) /
-        clinicalLightboxImage.naturalHeight,
+      (clinicalLightboxStage.clientWidth - 48) / clinicalLightboxImage.naturalWidth,
+      (clinicalLightboxStage.clientHeight - 48) / clinicalLightboxImage.naturalHeight,
       1,
     );
-    clinicalBaseWidth =
-      clinicalLightboxImage.naturalWidth * Math.max(0.05, fit);
+    clinicalBaseWidth = clinicalLightboxImage.naturalWidth * Math.max(0.05, fit);
     clinicalLightboxImage.style.width = `${clinicalBaseWidth}px`;
   }
   updateClinicalLightboxTransform();
@@ -397,13 +388,11 @@ function closeClinicalLightbox() {
 }
 
 function openClinicalLightbox(image) {
-  if (!clinicalLightbox || !clinicalLightboxImage || !image || !image.src)
-    return;
+  if (!clinicalLightbox || !clinicalLightboxImage || !image || !image.src) return;
   clinicalLightboxImage.src = image.currentSrc || image.src;
   clinicalLightboxImage.alt = image.alt || "Ảnh lâm sàng";
   if (clinicalLightboxTitle) {
-    clinicalLightboxTitle.textContent =
-      image.dataset.lightboxTitle || image.alt || "Xem ảnh chi tiết";
+    clinicalLightboxTitle.textContent = image.dataset.lightboxTitle || image.alt || "Xem ảnh chi tiết";
   }
   clinicalLightbox.classList.remove("hidden");
   document.body.style.overflow = "hidden";
@@ -416,22 +405,11 @@ document.querySelectorAll(".clinical-image-zoomable").forEach((image) => {
   image.addEventListener("click", () => openClinicalLightbox(image));
 });
 
-if (clinicalZoomIn)
-  clinicalZoomIn.addEventListener("click", () =>
-    setClinicalZoom(clinicalZoom + 0.25),
-  );
-if (clinicalZoomOut)
-  clinicalZoomOut.addEventListener("click", () =>
-    setClinicalZoom(clinicalZoom - 0.25),
-  );
-if (clinicalZoomReset)
-  clinicalZoomReset.addEventListener("click", resetClinicalLightbox);
-if (clinicalZoomSlider)
-  clinicalZoomSlider.addEventListener("input", (event) =>
-    setClinicalZoom(event.target.value),
-  );
-if (clinicalLightboxClose)
-  clinicalLightboxClose.addEventListener("click", closeClinicalLightbox);
+if (clinicalZoomIn) clinicalZoomIn.addEventListener("click", () => setClinicalZoom(clinicalZoom + 0.25));
+if (clinicalZoomOut) clinicalZoomOut.addEventListener("click", () => setClinicalZoom(clinicalZoom - 0.25));
+if (clinicalZoomReset) clinicalZoomReset.addEventListener("click", resetClinicalLightbox);
+if (clinicalZoomSlider) clinicalZoomSlider.addEventListener("input", (event) => setClinicalZoom(event.target.value));
+if (clinicalLightboxClose) clinicalLightboxClose.addEventListener("click", closeClinicalLightbox);
 if (clinicalLightbox) {
   clinicalLightbox.addEventListener("click", (event) => {
     if (event.target === clinicalLightbox) closeClinicalLightbox();
@@ -476,11 +454,9 @@ if (clinicalLightboxStage) {
   );
 }
 document.addEventListener("keydown", (event) => {
-  if (!clinicalLightbox || clinicalLightbox.classList.contains("hidden"))
-    return;
+  if (!clinicalLightbox || clinicalLightbox.classList.contains("hidden")) return;
   if (event.key === "Escape") closeClinicalLightbox();
-  if (event.key === "+" || event.key === "=")
-    setClinicalZoom(clinicalZoom + 0.25);
+  if (event.key === "+" || event.key === "=") setClinicalZoom(clinicalZoom + 0.25);
   if (event.key === "-") setClinicalZoom(clinicalZoom - 0.25);
   if (event.key === "0") resetClinicalLightbox();
 });
@@ -659,15 +635,9 @@ function patientDisplayDate(value) {
 
 function syncAnalyzeButton() {
   if (analyzeBtn.classList.contains("is-completed")) return;
-  const canUse =
-    currentUser &&
-    (currentUser.role === "DOCTOR" || currentUser.role === "ADMIN");
+  const canUse = currentUser && (currentUser.role === "DOCTOR" || currentUser.role === "ADMIN");
 
-  analyzeBtn.disabled = !(
-    canUse &&
-    selectedPatient &&
-    selectedFiles.length > 0
-  );
+  analyzeBtn.disabled = !(canUse && selectedPatient && selectedFiles.length > 0);
 }
 
 // ============================================================
@@ -713,9 +683,7 @@ function renderSelectedPatient() {
     meta.push(data.gender);
   }
 
-  selectedPatientMeta.textContent = meta.length
-    ? meta.join(" · ")
-    : "Chưa có thông tin " + "ngày sinh / giới tính";
+  selectedPatientMeta.textContent = meta.length ? meta.join(" · ") : "Chưa có thông tin " + "ngày sinh / giới tính";
 
   // ================= CONTACT =================
 
@@ -733,9 +701,7 @@ function renderSelectedPatient() {
     contact.push(data.address);
   }
 
-  selectedPatientContact.textContent = contact.length
-    ? contact.join(" · ")
-    : "Chưa có thông tin liên hệ";
+  selectedPatientContact.textContent = contact.length ? contact.join(" · ") : "Chưa có thông tin liên hệ";
 
   selectedPatientCard.hidden = false;
 
@@ -813,9 +779,7 @@ async function loadPatients() {
     const data = await responseJson(response);
 
     if (!response.ok) {
-      throw new Error(
-        getErrorMessage(data, "Không tải được " + "danh sách bệnh nhân."),
-      );
+      throw new Error(getErrorMessage(data, "Không tải được " + "danh sách bệnh nhân."));
     }
 
     registeredPatients = data.patients || [];
@@ -945,10 +909,7 @@ temporaryPatientBackdrop.addEventListener("click", closeTemporaryPatientModal);
 // ESC closes modal
 
 document.addEventListener("keydown", (event) => {
-  if (
-    event.key === "Escape" &&
-    !temporaryPatientModal.classList.contains("hidden")
-  ) {
+  if (event.key === "Escape" && !temporaryPatientModal.classList.contains("hidden")) {
     closeTemporaryPatientModal();
   }
 });
@@ -1037,11 +998,7 @@ async function ensureCurrentCase() {
    * Workflow chính dùng tài khoản Doctor.
    */
   if (currentUser.role === "ADMIN") {
-    throw new Error(
-      "Để tạo ca từ giao diện này, " +
-        "hãy đăng nhập bằng " +
-        "tài khoản Doctor.",
-    );
+    throw new Error("Để tạo ca từ giao diện này, " + "hãy đăng nhập bằng " + "tài khoản Doctor.");
   }
 
   const payload = {
@@ -1119,9 +1076,7 @@ async function refreshAuthState() {
       return;
     }
 
-    authStatus.textContent = `${
-      currentUser.full_name || currentUser.email
-    } · ${currentUser.role}`;
+    authStatus.textContent = `${currentUser.full_name || currentUser.email} · ${currentUser.role}`;
 
     loginBtn.classList.add("hidden");
 
@@ -1230,13 +1185,7 @@ async function executeLogout() {
   } finally {
     currentUser = null;
     try {
-      [
-        "dermascan_current_user",
-        "currentUser",
-        "dermascan_doctor_profile",
-        "role",
-        "user",
-      ].forEach((key) => {
+      ["dermascan_current_user", "currentUser", "dermascan_doctor_profile", "role", "user"].forEach((key) => {
         localStorage.removeItem(key);
       });
       sessionStorage.clear();
@@ -1263,8 +1212,7 @@ let siteSettings = null;
 // Áp dụng nội dung động sau mỗi lần dịch giao diện để cấu hình ADMIN được ưu tiên.
 window.applyConfiguredHomepage = function (language) {
   const configuration = siteSettings?.homepage_config;
-  const current =
-    configuration?.[language === "en" ? "en" : "vi"] || configuration?.vi;
+  const current = configuration?.[language === "en" ? "en" : "vi"] || configuration?.vi;
   if (!current) return;
   const write = (selector, value) => {
     const element = document.querySelector(selector);
@@ -1329,11 +1277,7 @@ function setOptionalSiteLink(id, label, href) {
     return;
   }
 
-  const hasValue =
-    typeof label === "string" &&
-    label.trim() &&
-    typeof href === "string" &&
-    href.trim();
+  const hasValue = typeof label === "string" && label.trim() && typeof href === "string" && href.trim();
 
   node.classList.toggle("hidden", !hasValue);
 
@@ -1404,17 +1348,9 @@ async function loadSiteSettings() {
       favicon.href = siteSettings.favicon_url;
     }
 
-    setOptionalSiteLink(
-      "site-phone",
-      siteSettings.phone,
-      `tel:${siteSettings.phone || ""}`,
-    );
+    setOptionalSiteLink("site-phone", siteSettings.phone, `tel:${siteSettings.phone || ""}`);
 
-    setOptionalSiteLink(
-      "site-email",
-      siteSettings.email,
-      `mailto:${siteSettings.email || ""}`,
-    );
+    setOptionalSiteLink("site-email", siteSettings.email, `mailto:${siteSettings.email || ""}`);
 
     setOptionalSiteLink("site-facebook", "Facebook", siteSettings.facebook_url);
 
@@ -1428,9 +1364,7 @@ async function loadSiteSettings() {
 // HOMEPAGE SLIDES
 // ============================================================
 
-const homepageCarousel = document.querySelector(
-  '[data-testid="homepage-carousel"]',
-);
+const homepageCarousel = document.querySelector('[data-testid="homepage-carousel"]');
 
 const homepageTrack = $("homepage-carousel-track");
 
@@ -1475,9 +1409,7 @@ function stopHomepageTimer() {
 }
 
 function homepageCanAutoplay() {
-  return (
-    homepageSlides.length > 1 && !homepageTransitioning && !document.hidden
-  );
+  return homepageSlides.length > 1 && !homepageTransitioning && !document.hidden;
 }
 
 function restartHomepageTimer() {
@@ -1505,8 +1437,7 @@ async function prepareHomepageImage(index) {
     return;
   }
 
-  const normalizedIndex =
-    (index + homepageSlides.length) % homepageSlides.length;
+  const normalizedIndex = (index + homepageSlides.length) % homepageSlides.length;
 
   const slide = homepageTrack.children[normalizedIndex];
 
@@ -1570,12 +1501,7 @@ function clearHomepageMotion(slide) {
     return;
   }
 
-  slide.classList.remove(
-    "is-leaving-next",
-    "is-leaving-prev",
-    "is-pre-enter-next",
-    "is-pre-enter-prev",
-  );
+  slide.classList.remove("is-leaving-next", "is-leaving-prev", "is-pre-enter-next", "is-pre-enter-prev");
 }
 
 function updateHomepageIndicators() {
@@ -1601,8 +1527,7 @@ async function showHomepageSlide(requestedIndex, direction = "next") {
     return;
   }
 
-  const nextIndex =
-    (requestedIndex + homepageSlides.length) % homepageSlides.length;
+  const nextIndex = (requestedIndex + homepageSlides.length) % homepageSlides.length;
 
   if (nextIndex === homepageIndex) {
     restartHomepageTimer();
@@ -1677,9 +1602,7 @@ async function showHomepageSlide(requestedIndex, direction = "next") {
 
   // ================= PRELOAD FOLLOWING =================
 
-  const preloadIndex = isPrevious
-    ? (nextIndex - 1 + homepageSlides.length) % homepageSlides.length
-    : (nextIndex + 1) % homepageSlides.length;
+  const preloadIndex = isPrevious ? (nextIndex - 1 + homepageSlides.length) % homepageSlides.length : (nextIndex + 1) % homepageSlides.length;
 
   void prepareHomepageImage(preloadIndex);
 
@@ -1771,13 +1694,13 @@ function renderHomepageSlides(slides) {
     if (position === 0) {
       image.fetchPriority = "high";
     }
-      image.addEventListener(
-        "error",
-        () => {
-          article.classList.add("image-error");
-          console.warn("Ảnh banner không tải được:", image.src);
-        },
-        { once: true },
+    image.addEventListener(
+      "error",
+      () => {
+        article.classList.add("image-error");
+        console.warn("Ảnh banner không tải được:", image.src);
+      },
+      { once: true },
       {
         once: true,
       },
@@ -1896,9 +1819,7 @@ async function loadHomepageSlides() {
     }
 
     const data = await response.json();
-    const slides = Array.isArray(data.slides)
-      ? data.slides
-      : [];
+    const slides = Array.isArray(data.slides) ? data.slides : [];
 
     renderHomepageSlides(slides);
   } catch (error) {
@@ -1953,8 +1874,7 @@ fetch("/health")
   .then((data) => {
     statusDot.classList.add("online");
 
-    statusText.textContent =
-      data.device === "cuda" ? "GPU sẵn sàng" : "Chế độ CPU";
+    statusText.textContent = data.device === "cuda" ? "GPU sẵn sàng" : "Chế độ CPU";
   })
 
   .catch(() => {
@@ -2099,14 +2019,9 @@ function renderSelectedFiles() {
     const region = document.createElement("button");
     region.type = "button";
     region.className = "btn-region-select";
-    region.textContent = pendingRegions.has(file.name)
-      ? "Đã khoanh vùng ✓"
-      : "Khoanh vùng";
+    region.textContent = pendingRegions.has(file.name) ? "Đã khoanh vùng ✓" : "Khoanh vùng";
     region.addEventListener("click", async () => {
-      const points = await openFocusRegionModal(
-        file,
-        pendingRegions.get(file.name) || [],
-      );
+      const points = await openFocusRegionModal(file, pendingRegions.get(file.name) || []);
       if (points === null) return;
       if (points.length) pendingRegions.set(file.name, points);
       else pendingRegions.delete(file.name);
@@ -2223,10 +2138,7 @@ async function uploadBatch() {
 
   batchStatus.hidden = false;
 
-  batchStatusText.textContent =
-    `Batch #${data.batch_id}: ` +
-    `${data.success_count} thành công, ` +
-    `${data.failed_count} lỗi.`;
+  batchStatusText.textContent = `Batch #${data.batch_id}: ` + `${data.success_count} thành công, ` + `${data.failed_count} lỗi.`;
 
   renderBatchItems(data.items || []);
 
@@ -2263,10 +2175,7 @@ function renderBatchItems(items) {
 
     const status = document.createElement("small");
 
-    status.textContent =
-      item.status === "UPLOADED"
-        ? `ID ảnh: ` + `${item.case_image_id}`
-        : item.error_message || "Upload lỗi";
+    status.textContent = item.status === "UPLOADED" ? `ID ảnh: ` + `${item.case_image_id}` : item.error_message || "Upload lỗi";
 
     info.append(name, status);
 
@@ -2339,9 +2248,7 @@ analyzeBtn.addEventListener("click", async () => {
     const batch = await uploadBatch();
     await saveFocusRegions(batch.items);
 
-    const first = (batch.items || []).find(
-      (item) => item.status === "UPLOADED" && item.case_image_id,
-    );
+    const first = (batch.items || []).find((item) => item.status === "UPLOADED" && item.case_image_id);
 
     if (!first) {
       throw new Error("Batch không có ảnh hợp lệ.");
@@ -2384,8 +2291,7 @@ async function analyzeAndWait(caseImageId) {
     headers: { "X-CSRFToken": csrfToken },
   });
   const started = await responseJson(start);
-  if (!start.ok)
-    throw new Error(getErrorMessage(started, "Phân tích AI thất bại."));
+  if (!start.ok) throw new Error(getErrorMessage(started, "Phân tích AI thất bại."));
 
   const deadline = Date.now() + 180000; // chờ tối đa 3 phút
   while (Date.now() < deadline) {
@@ -2394,11 +2300,9 @@ async function analyzeAndWait(caseImageId) {
       credentials: "same-origin",
     });
     const info = await responseJson(res);
-    if (!res.ok)
-      throw new Error(getErrorMessage(info, "Không lấy được trạng thái."));
+    if (!res.ok) throw new Error(getErrorMessage(info, "Không lấy được trạng thái."));
     if (info.status === "COMPLETED") return info.result;
-    if (info.status === "FAILED")
-      throw new Error(info.error || "Phân tích AI thất bại.");
+    if (info.status === "FAILED") throw new Error(info.error || "Phân tích AI thất bại.");
     // PENDING / PROCESSING: chờ thêm
   }
   throw new Error("Phân tích quá lâu, vui lòng thử lại.");
@@ -2493,8 +2397,7 @@ function renderDoctorReview(review) {
 
   doctorRecommendation.value = review.recommendation || "";
 
-  doctorReviewStatus.textContent =
-    review.review_status === "REVIEWED" ? "Đã lưu" : "Bản nháp";
+  doctorReviewStatus.textContent = review.review_status === "REVIEWED" ? "Đã lưu" : "Bản nháp";
 
   doctorReviewStatus.classList.remove("unsaved");
 
@@ -2533,17 +2436,15 @@ async function loadDoctorReview() {
 // DIRTY REVIEW
 // ============================================================
 
-[doctorClinicalNote, doctorConclusion, doctorRecommendation].forEach(
-  (field) => {
-    field.addEventListener("input", () => {
-      doctorReviewStatus.textContent = "Chưa lưu";
+[doctorClinicalNote, doctorConclusion, doctorRecommendation].forEach((field) => {
+  field.addEventListener("input", () => {
+    doctorReviewStatus.textContent = "Chưa lưu";
 
-      doctorReviewStatus.classList.remove("saved");
+    doctorReviewStatus.classList.remove("saved");
 
-      doctorReviewStatus.classList.add("unsaved");
-    });
-  },
-);
+    doctorReviewStatus.classList.add("unsaved");
+  });
+});
 
 // ============================================================
 // SAVE REVIEW
@@ -2764,10 +2665,7 @@ exportExcelBtn.addEventListener("click", async () => {
     exportExcelBtn.disabled = true;
     exportExcelBtn.textContent = "Đang tạo Excel...";
 
-    const response = await fetch(
-      `/api/upload-batches/${currentBatchId}/analysis.xlsx`,
-      { credentials: "same-origin" },
-    );
+    const response = await fetch(`/api/upload-batches/${currentBatchId}/analysis.xlsx`, { credentials: "same-origin" });
     if (!response.ok) {
       const data = await responseJson(response);
       throw new Error(getErrorMessage(data, "Không tạo được file Excel."));
@@ -2813,10 +2711,7 @@ sendEmailBtn.addEventListener("click", async () => {
     return;
   }
 
-  const defaultPatientEmail =
-    currentPatientSnapshot && currentPatientSnapshot.email
-      ? currentPatientSnapshot.email
-      : "";
+  const defaultPatientEmail = currentPatientSnapshot && currentPatientSnapshot.email ? currentPatientSnapshot.email : "";
 
   const recipient = window.prompt("Email người nhận:", defaultPatientEmail);
 
@@ -2829,20 +2724,13 @@ sendEmailBtn.addEventListener("click", async () => {
    * Nếu không có email snapshot,
    * backend cũng không thể fallback case.patient.email.
    */
-  if (
-    selectedPatient &&
-    selectedPatient.kind === "temporary" &&
-    !recipient.trim()
-  ) {
+  if (selectedPatient && selectedPatient.kind === "temporary" && !recipient.trim()) {
     alert("Bệnh nhân tạm chưa có email. " + "Vui lòng nhập email người nhận.");
 
     return;
   }
 
-  const subject = window.prompt(
-    "Tiêu đề email:",
-    "Kết quả phân tích tổn thương da",
-  );
+  const subject = window.prompt("Tiêu đề email:", "Kết quả phân tích tổn thương da");
 
   if (subject === null) {
     return;
@@ -2935,14 +2823,8 @@ function renderResults(data) {
   }, 80);
 
   verdictNote.textContent = isMalignant
-    ? "Mô hình nhận diện đặc điểm " +
-      "nghi ngờ ác tính " +
-      `(độ tin cậy ` +
-      `${binary.confidence_pct}%).`
-    : "Mô hình không phát hiện " +
-      "đặc điểm ác tính " +
-      `(độ tin cậy ` +
-      `${binary.confidence_pct}%).`;
+    ? "Mô hình nhận diện đặc điểm " + "nghi ngờ ác tính " + `(độ tin cậy ` + `${binary.confidence_pct}%).`
+    : "Mô hình không phát hiện " + "đặc điểm ác tính " + `(độ tin cậy ` + `${binary.confidence_pct}%).`;
 
   // ================= TAG =================
 
@@ -2955,22 +2837,19 @@ function renderResults(data) {
   // Cảnh báo chất lượng ảnh + model không chắc chắn
   const warnings = [];
   if (data.quality && !data.quality.ok) warnings.push(...data.quality.warnings);
-  if (data.uncertainty && data.uncertainty.is_uncertain)
-    warnings.push(data.uncertainty.message);
+  if (data.uncertainty && data.uncertainty.is_uncertain) warnings.push(data.uncertainty.message);
 
   let warnBox = document.getElementById("warnBox");
   if (!warnBox) {
     warnBox = document.createElement("div");
     warnBox.id = "warnBox";
-    warnBox.style.cssText =
-      "background:#fff3cd;color:#664d03;padding:10px 14px;border-radius:8px;margin-bottom:12px;";
+    warnBox.style.cssText = "background:#fff3cd;color:#664d03;padding:10px 14px;border-radius:8px;margin-bottom:12px;";
     verdictCard.parentNode.insertBefore(warnBox, verdictCard);
   }
   warnBox.innerHTML = "";
   warnings.forEach((w) => {
     const item = document.createElement("div");
-    item.style.cssText =
-      "display:flex;align-items:flex-start;gap:8px;line-height:1.5;margin-bottom:4px;";
+    item.style.cssText = "display:flex;align-items:flex-start;gap:8px;line-height:1.5;margin-bottom:4px;";
     item.innerHTML = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#b45309" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px;" aria-hidden="true"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>`;
     const span = document.createElement("span");
     span.textContent = w;
@@ -3012,9 +2891,7 @@ function renderResults(data) {
 
     // Cập nhật trạng thái ChatGPT
     if (chatgptPill) {
-      chatgptPill.style.display = interpretation.chatgpt_powered
-        ? "inline-flex"
-        : "none";
+      chatgptPill.style.display = interpretation.chatgpt_powered ? "inline-flex" : "none";
     }
     if (interpretation.doctor_suggestion) {
       currentDoctorSuggestion = interpretation.doctor_suggestion;
@@ -3040,9 +2917,7 @@ function renderResults(data) {
 
   predBadge.textContent = `${predNameVi} · ${predClass}`;
 
-  predBadge.className =
-    "pred-badge" +
-    (multiclass.malignant_list.includes(predClass) ? " malignant" : "");
+  predBadge.className = "pred-badge" + (multiclass.malignant_list.includes(predClass) ? " malignant" : "");
 
   probsList.innerHTML = "";
 
@@ -3055,10 +2930,7 @@ function renderResults(data) {
 
     const row = document.createElement("div");
 
-    row.className =
-      "prob-row" +
-      (cls === predClass ? " top-pred" : "") +
-      (isMalig ? " malignant" : "");
+    row.className = "prob-row" + (cls === predClass ? " top-pred" : "") + (isMalig ? " malignant" : "");
 
     row.innerHTML = `
                 <span class="prob-label">
@@ -3252,9 +3124,7 @@ function setDoctorHistoryState(message, tone = "muted") {
 
 function historyDateLabel(value) {
   const date = new Date(value);
-  return Number.isNaN(date.getTime())
-    ? value
-    : date.toLocaleDateString("vi-VN");
+  return Number.isNaN(date.getTime()) ? value : date.toLocaleDateString("vi-VN");
 }
 
 function renderDoctorHistory() {
@@ -3271,16 +3141,7 @@ function renderDoctorHistory() {
 
   const visibleRecords = doctorHistoryRecords.filter((record) => {
     const recordTime = new Date(record.date).getTime();
-    const searchText = [
-      record.patient,
-      record.location,
-      record.diagnosis,
-      record.case_code,
-      record.id,
-    ]
-      .filter(Boolean)
-      .join(" ")
-      .toLowerCase();
+    const searchText = [record.patient, record.location, record.diagnosis, record.case_code, record.id].filter(Boolean).join(" ").toLowerCase();
     return (
       (!fromTime || recordTime >= fromTime) &&
       (!toTime || recordTime <= toTime) &&
@@ -3292,23 +3153,13 @@ function renderDoctorHistory() {
 
   body.replaceChildren();
   if (!visibleRecords.length) {
-    setDoctorHistoryState(
-      doctorHistoryRecords.length
-        ? "Không có bản ghi phù hợp với bộ lọc."
-        : "Chưa có dữ liệu lịch sử phân tích.",
-    );
+    setDoctorHistoryState(doctorHistoryRecords.length ? "Không có bản ghi phù hợp với bộ lọc." : "Chưa có dữ liệu lịch sử phân tích.");
     return;
   }
 
   visibleRecords.forEach((record) => {
     const row = document.createElement("tr");
-    const values = [
-      historyDateLabel(record.date),
-      record.patient,
-      record.location,
-      record.diagnosis,
-      `${record.confidence}%`,
-    ];
+    const values = [historyDateLabel(record.date), record.patient, record.location, record.diagnosis, `${record.confidence}%`];
     values.forEach((value, index) => {
       const cell = document.createElement("td");
       cell.textContent = value;
@@ -3328,10 +3179,7 @@ function renderDoctorHistory() {
     detailsButton.className = "history-action-btn";
     detailsButton.dataset.caseId = String(record.case_id);
     detailsButton.textContent = "Xem chi tiết";
-    detailsButton.setAttribute(
-      "aria-label",
-      `Xem chi tiết ca ${record.case_code || record.case_id}`,
-    );
+    detailsButton.setAttribute("aria-label", `Xem chi tiết ca ${record.case_code || record.case_id}`);
     actionCell.appendChild(detailsButton);
     row.appendChild(actionCell);
     body.appendChild(row);
@@ -3342,9 +3190,7 @@ function populateHistoryPatients() {
   const select = $("historyPatient");
   if (!select) return;
   const currentValue = select.value;
-  const patients = [
-    ...new Set(doctorHistoryRecords.map((record) => record.patient)),
-  ].sort();
+  const patients = [...new Set(doctorHistoryRecords.map((record) => record.patient))].sort();
   select.replaceChildren(new Option("Tất cả bệnh nhân", ""));
   patients.forEach((patient) => select.add(new Option(patient, patient)));
   select.value = patients.includes(currentValue) ? currentValue : "";
@@ -3361,44 +3207,24 @@ async function loadDoctorHistory() {
       credentials: "same-origin",
     });
     const data = await responseJson(response);
-    if (!response.ok)
-      throw new Error(
-        getErrorMessage(data, "Không thể tải lịch sử phân tích."),
-      );
+    if (!response.ok) throw new Error(getErrorMessage(data, "Không thể tải lịch sử phân tích."));
     doctorHistoryRecords = Array.isArray(data.records) ? data.records : [];
     populateHistoryPatients();
     renderDoctorHistory();
   } catch (error) {
-    setDoctorHistoryState(
-      error.message || "Không thể tải lịch sử phân tích.",
-      "error",
-    );
+    setDoctorHistoryState(error.message || "Không thể tải lịch sử phân tích.", "error");
   }
 }
 
 function exportDoctorHistory() {
-  const rows = [...$("historyTableBody").querySelectorAll("tr")].filter(
-    (row) => row.cells.length === 6,
-  );
+  const rows = [...$("historyTableBody").querySelectorAll("tr")].filter((row) => row.cells.length === 6);
   if (!rows.length) {
     alert("Không có dữ liệu phù hợp để xuất.");
     return;
   }
-  const header = [
-    "Ngày phân tích",
-    "Bệnh nhân",
-    "Vị trí tổn thương",
-    "Chẩn đoán AI",
-    "Độ tin cậy",
-    "Mã phân tích",
-  ];
+  const header = ["Ngày phân tích", "Bệnh nhân", "Vị trí tổn thương", "Chẩn đoán AI", "Độ tin cậy", "Mã phân tích"];
   const escapeCsv = (value) => `"${String(value).replaceAll('"', '""')}"`;
-  const csv = [
-    header,
-    ...rows.map((row) => [...row.cells].map((cell) => cell.textContent)),
-  ]
-    .map((row) => row.map(escapeCsv).join(","))
-    .join("\r\n");
+  const csv = [header, ...rows.map((row) => [...row.cells].map((cell) => cell.textContent))].map((row) => row.map(escapeCsv).join(",")).join("\r\n");
   const blob = new Blob([`\uFEFF${csv}`], { type: "text/csv;charset=utf-8" });
   const url = URL.createObjectURL(blob);
   const link = document.createElement("a");
@@ -3410,19 +3236,9 @@ function exportDoctorHistory() {
   URL.revokeObjectURL(url);
 }
 
-[
-  "historyDateFrom",
-  "historyDateTo",
-  "historyPatient",
-  "historyDiagnosis",
-  "historySearch",
-].forEach((id) => {
+["historyDateFrom", "historyDateTo", "historyPatient", "historyDiagnosis", "historySearch"].forEach((id) => {
   const control = $(id);
-  if (control)
-    control.addEventListener(
-      id === "historySearch" ? "input" : "change",
-      renderDoctorHistory,
-    );
+  if (control) control.addEventListener(id === "historySearch" ? "input" : "change", renderDoctorHistory);
 });
 if ($("historyTableBody")) {
   $("historyTableBody").addEventListener("click", (event) => {
@@ -3435,8 +3251,7 @@ if ($("historyTableBody")) {
     window.openCaseDetailModal(button.dataset.caseId);
   });
 }
-if ($("historyExportBtn"))
-  $("historyExportBtn").addEventListener("click", exportDoctorHistory);
+if ($("historyExportBtn")) $("historyExportBtn").addEventListener("click", exportDoctorHistory);
 window.loadDoctorHistory = loadDoctorHistory;
 
 // ============================================================
@@ -3476,8 +3291,7 @@ function renderDoctorStatistics(data) {
   $("statsMalignant").textContent = metrics.malignant_count ?? 0;
   $("statsConfidence").textContent = `${metrics.average_confidence ?? 0}%`;
   $("statsBenignRatio").textContent = `${metrics.benign_ratio ?? 0}% tổng số`;
-  $("statsMalignantRatio").textContent =
-    `${metrics.malignant_ratio ?? 0}% tổng số`;
+  $("statsMalignantRatio").textContent = `${metrics.malignant_ratio ?? 0}% tổng số`;
 
   if (doctorTrendChart) doctorTrendChart.destroy();
   if (doctorDistributionChart) doctorDistributionChart.destroy();
@@ -3518,9 +3332,7 @@ function renderDoctorStatistics(data) {
     },
   });
 
-  const distribution = (data.distribution || []).filter(
-    (item) => item.count > 0,
-  );
+  const distribution = (data.distribution || []).filter((item) => item.count > 0);
   doctorDistributionChart = new Chart(distributionCanvas, {
     type: "doughnut",
     data: {
@@ -3528,17 +3340,7 @@ function renderDoctorStatistics(data) {
       datasets: [
         {
           data: distribution.map((item) => item.count),
-          backgroundColor: [
-            "#d64b4b",
-            "#2ba149",
-            "#f59e0b",
-            "#7c3aed",
-            "#0891b2",
-            "#64748b",
-            "#f97316",
-            "#14b8a6",
-            "#be123c",
-          ],
+          backgroundColor: ["#d64b4b", "#2ba149", "#f59e0b", "#7c3aed", "#0891b2", "#64748b", "#f97316", "#14b8a6", "#be123c"],
         },
       ],
     },
@@ -3565,8 +3367,7 @@ async function loadDoctorStatistics() {
       credentials: "same-origin",
     });
     const data = await responseJson(response);
-    if (!response.ok)
-      throw new Error(getErrorMessage(data, "Không thể tải thống kê."));
+    if (!response.ok) throw new Error(getErrorMessage(data, "Không thể tải thống kê."));
     renderDoctorStatistics(data);
     status.textContent = `Dữ liệu từ ${data.filters.from || "tất cả thời gian"} đến ${data.filters.to || "hiện tại"}.`;
   } catch (error) {
@@ -3620,22 +3421,17 @@ if (chatgptRefreshBtn) {
       `;
 
       const csrfToken = await getCsrfToken();
-      const lesionLoc = lesionLocationInput
-        ? lesionLocationInput.value.trim()
-        : "";
+      const lesionLoc = lesionLocationInput ? lesionLocationInput.value.trim() : "";
 
-      const res = await fetch(
-        `/api/analyses/${currentAnalysisId}/chatgpt-consult`,
-        {
-          method: "POST",
-          credentials: "same-origin",
-          headers: {
-            "Content-Type": "application/json",
-            "X-CSRFToken": csrfToken,
-          },
-          body: JSON.stringify({ lesion_location: lesionLoc }),
+      const res = await fetch(`/api/analyses/${currentAnalysisId}/chatgpt-consult`, {
+        method: "POST",
+        credentials: "same-origin",
+        headers: {
+          "Content-Type": "application/json",
+          "X-CSRFToken": csrfToken,
         },
-      );
+        body: JSON.stringify({ lesion_location: lesionLoc }),
+      });
 
       const data = await responseJson(res);
       if (!res.ok) {
@@ -3644,8 +3440,7 @@ if (chatgptRefreshBtn) {
 
       if (data.consultation) {
         const c = data.consultation;
-        if (c.headline && interpHeadline)
-          interpHeadline.textContent = c.headline;
+        if (c.headline && interpHeadline) interpHeadline.textContent = c.headline;
         if (c.summary && interpSummary) interpSummary.textContent = c.summary;
         if (c.detail && interpDetail) interpDetail.textContent = c.detail;
         if (Array.isArray(c.actions) && interpActions) {
@@ -3656,8 +3451,7 @@ if (chatgptRefreshBtn) {
             interpActions.appendChild(li);
           });
         }
-        if (c.conclusion && interpConclusion)
-          interpConclusion.textContent = c.conclusion;
+        if (c.conclusion && interpConclusion) interpConclusion.textContent = c.conclusion;
 
         if (chatgptPill) chatgptPill.style.display = "inline-flex";
 

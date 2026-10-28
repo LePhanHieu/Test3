@@ -580,10 +580,7 @@ html[data-theme="dark"] #module-homepage .hm-calendar-actions button {
   color: #b5ebc3;
   border-color: #42645a;
 }
-html[data-theme="dark"]
-  #module-homepage
-  .hm-calendar-actions
-  .hm-calendar-confirm,
+html[data-theme="dark"] #module-homepage .hm-calendar-actions .hm-calendar-confirm,
 html[data-theme="dark"] #module-homepage .hm-day.is-selected {
   background: #2ba149;
   color: white;

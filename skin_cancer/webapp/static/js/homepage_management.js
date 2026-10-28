@@ -41,16 +41,13 @@
   const lang = () => config()[state.language];
   const field = (label, path, value, options = {}) =>
     `<label class="hm-field">${esc(label)}${options.long ? `<textarea data-hm-path="${esc(path)}" maxlength="${options.max || 1200}">${esc(value)}</textarea>` : `<input data-hm-path="${esc(path)}" type="${options.type || "text"}" maxlength="${options.max || 500}" value="${esc(value)}" />`}</label>`;
-  const group = (title, description = "") =>
-    `<h3>${esc(title)}</h3>${description ? `<p class="hm-help">${esc(description)}</p>` : ""}`;
+  const group = (title, description = "") => `<h3>${esc(title)}</h3>${description ? `<p class="hm-help">${esc(description)}</p>` : ""}`;
   let openCalendar = null;
   function get(path) {
-    return path
-      .split(".")
-      .reduce((value, key) => value?.[key], {
-        settings: state.settings,
-        slides: state.slides,
-      });
+    return path.split(".").reduce((value, key) => value?.[key], {
+      settings: state.settings,
+      slides: state.slides,
+    });
   }
   function put(path, value) {
     const parts = path.split(".");
@@ -69,17 +66,11 @@
     return `<div class="hm-image-tools"><span class="hm-field-title">${esc(label)}</span><label class="hm-file-picker"><span class="hm-upload-button"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 16V3m-5 5 5-5 5 5"/><path d="M4 16v4h16v-4"/></svg>Chọn ảnh từ máy</span><input data-hm-file="${esc(path)}" data-hm-kind="${esc({ logo: "logos", favicon: "favicons", banner: "banners" }[kind] || kind)}" type="file" accept="image/png,image/jpeg,image/webp,image/x-icon,image/vnd.microsoft.icon" aria-label="Chọn ảnh tải lên" /><span class="hm-file-name" aria-live="polite">${esc(state.files.get(path)?.file.name || (value ? "Đang sử dụng ảnh đã lưu · PNG, JPG, WEBP, ICO" : "Chưa chọn tệp · PNG, JPG, WEBP, ICO"))}</span></label><img data-hm-image="${esc(path)}" alt="Xem trước ảnh đã chọn" /><p class="hm-help">Hình mới chỉ tải lên máy chủ khi nhấn Lưu.</p></div>`;
   }
   function partsOfDate(value) {
-    const match = /^(\d{4})-(\d{2})-(\d{2})(?:T| )(\d{2}):(\d{2})/.exec(
-      value || "",
-    );
+    const match = /^(\d{4})-(\d{2})-(\d{2})(?:T| )(\d{2}):(\d{2})/.exec(value || "");
     if (!match) return null;
     const [year, month, day, hour, minute] = match.slice(1).map(Number);
     const date = new Date(year, month - 1, day);
-    return date.getFullYear() === year &&
-      date.getMonth() === month - 1 &&
-      date.getDate() === day &&
-      hour < 24 &&
-      minute < 60
+    return date.getFullYear() === year && date.getMonth() === month - 1 && date.getDate() === day && hour < 24 && minute < 60
       ? { year, month: month - 1, day, hour, minute }
       : null;
   }
@@ -96,10 +87,7 @@
     }).format(new Date(calendar.year, calendar.month, 1));
     const first = (new Date(calendar.year, calendar.month, 1).getDay() + 6) % 7;
     const days = new Date(calendar.year, calendar.month + 1, 0).getDate();
-    const cells = Array.from(
-      { length: first },
-      () => '<span aria-hidden="true"></span>',
-    )
+    const cells = Array.from({ length: first }, () => '<span aria-hidden="true"></span>')
       .concat(
         Array.from({ length: days }, (_, index) => {
           const day = index + 1;
@@ -129,62 +117,27 @@
     switch (state.tab) {
       case "branding":
         body =
-          group(
-            "Thương hiệu",
-            "Thay đổi tên, logo, favicon và mô tả trên thanh đầu trang.",
-          ) +
+          group("Thương hiệu", "Thay đổi tên, logo, favicon và mô tả trên thanh đầu trang.") +
           field("Tên website", "settings.site_name", s.site_name) +
-          field(
-            "Mô tả ngắn",
-            "settings.footer_description",
-            s.footer_description,
-            { long: true },
-          ) +
+          field("Mô tả ngắn", "settings.footer_description", s.footer_description, { long: true }) +
           selection("settings.logo_path", "logo", "Logo") +
           selection("settings.favicon_path", "favicon", "Favicon");
         break;
       case "banners":
         body =
-          group(
-            "Quản lý banner",
-            "Thêm, xóa, sắp xếp, bật/tắt hoặc đặt thời gian hiển thị. Tối đa 20 banner.",
-          ) +
+          group("Quản lý banner", "Thêm, xóa, sắp xếp, bật/tắt hoặc đặt thời gian hiển thị. Tối đa 20 banner.") +
           state.slides.map((item, i) => banner(i, item)).join("") +
           `<button type="button" class="hm-add-banner" data-hm-add><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg> Thêm banner</button>`;
         break;
       case "content":
         body =
-          group(
-            "Nội dung trang chủ",
-            "Thay đổi lời kêu gọi và ba thẻ tính năng.",
-          ) +
+          group("Nội dung trang chủ", "Thay đổi lời kêu gọi và ba thẻ tính năng.") +
           languageButtons() +
-          field(
-            "Nút chính",
-            `settings.homepage_config.${state.language}.hero.primary_cta`,
-            l.hero.primary_cta,
-          ) +
-          field(
-            "Nút phụ",
-            `settings.homepage_config.${state.language}.hero.secondary_cta`,
-            l.hero.secondary_cta,
-          ) +
-          field(
-            "Nhãn đầu mục",
-            `settings.homepage_config.${state.language}.features.eyebrow`,
-            l.features.eyebrow,
-          ) +
-          field(
-            "Tiêu đề tính năng",
-            `settings.homepage_config.${state.language}.features.title`,
-            l.features.title,
-          ) +
-          field(
-            "Giới thiệu tính năng",
-            `settings.homepage_config.${state.language}.features.lead`,
-            l.features.lead,
-            { long: true },
-          ) +
+          field("Nút chính", `settings.homepage_config.${state.language}.hero.primary_cta`, l.hero.primary_cta) +
+          field("Nút phụ", `settings.homepage_config.${state.language}.hero.secondary_cta`, l.hero.secondary_cta) +
+          field("Nhãn đầu mục", `settings.homepage_config.${state.language}.features.eyebrow`, l.features.eyebrow) +
+          field("Tiêu đề tính năng", `settings.homepage_config.${state.language}.features.title`, l.features.title) +
+          field("Giới thiệu tính năng", `settings.homepage_config.${state.language}.features.lead`, l.features.lead, { long: true }) +
           l.features.items
             .map(
               (item, i) =>
@@ -192,9 +145,7 @@
                 ["badge", "title", "description"]
                   .map((key) =>
                     field(
-                      { badge: "Nhãn", title: "Tiêu đề", description: "Mô tả" }[
-                        key
-                      ],
+                      { badge: "Nhãn", title: "Tiêu đề", description: "Mô tả" }[key],
                       `settings.homepage_config.${state.language}.features.items.${i}.${key}`,
                       item[key],
                       { long: key === "description" },
@@ -212,50 +163,21 @@
           field("Địa chỉ", "settings.address", s.address, { long: true }) +
           field("Facebook (HTTPS)", "settings.facebook_url", s.facebook_url) +
           Object.entries(c.social_links)
-            .map(([key, value]) =>
-              field(
-                `${key.toUpperCase()} (HTTPS)`,
-                `settings.homepage_config.social_links.${key}`,
-                value,
-              ),
-            )
+            .map(([key, value]) => field(`${key.toUpperCase()} (HTTPS)`, `settings.homepage_config.social_links.${key}`, value))
             .join("");
         break;
       case "footer":
         body =
-          group(
-            "Thông tin Footer",
-            "Giữ nội dung cảnh báo y khoa rằng AI không thay thế tư vấn bác sĩ.",
-          ) +
+          group("Thông tin Footer", "Giữ nội dung cảnh báo y khoa rằng AI không thay thế tư vấn bác sĩ.") +
           field("Tên Footer", "settings.footer_title", s.footer_title) +
           field("Bản quyền", "settings.copyright_text", s.copyright_text) +
           languageButtons() +
-          field(
-            "Giới thiệu Footer",
-            `settings.homepage_config.${state.language}.footer_extra.about`,
-            l.footer_extra.about,
-            { long: true },
-          ) +
+          field("Giới thiệu Footer", `settings.homepage_config.${state.language}.footer_extra.about`, l.footer_extra.about, { long: true }) +
           l.footer_extra.technology
-            .map((value, i) =>
-              field(
-                `Công nghệ ${i + 1}`,
-                `settings.homepage_config.${state.language}.footer_extra.technology.${i}`,
-                value,
-              ),
-            )
+            .map((value, i) => field(`Công nghệ ${i + 1}`, `settings.homepage_config.${state.language}.footer_extra.technology.${i}`, value))
             .join("") +
-          field(
-            "Lưu ý y khoa",
-            `settings.homepage_config.${state.language}.footer_extra.medical_notice`,
-            l.footer_extra.medical_notice,
-            { long: true },
-          ) +
-          field(
-            "Khẩu hiệu",
-            `settings.homepage_config.${state.language}.footer_extra.tagline`,
-            l.footer_extra.tagline,
-          );
+          field("Lưu ý y khoa", `settings.homepage_config.${state.language}.footer_extra.medical_notice`, l.footer_extra.medical_notice, { long: true }) +
+          field("Khẩu hiệu", `settings.homepage_config.${state.language}.footer_extra.tagline`, l.footer_extra.tagline);
         break;
     }
     editor.innerHTML = `<div class="hm-panel">${body}</div>`;
@@ -266,21 +188,14 @@
     });
     const calendar = editor.querySelector(".hm-calendar-popover");
     if (calendar) {
-      const spaceBelow =
-        window.innerHeight -
-        calendar.parentElement.getBoundingClientRect().bottom;
+      const spaceBelow = window.innerHeight - calendar.parentElement.getBoundingClientRect().bottom;
       const spaceAbove = calendar.parentElement.getBoundingClientRect().top;
-      calendar.classList.toggle(
-        "hm-calendar-above",
-        spaceBelow < calendar.offsetHeight + 12 && spaceAbove > spaceBelow,
-      );
+      calendar.classList.toggle("hm-calendar-above", spaceBelow < calendar.offsetHeight + 12 && spaceAbove > spaceBelow);
     }
   }
   function imageUrl(path, key) {
     if (state.urls.has(key)) return state.urls.get(key);
-    return path
-      ? `/api/admin/site-media/image?path=${encodeURIComponent(path)}`
-      : "";
+    return path ? `/api/admin/site-media/image?path=${encodeURIComponent(path)}` : "";
   }
   function paintPreview() {
     if (!state.loaded) return;
@@ -288,10 +203,7 @@
       c = config(),
       l = lang();
     const active = state.slides.find(
-      (slide) =>
-        slide.is_active &&
-        (!slide.start_at || new Date(slide.start_at) <= new Date()) &&
-        (!slide.end_at || new Date(slide.end_at) >= new Date()),
+      (slide) => slide.is_active && (!slide.start_at || new Date(slide.start_at) <= new Date()) && (!slide.end_at || new Date(slide.end_at) >= new Date()),
     );
     const safeText = (tag, css, text, parent) => {
       const el = document.createElement(tag);
@@ -311,23 +223,12 @@
     }
     safeText("span", "", s.site_name, head);
     const hero = safeText("section", "hm-site-hero", "", preview);
-    const heroImage =
-      active &&
-      imageUrl(
-        active.image_path,
-        `slides.${state.slides.indexOf(active)}.image_path`,
-      );
-    if (heroImage)
-      hero.style.backgroundImage = `linear-gradient(transparent,rgba(0,0,0,.35)),url("${heroImage.replace(/"/g, "%22")}")`;
+    const heroImage = active && imageUrl(active.image_path, `slides.${state.slides.indexOf(active)}.image_path`);
+    if (heroImage) hero.style.backgroundImage = `linear-gradient(transparent,rgba(0,0,0,.35)),url("${heroImage.replace(/"/g, "%22")}")`;
     const heroCopy = safeText("div", "hm-hero-copy", "", hero);
     safeText("h3", "", active?.title || s.site_name, heroCopy);
     safeText("p", "", active?.subtitle || s.footer_description, heroCopy);
-    safeText(
-      "small",
-      "",
-      l.hero.primary_cta + " · " + l.hero.secondary_cta,
-      heroCopy,
-    );
+    safeText("small", "", l.hero.primary_cta + " · " + l.hero.secondary_cta, heroCopy);
     const features = safeText("section", "hm-site-features", "", preview);
     safeText("small", "", l.features.eyebrow, features);
     safeText("h3", "", l.features.title, features);
@@ -342,20 +243,10 @@
     const foot = safeText("footer", "hm-site-footer", "", preview);
     safeText("strong", "", s.footer_title || s.site_name, foot);
     safeText("p", "", l.footer_extra.about, foot);
-    safeText(
-      "small",
-      "",
-      `${s.email || ""}  ${s.phone || ""}  ${s.address || ""}`,
-      foot,
-    );
+    safeText("small", "", `${s.email || ""}  ${s.phone || ""}  ${s.address || ""}`, foot);
     safeText("small", "", l.footer_extra.technology.join(" · "), foot);
     safeText("small", "", l.footer_extra.medical_notice, foot);
-    safeText(
-      "small",
-      "",
-      l.footer_extra.tagline + " · " + s.copyright_text,
-      foot,
-    );
+    safeText("small", "", l.footer_extra.tagline + " · " + s.copyright_text, foot);
   }
   function rerender() {
     drawEditor();
@@ -402,8 +293,7 @@
         credentials: "same-origin",
       });
       const token = await response.json();
-      if (!response.ok || !token.csrf_token)
-        throw Error("Không lấy được CSRF token.");
+      if (!response.ok || !token.csrf_token) throw Error("Không lấy được CSRF token.");
       headers["X-CSRFToken"] = token.csrf_token;
     }
     const response = await fetch(url, {
@@ -420,20 +310,14 @@
     state.loading = true;
     info("Đang tải cấu hình...");
     try {
-      const [settings, slides, media] = await Promise.all([
-        request("/api/site-settings"),
-        request("/api/admin/slides"),
-        request("/api/admin/site-media"),
-      ]);
+      const [settings, slides, media] = await Promise.all([request("/api/site-settings"), request("/api/admin/slides"), request("/api/admin/site-media")]);
       state.settings = settings;
       delete state.settings.id;
       delete state.settings.logo_url;
       delete state.settings.favicon_url;
       delete state.settings.updated_by;
       delete state.settings.updated_at;
-      state.settings.homepage_config ||= clone(
-        window.DERMASCAN_HOMEPAGE_DEFAULTS || {},
-      );
+      state.settings.homepage_config ||= clone(window.DERMASCAN_HOMEPAGE_DEFAULTS || {});
       state.slides = clone(slides.slides || []);
       state.images = media.images || [];
       state.loaded = true;
@@ -446,44 +330,22 @@
     }
   }
   function normalizeSlides() {
-    return state.slides.map(
-      ({
-        id,
-        title,
-        subtitle,
-        image_path,
-        button_text,
-        button_url,
-        is_active,
-        start_at,
-        end_at,
-      }) => ({
-        ...(Number.isInteger(id) ? { id } : {}),
-        title,
-        subtitle,
-        image_path,
-        button_text: button_text || null,
-        button_url: button_url || null,
-        is_active: !!is_active,
-        start_at: start_at || null,
-        end_at: end_at || null,
-      }),
-    );
+    return state.slides.map(({ id, title, subtitle, image_path, button_text, button_url, is_active, start_at, end_at }) => ({
+      ...(Number.isInteger(id) ? { id } : {}),
+      title,
+      subtitle,
+      image_path,
+      button_text: button_text || null,
+      button_url: button_url || null,
+      is_active: !!is_active,
+      start_at: start_at || null,
+      end_at: end_at || null,
+    }));
   }
   async function save() {
     if (!state.loaded) return;
-    if (
-      state.slides.some(
-        (slide) =>
-          slide.start_at &&
-          slide.end_at &&
-          new Date(slide.end_at) < new Date(slide.start_at),
-      )
-    ) {
-      info(
-        "Thời gian kết thúc banner phải sau hoặc bằng thời gian bắt đầu.",
-        true,
-      );
+    if (state.slides.some((slide) => slide.start_at && slide.end_at && new Date(slide.end_at) < new Date(slide.start_at))) {
+      info("Thời gian kết thúc banner phải sau hoặc bằng thời gian bắt đầu.", true);
       return;
     }
     saveButton.disabled = true;
@@ -508,9 +370,7 @@
         }),
       });
       state.settings = data.settings;
-      ["id", "logo_url", "favicon_url", "updated_by", "updated_at"].forEach(
-        (key) => delete state.settings[key],
-      );
+      ["id", "logo_url", "favicon_url", "updated_by", "updated_at"].forEach((key) => delete state.settings[key]);
       state.slides = data.slides || [];
       state.images = (await request("/api/admin/site-media")).images || [];
       state.files.clear();
@@ -533,10 +393,8 @@
   editor.addEventListener("input", (event) => {
     if (!openCalendar) return;
     const input = event.target;
-    if (input.hasAttribute("data-hm-hour"))
-      openCalendar.hour = Math.min(23, Math.max(0, Number(input.value) || 0));
-    if (input.hasAttribute("data-hm-minute"))
-      openCalendar.minute = Math.min(59, Math.max(0, Number(input.value) || 0));
+    if (input.hasAttribute("data-hm-hour")) openCalendar.hour = Math.min(23, Math.max(0, Number(input.value) || 0));
+    if (input.hasAttribute("data-hm-minute")) openCalendar.minute = Math.min(59, Math.max(0, Number(input.value) || 0));
   });
   editor.addEventListener("change", (event) => {
     const input = event.target;
@@ -545,8 +403,7 @@
       return;
     }
     if (input.dataset.hmFile) {
-      if (input.files[0])
-        syncFile(input.dataset.hmFile, input.files[0], input.dataset.hmKind);
+      if (input.files[0]) syncFile(input.dataset.hmFile, input.files[0], input.dataset.hmKind);
     }
   });
   editor.addEventListener("click", (event) => {
@@ -575,17 +432,10 @@
     }
     if (openCalendar) {
       if (button.dataset.hmMonth) {
-        const shifted = new Date(
-          openCalendar.year,
-          openCalendar.month + Number(button.dataset.hmMonth),
-          1,
-        );
+        const shifted = new Date(openCalendar.year, openCalendar.month + Number(button.dataset.hmMonth), 1);
         openCalendar.year = shifted.getFullYear();
         openCalendar.month = shifted.getMonth();
-        openCalendar.day = Math.min(
-          openCalendar.day,
-          new Date(openCalendar.year, openCalendar.month + 1, 0).getDate(),
-        );
+        openCalendar.day = Math.min(openCalendar.day, new Date(openCalendar.year, openCalendar.month + 1, 0).getDate());
         drawEditor();
         return;
       }
@@ -603,10 +453,7 @@
       if (button.hasAttribute("data-hm-apply")) {
         const c = openCalendar;
         const pad = (n) => String(n).padStart(2, "0");
-        put(
-          c.path,
-          `${c.year}-${pad(c.month + 1)}-${pad(c.day)}T${pad(c.hour)}:${pad(c.minute)}`,
-        );
+        put(c.path, `${c.year}-${pad(c.month + 1)}-${pad(c.day)}T${pad(c.hour)}:${pad(c.minute)}`);
         openCalendar = null;
         drawEditor();
         return;
@@ -639,9 +486,7 @@
       openCalendar = null;
       const i = Number(button.dataset.hmRemove);
       state.slides.splice(i, 1);
-      updateSlideFiles((index) =>
-        index === i ? null : index > i ? index - 1 : index,
-      );
+      updateSlideFiles((index) => (index === i ? null : index > i ? index - 1 : index));
       changed();
       rerender();
     }
@@ -650,10 +495,7 @@
       const [index, delta] = button.dataset.hmMove.split(":").map(Number);
       const to = index + delta;
       if (to < 0 || to >= state.slides.length) return;
-      [state.slides[index], state.slides[to]] = [
-        state.slides[to],
-        state.slides[index],
-      ];
+      [state.slides[index], state.slides[to]] = [state.slides[to], state.slides[index]];
       updateSlideFiles((i) => (i === index ? to : i === to ? index : i));
       changed();
       rerender();
@@ -675,20 +517,15 @@
     button.addEventListener("click", () => {
       openCalendar = null;
       state.tab = button.dataset.hmTab;
-      root
-        .querySelectorAll("[data-hm-tab]")
-        .forEach((tab) => tab.classList.toggle("active", tab === button));
+      root.querySelectorAll("[data-hm-tab]").forEach((tab) => tab.classList.toggle("active", tab === button));
       drawEditor();
     }),
   );
   root.querySelectorAll("[data-hm-device]").forEach((button) =>
     button.addEventListener("click", () => {
       state.device = button.dataset.hmDevice;
-      root
-        .querySelectorAll("[data-hm-device]")
-        .forEach((item) => item.classList.toggle("active", item === button));
-      document.getElementById("hm-preview-screen").className =
-        `hm-preview-screen ${state.device}`;
+      root.querySelectorAll("[data-hm-device]").forEach((item) => item.classList.toggle("active", item === button));
+      document.getElementById("hm-preview-screen").className = `hm-preview-screen ${state.device}`;
     }),
   );
   saveButton.addEventListener("click", save);

@@ -415,12 +415,7 @@ html[data-theme="dark"] .nav-item.active {
 .grid-lines {
   position: absolute;
   inset: 0 0 27px;
-  background: repeating-linear-gradient(
-    to bottom,
-    transparent 0,
-    transparent 43px,
-    var(--line) 44px
-  );
+  background: repeating-linear-gradient(to bottom, transparent 0, transparent 43px, var(--line) 44px);
 }
 .chart svg {
   position: absolute;
@@ -481,11 +476,7 @@ html[data-theme="dark"] .nav-item.active {
   width: 132px;
   height: 132px;
   border-radius: 50%;
-  background: conic-gradient(
-    var(--orange) 0 18%,
-    var(--green) 18% 86%,
-    var(--orange) 86%
-  );
+  background: conic-gradient(var(--orange) 0 18%, var(--green) 18% 86%, var(--orange) 86%);
   display: grid;
   place-items: center;
   flex: none;

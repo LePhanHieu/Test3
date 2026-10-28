@@ -19,9 +19,7 @@
   --admin-radius: 12px;
   --admin-radius-card: 16px;
   --admin-shadow-xs: 0 1px 2px rgba(16, 24, 40, 0.05);
-  --admin-shadow:
-    0 4px 14px -2px rgba(16, 24, 40, 0.08),
-    0 2px 6px -2px rgba(16, 24, 40, 0.05);
+  --admin-shadow: 0 4px 14px -2px rgba(16, 24, 40, 0.08), 0 2px 6px -2px rgba(16, 24, 40, 0.05);
   --admin-shadow-green: 0 8px 24px -8px rgba(43, 161, 73, 0.5);
 }
 
@@ -167,11 +165,7 @@ select:focus-visible {
 .brand-mark {
   width: 40px;
   height: 40px;
-  background: linear-gradient(
-    135deg,
-    var(--admin-green) 0%,
-    var(--admin-green-dark) 100%
-  );
+  background: linear-gradient(135deg, var(--admin-green) 0%, var(--admin-green-dark) 100%);
   border-radius: 11px;
   box-shadow: var(--admin-shadow-green);
   overflow: hidden;
@@ -1410,11 +1404,7 @@ html[data-theme="dark"] #module-profile .form-grid input {
 
 .primary {
   border: 1px solid var(--admin-green);
-  background: linear-gradient(
-    135deg,
-    var(--admin-green) 0%,
-    var(--admin-green-dark) 100%
-  );
+  background: linear-gradient(135deg, var(--admin-green) 0%, var(--admin-green-dark) 100%);
   box-shadow: var(--admin-shadow-green);
   color: #fff;
 }
@@ -1614,11 +1604,7 @@ html[data-theme="dark"] #module-profile .form-grid input {
   display: grid;
   place-items: center;
   border-radius: 50%;
-  background: linear-gradient(
-    135deg,
-    var(--admin-green),
-    var(--admin-green-dark)
-  );
+  background: linear-gradient(135deg, var(--admin-green), var(--admin-green-dark));
   color: #fff;
   font-family: "Sora", sans-serif;
   font-size: 13px;
@@ -2425,12 +2411,7 @@ html[data-theme="dark"] .sidebar .nav-item.active {
 /* Thẻ chỉ số Xanh lá (Tổng tài khoản & Lượt phân tích AI) */
 .stat-card.green {
   background:
-    radial-gradient(
-      circle at 85% 15%,
-      rgba(43, 161, 73, 0.22) 0%,
-      rgba(43, 161, 73, 0.04) 50%,
-      transparent 75%
-    ),
+    radial-gradient(circle at 85% 15%, rgba(43, 161, 73, 0.22) 0%, rgba(43, 161, 73, 0.04) 50%, transparent 75%),
     linear-gradient(135deg, #132235 0%, #0d2b20 100%) !important;
   border: 1px solid rgba(43, 161, 73, 0.32) !important;
   box-shadow:
@@ -2453,12 +2434,7 @@ html[data-theme="dark"] .sidebar .nav-item.active {
 /* Thẻ chỉ số Cam (Ca khám & Bác sĩ đang hoạt động) */
 .stat-card.orange {
   background:
-    radial-gradient(
-      circle at 85% 15%,
-      rgba(253, 134, 36, 0.22) 0%,
-      rgba(253, 134, 36, 0.04) 50%,
-      transparent 75%
-    ),
+    radial-gradient(circle at 85% 15%, rgba(253, 134, 36, 0.22) 0%, rgba(253, 134, 36, 0.04) 50%, transparent 75%),
     linear-gradient(135deg, #152233 0%, #2e1d16 100%) !important;
   border: 1px solid rgba(253, 134, 36, 0.32) !important;
   box-shadow:
@@ -2500,25 +2476,13 @@ html[data-theme="dark"] .sidebar .nav-item.active {
 
 /* Tương thích chế độ Sáng (Light mode) */
 html[data-theme="light"] .stat-card.green {
-  background:
-    radial-gradient(
-      circle at 85% 15%,
-      rgba(43, 161, 73, 0.12) 0%,
-      transparent 70%
-    ),
-    linear-gradient(135deg, #ffffff 0%, #eaf8ee 100%) !important;
+  background: radial-gradient(circle at 85% 15%, rgba(43, 161, 73, 0.12) 0%, transparent 70%), linear-gradient(135deg, #ffffff 0%, #eaf8ee 100%) !important;
   border: 1px solid rgba(43, 161, 73, 0.25) !important;
   box-shadow: 0 8px 20px rgba(43, 161, 73, 0.08) !important;
 }
 
 html[data-theme="light"] .stat-card.orange {
-  background:
-    radial-gradient(
-      circle at 85% 15%,
-      rgba(253, 134, 36, 0.12) 0%,
-      transparent 70%
-    ),
-    linear-gradient(135deg, #ffffff 0%, #fff4ea 100%) !important;
+  background: radial-gradient(circle at 85% 15%, rgba(253, 134, 36, 0.12) 0%, transparent 70%), linear-gradient(135deg, #ffffff 0%, #fff4ea 100%) !important;
   border: 1px solid rgba(253, 134, 36, 0.25) !important;
   box-shadow: 0 8px 20px rgba(253, 134, 36, 0.08) !important;
 }
@@ -2657,12 +2621,7 @@ html[data-theme="dark"] .role-select:focus {
 html[data-theme="dark"] .report-grid .panel.report-number.orange,
 html[data-theme="dark"] .report-number.orange {
   background:
-    radial-gradient(
-      circle at 88% 18%,
-      rgba(253, 134, 36, 0.32) 0%,
-      rgba(253, 134, 36, 0.08) 50%,
-      transparent 75%
-    ),
+    radial-gradient(circle at 88% 18%, rgba(253, 134, 36, 0.32) 0%, rgba(253, 134, 36, 0.08) 50%, transparent 75%),
     linear-gradient(135deg, #182435 0%, #3a2216 100%) !important;
   border: 1px solid rgba(253, 134, 36, 0.45) !important;
   box-shadow:
@@ -2692,12 +2651,7 @@ html[data-theme="dark"] .report-number.orange {
 html[data-theme="dark"] .report-grid .panel.report-number.green,
 html[data-theme="dark"] .report-number.green {
   background:
-    radial-gradient(
-      circle at 88% 18%,
-      rgba(43, 161, 73, 0.32) 0%,
-      rgba(43, 161, 73, 0.08) 50%,
-      transparent 75%
-    ),
+    radial-gradient(circle at 88% 18%, rgba(43, 161, 73, 0.32) 0%, rgba(43, 161, 73, 0.08) 50%, transparent 75%),
     linear-gradient(135deg, #152739 0%, #0c3826 100%) !important;
   border: 1px solid rgba(43, 161, 73, 0.45) !important;
   box-shadow:
