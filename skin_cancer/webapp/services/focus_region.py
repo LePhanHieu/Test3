@@ -15,12 +15,16 @@ def parse_polygon(data):
     Dùng toạ độ chuẩn hoá (0..1) để không phụ thuộc kích thước ảnh hiển thị.
     Trả về list điểm hợp lệ, hoặc raise ValueError.
     """
-    points = (data or {}).get("points")
+    if not isinstance(data, dict):
+        raise ValueError("Dữ liệu vùng khoanh không hợp lệ.")  # noqa: TRY004 - API trả 400 khi dữ liệu sai
+    points = data.get("points")
     if not isinstance(points, list) or not (MIN_POINTS <= len(points) <= MAX_POINTS):
         raise ValueError(f"Cần từ {MIN_POINTS} đến {MAX_POINTS} điểm.")
 
     clean = []
     for p in points:
+        if not isinstance(p, (list, tuple)) or len(p) != 2 or any(isinstance(value, bool) for value in p):
+            raise ValueError("Toạ độ điểm không hợp lệ.")
         try:
             x, y = float(p[0]), float(p[1])
         except (TypeError, ValueError, IndexError):
