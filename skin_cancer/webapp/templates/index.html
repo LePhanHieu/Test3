@@ -1,15 +1,11 @@
 <!DOCTYPE html>
 <html lang="vi">
-
-<head>
-  <meta charset="UTF-8" />
-
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-  <meta name="theme-color" content="#2ba149" />
-
-  <!-- Áp dụng theme NGAY từ đầu để tránh nháy màn hình -->
-  <script>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#2ba149" />
+    <!-- Áp dụng theme NGAY từ đầu để tránh nháy màn hình -->
+    <script>
     (function () {
       try {
         var t = localStorage.getItem("hpTheme");
@@ -21,31 +17,19 @@
         document.documentElement.dataset.theme = "light";
       }
     })();
-  </script>
-
-  <title id="site-page-title">DermaScan AI</title>
-
-  <link id="site-favicon" rel="icon" href="" type="image/png" />
-
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-
-  <link
-    href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap"
-    rel="stylesheet" />
-
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
-
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/workflow.css') }}" />
-
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/patient.css') }}" />
-
-  <!-- ============ TAILWIND CSS (CDN) - TRANG CHỦ ============ -->
-
-  <script src="https://cdn.tailwindcss.com"></script>
-
-  <script>
+    </script>
+    <title id="site-page-title">DermaScan AI</title>
+    <link id="site-favicon" rel="icon" href="" type="image/png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap"
+          rel="stylesheet" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/workflow.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/patient.css') }}" />
+    <!-- ============ TAILWIND CSS (CDN) - TRANG CHỦ ============ -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
     tailwind.config = {
       corePlugins: {
         // Không bật preflight để tránh ảnh hưởng tới style của các trang chức năng khác
@@ -68,11 +52,9 @@
         },
       },
     };
-  </script>
-
-  <!-- ============ HOMEPAGE DESIGN SYSTEM (RIÊNG CHO TRANG CHỦ) ============ -->
-
-  <style id="homepage-style">
+    </script>
+    <!-- ============ HOMEPAGE DESIGN SYSTEM (RIÊNG CHO TRANG CHỦ) ============ -->
+    <style id="homepage-style">
     /* ============================================================
          HOMEPAGE DESIGN - DermaScan AI
          Brand Green #2ba149 | Brand Orange #fd8624 | Slate
@@ -956,11 +938,9 @@
         padding: 40px 0 30px;
       }
     }
-  </style>
-
-  <!-- ============ AUTH MODAL + NAV TOOLS (TRANG CHỦ) ============ -->
-
-  <style id="hp-auth-tools-style">
+    </style>
+    <!-- ============ AUTH MODAL + NAV TOOLS (TRANG CHỦ) ============ -->
+    <style id="hp-auth-tools-style">
     /* ===== CÔNG CỤ NAVBAR: NGÔN NGỮ / GIAO DIỆN / PHIÊN ===== */
 
     .hp-tool {
@@ -1993,11 +1973,9 @@
         display: none;
       }
     }
-  </style>
-
-  <!-- ============ DARK MODE - BIẾN TRUNG TÍN + TRANG CHỦ ============ -->
-
-  <style id="hp-dark-style">
+    </style>
+    <!-- ============ DARK MODE - BIẾN TRUNG TÍN + TRANG CHỦ ============ -->
+    <style id="hp-dark-style">
     html[data-theme="dark"] {
       color-scheme: dark;
       --bg: #0b1220;
@@ -2202,11 +2180,9 @@
     html[data-theme="dark"] .section-eyebrow {
       color: #5ecb87;
     }
-  </style>
-
-  <!-- ============ DARK MODE - KHU VỰC PHÂN TÍCH ============ -->
-
-  <style id="hp-dark-style-2">
+    </style>
+    <!-- ============ DARK MODE - KHU VỰC PHÂN TÍCH ============ -->
+    <style id="hp-dark-style-2">
     /* ===== ANALYZER DARK ===== */
 
     html[data-theme="dark"] .dropzone {
@@ -2397,11 +2373,9 @@
       background: #2d2408 !important;
       border-color: #b45309 !important;
     }
-  </style>
-
-  <!-- ============ DARK MODE - AUTH MODAL + HIỆU ỨNG ============ -->
-
-  <style id="hp-dark-style-3">
+    </style>
+    <!-- ============ DARK MODE - AUTH MODAL + HIỆU ỨNG ============ -->
+    <style id="hp-dark-style-3">
     html[data-theme="dark"] .hp-auth-dialog {
       background: #121b30;
       border-color: #223049;
@@ -2507,11 +2481,9 @@
       transition: background-color 0.35s ease, border-color 0.35s ease,
         color 0.35s ease, box-shadow 0.35s ease !important;
     }
-  </style>
-
-  <!-- ============ DOCTOR UI - DESIGN CHO GIAO DIỆN BÁC SĨ ============ -->
-
-  <style id="hp-doctor-ui-style">
+    </style>
+    <!-- ============ DOCTOR UI - DESIGN CHO GIAO DIỆN BÁC SĨ ============ -->
+    <style id="hp-doctor-ui-style">
     /* Refined analyzer presentation */
     #analyze {
       --brand-green: #2ba149;
@@ -3823,1944 +3795,1712 @@
       border-color: #475467;
       color: #e2e8f0;
     }
-  </style>
-  <!-- Responsive layout for doctor analysis: loaded after legacy inline CSS. -->
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/doctor-analysis-layout.css') }}" />
-</head>
-
-<body>
-  <!-- ================= NAV ================= -->
-
-  <header class="nav hp-nav">
-    <div class="nav-inner">
-      <a href="/" class="brand" aria-label="DermaScan AI - Trang chủ">
-        <span class="brand-mark">
-          <img id="site-logo" class="brand-logo hidden" src="" alt="" />
-
-          <svg class="hp-brand-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
-            stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M4 8V6a2 2 0 0 1 2-2h2"></path>
-
-            <path d="M16 4h2a2 2 0 0 1 2 2v2"></path>
-
-            <path d="M20 16v2a2 2 0 0 1-2 2h-2"></path>
-
-            <path d="M8 20H6a2 2 0 0 1-2-2v-2"></path>
-
-            <path d="M7 12h2.5l1.5-3 2 6 1.5-3H17"></path>
-          </svg>
-        </span>
-
-        <span class="brand-text">
-          <span class="brand-name" id="site-brand-name">DermaScan AI</span>
-
-          <span class="brand-sub" id="site-brand-subtitle">Sàng lọc ung thư da bằng AI</span>
-        </span>
-      </a>
-
-      <!-- NAVIGATION TABS - Bác sĩ (Doctor/Admin) -->
-      <nav class="doctor-nav hidden" id="doctorNav" role="navigation" aria-label="Menu bác sĩ">
-        <button type="button" class="doctor-nav-tab is-active" data-tab="analyze" data-i18n="nav.analyze">
-          Phân tích
-        </button>
-        <button type="button" class="doctor-nav-tab" data-tab="history" data-i18n="nav.history">
-          Lịch sử
-        </button>
-        <button type="button" class="doctor-nav-tab" data-tab="compare" data-i18n="nav.compare">
-          So sánh
-        </button>
-        <button type="button" class="doctor-nav-tab" data-tab="stats" data-i18n="nav.stats">
-          Thống kê
-        </button>
-      </nav>
-
-      <!-- NAVIGATION TABS - Dành riêng cho Bệnh nhân (User) -->
-      <nav class="doctor-nav hidden" id="patientNav" role="navigation" aria-label="Menu bệnh nhân">
-        <button type="button" class="doctor-nav-tab is-active" data-ptab="timeline">
-          Lịch sử bệnh án
-        </button>
-        <button type="button" class="doctor-nav-tab" data-ptab="profile">
-          Hồ sơ cá nhân
-        </button>
-        <button type="button" class="doctor-nav-tab" data-ptab="reports">
-          Báo cáo y khoa
-        </button>
-      </nav>
-
-      <!-- Công cụ (ngôn ngữ, giao diện) + Tài khoản — KHÔNG có menu chức năng -->
-      <div class="hp-auth" role="group" aria-label="Công cụ và tài khoản">
-        <!-- ĐỔI NGÔN NGỮ -->
-        <div class="hp-tool">
-          <button type="button" class="hp-icon-btn" id="hpLangBtn" aria-haspopup="true" aria-expanded="false"
-            aria-label="Đổi ngôn ngữ" title="Đổi ngôn ngữ">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
-              stroke-linejoin="round" aria-hidden="true">
-              <circle cx="12" cy="12" r="9"></circle>
-
-              <path d="M3 12h18"></path>
-
-              <path d="M12 3c2.5 2.6 3.9 5.7 3.9 9S14.5 18.4 12 21c-2.5-2.6-3.9-5.7-3.9-9S9.5 5.6 12 3Z"></path>
+    </style>
+    <!-- Responsive layout for doctor analysis: loaded after legacy inline CSS. -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/doctor-analysis-layout.css') }}" />
+  </head>
+  <body>
+    <!-- ================= NAV ================= -->
+    <header class="nav hp-nav">
+      <div class="nav-inner">
+        <a href="/" class="brand" aria-label="DermaScan AI - Trang chủ">
+          <span class="brand-mark">
+            <img id="site-logo" class="brand-logo hidden" src="" alt="" />
+            <svg class="hp-brand-icon"
+                 viewBox="0 0 24 24"
+                 fill="none"
+                 stroke="currentColor"
+                 stroke-width="1.8"
+                 stroke-linecap="round"
+                 stroke-linejoin="round"
+                 aria-hidden="true">
+              <path d="M4 8V6a2 2 0 0 1 2-2h2"></path>
+              <path d="M16 4h2a2 2 0 0 1 2 2v2"></path>
+              <path d="M20 16v2a2 2 0 0 1-2 2h-2"></path>
+              <path d="M8 20H6a2 2 0 0 1-2-2v-2"></path>
+              <path d="M7 12h2.5l1.5-3 2 6 1.5-3H17"></path>
             </svg>
-
-            <span class="hp-icon-label" id="hpLangLabel">VI</span>
-
-            <svg class="hp-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
-              stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="m6 9 6 6 6-6"></path>
-            </svg>
-          </button>
-
-          <div class="hp-lang-menu hidden" id="hpLangMenu" role="menu">
-            <button type="button" class="hp-lang-item is-active" data-lang="vi" role="menuitem">
-              <span class="hp-flag">🇻🇳</span>
-
-              <span>Tiếng Việt</span>
-
-              <svg class="hp-lang-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"
-                stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <path d="m5 13 4 4 10-10"></path>
-              </svg>
-            </button>
-
-            <button type="button" class="hp-lang-item" data-lang="en" role="menuitem">
-              <span class="hp-flag">🇬🇧</span>
-
-              <span>English</span>
-
-              <svg class="hp-lang-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"
-                stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <path d="m5 13 4 4 10-10"></path>
-              </svg>
-            </button>
-          </div>
-        </div>
-
-        <!-- SÁNG / TỐI -->
-        <button type="button" class="hp-icon-btn" id="hpThemeBtn" aria-label="Chuyển giao diện tối"
-          title="Chế độ Sáng / Tối">
-          <svg class="hp-sun-icon hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
-            stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <circle cx="12" cy="12" r="4"></circle>
-
-            <path
-              d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4">
-            </path>
-          </svg>
-
-          <svg class="hp-moon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
-            stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M21 12.8A8.5 8.5 0 1 1 11.2 3a6.6 6.6 0 0 0 9.8 9.8Z"></path>
-          </svg>
-        </button>
-
-        <span class="hp-auth-divider" aria-hidden="true"></span>
-
-        <!-- CHƯA ĐĂNG NHẬP -->
-        <div class="hp-auth-guest" id="hpAuthGuest">
-          <button type="button" class="hp-auth-btn hp-auth-login" id="hpOpenLoginBtn" data-i18n="nav.login">
-            Đăng nhập
-          </button>
-
-          <button type="button" class="hp-auth-btn hp-auth-register" id="hpOpenRegisterBtn" title="Tạo tài khoản mới"
-            data-i18n="nav.register">
-            Đăng ký
-          </button>
-        </div>
-
-        <!-- ĐÃ ĐĂNG NHẬP -->
-        <div class="hp-auth-user hidden" id="hpAuthUser">
-          <span class="hp-user-pill" id="hpUserPill" style="cursor: pointer;" title="Xem thông tin cá nhân">
-            <span class="hp-user-avatar" id="hpUserAvatar">D</span>
-
-            <span class="hp-user-meta">
-              <strong id="hpUserName">--</strong>
-
-              <small id="hpUserRole">DOCTOR</small>
-            </span>
           </span>
-
-          <button type="button" class="hp-auth-logout" id="hpNavLogoutBtn" data-i18n="nav.logout">
-            Đăng xuất
-          </button>
-        </div>
-
-        <!-- Giữ element trạng thái kết nối để health-check trong main.js không lỗi -->
-        <span class="hidden" aria-hidden="true">
-          <span id="statusDot"></span>
-
-          <span id="statusText"></span>
-
-          <!-- Phần tử tương thích cho auth flow trong main.js. -->
-          <span id="authStatus">Chưa đăng nhập</span>
-
-          <button type="button" id="logoutBtn">Đăng xuất</button>
-        </span>
-      </div>
-    </div>
-  </header>
-
-  <!-- ================= SLIDES ================= -->
-
-  <section class="homepage-slideshow" data-testid="homepage-carousel" aria-label="" id="homepage-site-name">
-    <div class="homepage-carousel-track" id="homepage-carousel-track">
-      <article class="homepage-slide is-active" aria-hidden="false">
-        <img class="homepage-slide-image"
-          src="https://images.unsplash.com/photo-1551076805-e1869033e561?auto=format&fit=crop&w=1920&q=80"
-          alt="Đội ngũ y bác sĩ phòng khám da liễu" loading="eager" decoding="async" />
-        <div class="homepage-slide-content">
-          <h1 class="homepage-slide-title">Đội ngũ y bác sĩ DermaScan</h1>
-          <p class="homepage-slide-subtitle">
-            Phòng khám da liễu kết hợp trí tuệ nhân tạo để sàng lọc tổn thương da sớm và chính xác hơn.
-          </p>
-        </div>
-      </article>
-      <article class="homepage-slide" aria-hidden="true">
-        <img class="homepage-slide-image"
-          src="https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&w=1920&q=80"
-          alt="Tập thể nhân viên y tế" loading="eager" decoding="async" />
-        <div class="homepage-slide-content">
-          <h1 class="homepage-slide-title">Chăm sóc da chuyên sâu</h1>
-          <p class="homepage-slide-subtitle">
-            Đội ngũ y tế đồng hành cùng bác sĩ trong từng ca sàng lọc, theo dõi và tư vấn điều trị.
-          </p>
-        </div>
-      </article>
-      <article class="homepage-slide" aria-hidden="true">
-        <img class="homepage-slide-image"
-          src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=1920&q=80"
-          alt="Thiết bị dermoscopy và công nghệ y tế" loading="eager" decoding="async" />
-        <div class="homepage-slide-content">
-          <h1 class="homepage-slide-title">Dermoscopy &amp; AI</h1>
-          <p class="homepage-slide-subtitle">
-            Hình ảnh soi da độ phân giải cao kết hợp mô hình EfficientNet để hỗ trợ quyết định lâm sàng.
-          </p>
-        </div>
-      </article>
-    </div>
-
-    <div class="homepage-slide-controls" aria-label="Điều hướng banner">
-      <button type="button" class="homepage-slide-control" id="homepage-slide-prev" aria-label="Banner trước">
-        ‹
-      </button>
-
-      <div class="homepage-slide-indicators" id="homepage-slide-indicators">
-        <button type="button" class="homepage-slide-indicator is-active" aria-label="Banner 1"
-          aria-current="true"></button>
-        <button type="button" class="homepage-slide-indicator" aria-label="Banner 2" aria-current="false"></button>
-        <button type="button" class="homepage-slide-indicator" aria-label="Banner 3" aria-current="false"></button>
-      </div>
-
-      <button type="button" class="homepage-slide-control" id="homepage-slide-next" aria-label="Banner tiếp theo">
-        ›
-      </button>
-    </div>
-
-    <div class="homepage-empty hidden" data-testid="homepage-empty" id="homepage-empty">
-      <span class="homepage-empty-mark"> ✦ </span>
-
-      <h1 id="homepage-site-title">DermaScan AI</h1>
-
-      <p id="homepage-site-description">Chỉ dùng cho mục đích nghiên cứu.</p>
-
-      <div class="hp-hero-actions">
-        <a href="#analyze" class="hp-hero-cta" id="hpHeroCta">
-          <span id="hpHeroCtaText">Bắt đầu phân tích</span>
-
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-            stroke-linejoin="round" aria-hidden="true">
-            <path d="M5 12h14"></path>
-
-            <path d="m13 6 6 6-6 6"></path>
-          </svg>
+          <span class="brand-text">
+            <span class="brand-name" id="site-brand-name">DermaScan AI</span>
+            <span class="brand-sub" id="site-brand-subtitle">Sàng lọc ung thư da bằng AI</span>
+          </span>
         </a>
-
-        <a href="#features" class="hp-hero-ghost">Công nghệ lõi</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- ================= ANALYZER ================= -->
-
-  <!-- Khu vực Phân tích: CHỈ hiển thị khi đã đăng nhập (main.js điều khiển) -->
-  <section class="analyzer hidden" id="analyze">
-    <div class="section-head">
-      <span class="section-eyebrow"> Giao diện chẩn đoán </span>
-
-      <h2 class="section-title">Phân tích ảnh</h2>
-    </div>
-
-    <div class="analyzer-grid">
-      <!-- ================= LEFT ================= -->
-
-      <article class="panel panel-upload">
-        <header class="panel-head">
-          <div class="panel-head-left">
-            <span class="panel-num"> 01 </span>
-
-            <div>
-              <h3 class="panel-title">Ảnh đầu vào</h3>
-
-              <p class="panel-sub">Chọn ảnh dermoscopy để phân tích</p>
-            </div>
-          </div>
-        </header>
-
-        <!-- BỐ CỤC 2 CỘT: BỆNH NHÂN (TRÁI) + TẢI ẢNH (PHẢI) -->
-
-        <div class="hp-in-grid">
-          <div class="hp-in-col hp-in-patient">
-            <!-- PATIENT -->
-
-            <div class="patient-selector">
-              <div class="patient-selector-head">
-                <label for="patientSelect"> Bệnh nhân </label>
-
-                <button type="button" id="addTemporaryPatientBtn" class="workflow-small-btn patient-add-btn">
-                  + Thêm bệnh nhân
-                </button>
-              </div>
-
-              <select id="patientSelect" disabled>
-                <option value="">Đăng nhập bác sĩ để tải danh sách</option>
-              </select>
-
-              <small id="patientHelp">
-                Chọn bệnh nhân có tài khoản hoặc thêm bệnh nhân mới.
-              </small>
-
-              <div id="selectedPatientCard" class="selected-patient-card" hidden>
-                <div class="selected-patient-top">
-                  <strong id="selectedPatientName"> -- </strong>
-
-                  <span id="selectedPatientBadge" class="patient-source-badge"></span>
-                </div>
-
-                <div id="selectedPatientMeta" class="selected-patient-meta"></div>
-
-                <div id="selectedPatientContact" class="selected-patient-contact"></div>
-              </div>
-
-              <div class="lesion-location-field">
-                <label for="lesionLocationInput"> Vị trí tổn thương </label>
-
-                <input type="text" id="lesionLocationInput" maxlength="255" placeholder="Ví dụ: Cánh tay trái" />
-              </div>
-
-              <div class="model-selector-field">
-                <label for="modelName"> Mô hình AI </label>
-                <output id="modelName">EfficientNet-B0</output>
-                <small>Hệ thống sử dụng EfficientNet-B0 cho mọi phân tích.</small>
-              </div>
-            </div>
-
-          </div>
-
-          <div class="hp-in-col hp-in-upload">
-
-            <!-- DROPZONE -->
-
-            <div class="dropzone" id="dropZone">
-              <input type="file" id="imageInput" name="images"
-                accept=".jpg,.jpeg,.png,.webp,image/jpeg,image/png,image/webp" multiple hidden />
-
-              <div class="dropzone-inner">
-                <div class="dropzone-icon">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"
-                    stroke-linejoin="round">
-                    <path d="M12 13v8"></path>
-
-                    <path d="m8 17 4-4 4 4"></path>
-
-                    <path d="M20 16.7A4.5 4.5 0 0 0 18 8h-1.3A7 7 0 1 0 5 15.3"></path>
-                  </svg>
-                </div>
-
-                <p class="dropzone-title">Kéo thả một hoặc nhiều ảnh</p>
-
-                <p class="dropzone-sub">
-                  hoặc
-                  <span class="dropzone-link"> chọn ảnh từ máy </span>
-                </p>
-
-                <p class="dropzone-meta">
-                  JPG / JPEG / PNG / WEBP · tối đa 20 ảnh · 10 MB mỗi ảnh
-                </p>
-              </div>
-            </div>
-
-            <!-- PREVIEW -->
-
-            <div class="preview hidden" id="previewWrap">
-              <img id="previewImg" class="clinical-image-zoomable" alt="Ảnh xem trước" />
-
-              <div class="preview-overlay">
-                <span class="preview-tag"> Ảnh đầu tiên </span>
-              </div>
-
-              <button type="button" class="preview-close" id="clearBtn" aria-label="Xóa ảnh">
-                ×
-              </button>
-            </div>
-
-            <!-- SELECTED FILES -->
-
-            <div id="selectedFilesContainer" class="selected-files-container"></div>
-
-            <!-- BATCH STATUS -->
-
-            <div id="batchStatus" class="batch-status" hidden>
-              <span id="batchStatusText"></span>
-            </div>
-
-            <!-- ACTION BUTTONS: 1 HÀNG GỌN GÀNG -->
-            <div class="upload-action-row" id="uploadActionRow">
-              <button class="btn btn-primary" id="analyzeBtn" disabled>
-                <span>Tải lên & phân tích ảnh đầu tiên</span>
-              </button>
-
-              <button type="button" class="btn btn-ghost hidden" id="resetBtn" title="Chọn ảnh hoặc batch khác">
-                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/>
-                  <path d="M3 3v5h5"/>
+        <!-- NAVIGATION TABS - Bác sĩ (Doctor/Admin) -->
+        <nav class="doctor-nav hidden" id="doctorNav" role="navigation" aria-label="Menu bác sĩ">
+          <button type="button" class="doctor-nav-tab is-active" data-tab="analyze" data-i18n="nav.analyze">Phân tích</button>
+          <button type="button" class="doctor-nav-tab" data-tab="history" data-i18n="nav.history">Lịch sử</button>
+          <button type="button" class="doctor-nav-tab" data-tab="compare" data-i18n="nav.compare">So sánh</button>
+          <button type="button" class="doctor-nav-tab" data-tab="stats" data-i18n="nav.stats">Thống kê</button>
+        </nav>
+        <!-- NAVIGATION TABS - Dành riêng cho Bệnh nhân (User) -->
+        <nav class="doctor-nav hidden" id="patientNav" role="navigation" aria-label="Menu bệnh nhân">
+          <button type="button" class="doctor-nav-tab is-active" data-ptab="timeline">Lịch sử bệnh án</button>
+          <button type="button" class="doctor-nav-tab" data-ptab="profile">Hồ sơ cá nhân</button>
+          <button type="button" class="doctor-nav-tab" data-ptab="reports">Báo cáo y khoa</button>
+        </nav>
+        <!-- Công cụ (ngôn ngữ, giao diện) + Tài khoản — KHÔNG có menu chức năng -->
+        <div class="hp-auth" role="group" aria-label="Công cụ và tài khoản">
+          <!-- ĐỔI NGÔN NGỮ -->
+          <div class="hp-tool">
+            <button type="button"
+                    class="hp-icon-btn"
+                    id="hpLangBtn"
+                    aria-haspopup="true"
+                    aria-expanded="false"
+                    aria-label="Đổi ngôn ngữ"
+                    title="Đổi ngôn ngữ">
+              <svg viewBox="0 0 24 24"
+                   fill="none"
+                   stroke="currentColor"
+                   stroke-width="1.8"
+                   stroke-linecap="round"
+                   stroke-linejoin="round"
+                   aria-hidden="true">
+                <circle cx="12" cy="12" r="9"></circle>
+                <path d="M3 12h18"></path>
+                <path d="M12 3c2.5 2.6 3.9 5.7 3.9 9S14.5 18.4 12 21c-2.5-2.6-3.9-5.7-3.9-9S9.5 5.6 12 3Z"></path>
+              </svg>
+              <span class="hp-icon-label" id="hpLangLabel">VI</span>
+              <svg class="hp-chev"
+                   viewBox="0 0 24 24"
+                   fill="none"
+                   stroke="currentColor"
+                   stroke-width="2.2"
+                   stroke-linecap="round"
+                   stroke-linejoin="round"
+                   aria-hidden="true">
+                <path d="m6 9 6 6 6-6"></path>
+              </svg>
+            </button>
+            <div class="hp-lang-menu hidden" id="hpLangMenu" role="menu">
+              <button type="button" class="hp-lang-item is-active" data-lang="vi" role="menuitem">
+                <span class="hp-flag">🇻🇳</span>
+                <span>Tiếng Việt</span>
+                <svg class="hp-lang-check"
+                     viewBox="0 0 24 24"
+                     fill="none"
+                     stroke="currentColor"
+                     stroke-width="2.4"
+                     stroke-linecap="round"
+                     stroke-linejoin="round"
+                     aria-hidden="true">
+                  <path d="m5 13 4 4 10-10"></path>
                 </svg>
-                <span>Chọn ảnh khác</span>
               </button>
-            </div>
-
-            <!-- UPLOADED ITEMS -->
-
-            <div id="batchItems" class="batch-items"></div>
-
-          </div>
-
-        </div>
-      </article>
-
-      <!-- ================= RIGHT ================= -->
-
-      <article class="panel panel-results">
-        <header class="panel-head">
-          <div class="panel-head-left">
-            <span class="panel-num"> 02 </span>
-
-            <div>
-              <h3 class="panel-title">Kết quả phân tích</h3>
-
-              <p class="panel-sub">EfficientNet-B0 + Grad-CAM</p>
-            </div>
-          </div>
-
-          <span class="panel-tag" id="resultTag" style="display: none"></span>
-        </header>
-
-        <!-- EMPTY -->
-
-        <div class="state state-empty" id="emptyState">
-          <div class="state-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4">
-              <circle cx="11" cy="11" r="8"></circle>
-
-              <path d="m21 21-4.3-4.3"></path>
-            </svg>
-          </div>
-
-          <p class="state-title">Chưa có kết quả</p>
-
-          <p class="state-desc">
-            Đăng nhập bác sĩ, Chọn bệnh nhân, chọn ảnh và bắt đầu phân tích.
-          </p>
-        </div>
-
-        <!-- LOADING -->
-
-        <div class="state state-loading hidden" id="loadingState">
-          <div class="loader">
-            <div class="loader-ring"></div>
-
-            <div class="loader-ring loader-ring-2"></div>
-
-            <div class="loader-core"></div>
-          </div>
-
-          <p class="state-title">Đang phân tích ảnh</p>
-
-          <p class="state-desc">Đang chạy EfficientNet và Grad-CAM</p>
-        </div>
-
-        <!-- ERROR -->
-
-        <div class="state state-error hidden" id="errorState">
-          <div class="state-icon state-icon-error">!</div>
-
-          <p class="state-title">Thao tác thất bại</p>
-
-          <p class="state-desc" id="errorText"></p>
-        </div>
-
-        <!-- RESULTS -->
-
-        <div class="state state-results hidden" id="resultsState">
-          <!-- VERDICT -->
-
-          <div class="verdict" id="verdictCard">
-            <div class="verdict-head">
-              <span class="verdict-icon" id="verdictIcon"></span>
-
-              <div>
-                <span class="verdict-eyebrow"> Sàng lọc nhị phân </span>
-
-                <h3 class="verdict-title" id="verdictTitle"></h3>
-              </div>
-            </div>
-
-            <div class="verdict-meter">
-              <div class="verdict-meter-track">
-                <div class="verdict-meter-fill" id="verdictFill"></div>
-              </div>
-
-              <span class="verdict-meter-value" id="verdictValue"></span>
-            </div>
-
-            <p class="verdict-note" id="verdictNote"></p>
-          </div>
-
-          <!-- ============ EVIDENCE GRID: ẢNH GỐC (TRÁI) + CHI TIẾT (PHẢI) ============ -->
-
-          <div class="hp-result-grid">
-            <div class="hp-result-media">
-              <div class="block hp-media-block">
-                <div class="block-head">
-                  <h4 class="block-title">Ảnh dermoscopy gốc</h4>
-
-                  <span class="block-meta"> Dermoscopy </span>
-                </div>
-
-                <figure class="cam-item hp-orig-figure">
-                  <img id="origImg" class="clinical-image-zoomable" alt="Ảnh gốc" />
-
-                  <figcaption>Ảnh gốc</figcaption>
-                </figure>
-              </div>
-            </div>
-
-            <div class="hp-result-details">
-              <!-- PROBS -->
-
-              <div class="block">
-                <div class="block-head">
-                  <h4 class="block-title">Xác suất từng nhóm tổn thương</h4>
-
-                  <span class="pred-badge" id="predBadge"></span>
-                </div>
-
-                <div class="prob-list" id="probsList"></div>
-              </div>
-
-              <!-- GRADCAM -->
-
-              <div class="block">
-                <div class="block-head">
-                  <h4 class="block-title">Bản đồ nhiệt Grad-CAM</h4>
-
-                  <span class="block-meta"> Vùng da bất thường </span>
-                </div>
-
-                <figure class="cam-item cam-item-accent hp-cam-figure">
-                  <img id="camImg" class="clinical-image-zoomable" alt="Grad-CAM" />
-
-                  <figcaption>Grad-CAM</figcaption>
-                </figure>
-              </div>
-            </div>
-          </div>
-
-          <!-- INTERPRETATION -->
-
-          <div class="interp" id="interpCard">
-            <div class="interp-head">
-              <div class="interp-badges">
-                <span class="severity-badge" id="severityBadge"></span>
-                <span class="severity-note" id="severityNote"></span>
-                <span class="chatgpt-pill" id="chatgptPill" title="Diễn giải ngữ cảnh thông minh bởi OpenAI ChatGPT">
-                  <svg viewBox="0 0 24 24" fill="currentColor" width="13" height="13">
-                    <path d="M22.28 10.37a5.53 5.53 0 0 0-.46-4.42 5.6 5.6 0 0 0-4.08-2.73 5.66 5.66 0 0 0-4.47.88 5.6 5.6 0 0 0-3.6-1.57 5.65 5.65 0 0 0-5.36 3.9 5.63 5.63 0 0 0-2.3 3.96 5.66 5.66 0 0 0 .8 4.6 5.53 5.53 0 0 0 .46 4.42 5.6 5.6 0 0 0 4.08 2.73 5.66 5.66 0 0 0 4.47-.88 5.6 5.6 0 0 0 3.6 1.57 5.65 5.65 0 0 0 5.36-3.9 5.63 5.63 0 0 0 2.3-3.96 5.66 5.66 0 0 0-.8-4.6z"/>
-                  </svg>
-                  <span>Tư vấn bởi ChatGPT</span>
-                </span>
-              </div>
-              <button type="button" class="chatgpt-regenerate-btn" id="chatgptRefreshBtn" title="Yêu cầu ChatGPT phân tích lại theo ngữ cảnh">
-                <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/>
+              <button type="button" class="hp-lang-item" data-lang="en" role="menuitem">
+                <span class="hp-flag">🇬🇧</span>
+                <span>English</span>
+                <svg class="hp-lang-check"
+                     viewBox="0 0 24 24"
+                     fill="none"
+                     stroke="currentColor"
+                     stroke-width="2.4"
+                     stroke-linecap="round"
+                     stroke-linejoin="round"
+                     aria-hidden="true">
+                  <path d="m5 13 4 4 10-10"></path>
                 </svg>
-                <span>Hỏi lại AI</span>
               </button>
-            </div>
-
-            <h4 class="interp-headline" id="interpHeadline"></h4>
-
-            <p class="interp-summary" id="interpSummary"></p>
-
-            <p class="interp-detail" id="interpDetail"></p>
-
-            <div class="interp-actions">
-              <h5 class="interp-actions-title">Khuyến nghị</h5>
-
-              <ul class="interp-actions-list" id="interpActions"></ul>
-            </div>
-
-            <div class="interp-conclusion">
-              <p id="interpConclusion"></p>
             </div>
           </div>
-          <!-- ================= DOCTOR DIAGNOSIS ================= -->
-
-          <div class="block doctor-diagnosis" id="doctorDiagnosisSection">
-            <div class="block-head">
-              <div>
-                <h4 class="block-title">Chẩn đoán của bác sĩ</h4>
-
-                <p class="doctor-diagnosis-sub">
-                  Nhận xét chuyên môn độc lập với kết quả AI
-                </p>
-              </div>
-
-              <div class="doctor-head-actions">
-                <button type="button" id="applyChatGptSuggestionBtn" class="workflow-small-btn chatgpt-suggest-btn" title="Điền nhanh gợi ý lâm sàng từ phân tích ChatGPT">
-                  ✨ Áp dụng gợi ý ChatGPT
-                </button>
-                <span id="doctorReviewStatus" class="doctor-review-status">
-                  Chưa lưu
-                </span>
-              </div>
-            </div>
-
-            <div class="doctor-review-form">
-              <div class="doctor-review-field">
-                <label for="doctorClinicalNote"> Ghi chú lâm sàng </label>
-
-                <textarea id="doctorClinicalNote" rows="3" maxlength="3000"
-                  placeholder="Ví dụ: Tổn thương có bờ không đều, màu sắc không đồng nhất..."></textarea>
-              </div>
-
-              <div class="doctor-review-field">
-                <label for="doctorConclusion">
-                  Chẩn đoán / kết luận
-                  <span class="required-mark">*</span>
-                </label>
-
-                <textarea id="doctorConclusion" rows="4" maxlength="3000"
-                  placeholder="Nhập chẩn đoán của bác sĩ..."></textarea>
-              </div>
-
-              <div class="doctor-review-field">
-                <label for="doctorRecommendation"> Khuyến nghị </label>
-
-                <textarea id="doctorRecommendation" rows="3" maxlength="3000"
-                  placeholder="Ví dụ: Khuyến nghị khám chuyên khoa da liễu, sinh thiết nếu cần..."></textarea>
-              </div>
-
-              <div class="doctor-review-footer">
-                <p class="doctor-review-note">
-                  Kết luận của bác sĩ được lưu riêng, không phải kết quả dự
-                  đoán của AI.
-                </p>
-
-                <button type="button" id="saveDoctorReviewBtn" class="workflow-action-btn doctor-save-btn" disabled>
-                  Lưu chẩn đoán
-                </button>
-              </div>
-            </div>
-          </div>
-          <!-- ACTIONS -->
-
-          <div class="block workflow-tools">
-            <div class="block-head">
-              <h4 class="block-title">Công cụ sau phân tích</h4>
-            </div>
-
-            <div class="workflow-actions">
-              <button type="button" id="measureBtn" class="workflow-action-btn" disabled>
-                Đo tổn thương
-              </button>
-
-              <button type="button" id="exportPdfBtn" class="workflow-action-btn" disabled>
-                Xuất PDF
-              </button>
-
-              <button type="button" id="exportExcelBtn" class="workflow-action-btn" disabled>
-                Xuất Excel
-              </button>
-
-              <button type="button" id="downloadPdfBtn" class="workflow-action-btn" disabled>
-                Tải PDF
-              </button>
-
-              <button type="button" id="sendEmailBtn" class="workflow-action-btn" disabled>
-                Gửi Email
-              </button>
-              <button type="button" id="viewTimelineBtn" class="workflow-action-btn" style="background:#ecfdf5;border:1px solid #6ee7b7;color:#047857;font-weight:600;display:inline-flex;align-items:center;gap:6px;">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg>
-                <span>Xem Timeline</span>
-              </button>
-            </div>
-
-            <!-- MEASUREMENT -->
-
-            <div id="measurementResult" class="measurement-result" hidden>
-              <h5>Kết quả đo lường</h5>
-
-              <div class="measurement-grid">
-                <div>
-                  <span>Diện tích</span>
-                  <strong id="lesionArea"> -- </strong>
-                  <small>px²</small>
-                </div>
-
-                <div>
-                  <span>Chu vi</span>
-                  <strong id="lesionPerimeter"> -- </strong>
-                  <small>px</small>
-                </div>
-
-                <div>
-                  <span>Tỷ lệ</span>
-                  <strong id="lesionRatio"> -- </strong>
-                  <small>%</small>
-                </div>
-              </div>
-              <div id="contourResult" class="contour-result" hidden>
-                <div class="contour-result-head">
-                  <strong> Khoanh vùng tổn thương </strong>
-
-                  <span> OpenCV Contour </span>
-                </div>
-
-                <img id="contourImg" class="clinical-image-zoomable" src="" alt="Ảnh khoanh vùng tổn thương" />
-
-                <p class="contour-note">
-                  Đường viền thể hiện vùng tổn thương được phát hiện bằng xử
-                  lý ảnh OpenCV. Các thông số được tính theo pixel, không phải
-                  đơn vị mm.
-                </p>
-              </div>
-            </div>
-
-            <div id="reportStatus" class="report-status" hidden></div>
-          </div>
-        </div>
-      </article>
-    </div>
-  </section>
-
-  <!-- ================= HISTORY (Lịch sử phân tích) ================= -->
-
-  <section class="history-page hidden" id="history">
-    <div class="section-head">
-      <span class="section-eyebrow">Lịch sử phân tích</span>
-      <h2 class="section-title">Lịch sử & Tiền sử bệnh án</h2>
-    </div>
-
-    <!-- Bộ lọc -->
-    <div class="history-filters">
-      <div class="history-filter-group">
-        <label for="historyDateFrom">Từ ngày:</label>
-        <input type="date" id="historyDateFrom" />
-      </div>
-      <div class="history-filter-group">
-        <label for="historyDateTo">Đến ngày:</label>
-        <input type="date" id="historyDateTo" />
-      </div>
-      <div class="history-filter-group">
-        <label for="historyPatient">Bệnh nhân:</label>
-        <select id="historyPatient">
-          <option value="">Tất cả bệnh nhân</option>
-        </select>
-      </div>
-      <div class="history-filter-group">
-        <label for="historyDiagnosis">Chẩn đoán:</label>
-        <select id="historyDiagnosis">
-          <option value="">Tất cả</option>
-          <option value="benign">Lành tính</option>
-          <option value="malignant">Ác tính</option>
-        </select>
-      </div>
-      <div class="history-filter-group history-search-group">
-        <label for="historySearch">Tìm kiếm:</label>
-        <input type="search" id="historySearch" placeholder="Tên, vị trí hoặc mã ca" autocomplete="off" />
-      </div>
-      <button class="history-export-btn" id="historyExportBtn">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-          <polyline points="7 10 12 15 17 10"></polyline>
-          <line x1="12" y1="15" x2="12" y2="3"></line>
-        </svg>
-        Xuất file
-      </button>
-    </div>
-
-    <!-- Timeline Table -->
-    <div class="history-timeline">
-      <table class="history-table">
-        <thead>
-          <tr>
-            <th>Ngày phân tích</th>
-            <th>Bệnh nhân</th>
-            <th>Vị trí tổn thương</th>
-            <th>Chẩn đoán AI</th>
-            <th>Độ tin cậy</th>
-            <th>Hành động</th>
-          </tr>
-        </thead>
-        <tbody id="historyTableBody">
-          <tr>
-            <td colspan="6" style="text-align: center; color: var(--ink-400); padding: 40px;">
-              Chưa có dữ liệu lịch sử phân tích
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </section>
-
-  <!-- ================= COMPARE (So sánh tổn thương) ================= -->
-
-  <section class="compare-page hidden" id="compare">
-    <div class="section-head">
-      <span class="section-eyebrow">So sánh tiến triển</span>
-      <h2 class="section-title">So sánh tổn thương da</h2>
-    </div>
-
-    <div class="compare-grid">
-      <!-- Ảnh A - Trước -->
-      <div class="compare-card">
-        <div class="compare-card-header">
-          <h3 class="compare-card-title">Ảnh A - Trước / Trị liệu</h3>
-          <span class="compare-card-badge before">Thời điểm 1</span>
-        </div>
-        <div class="compare-dropzone" id="compareDropzoneA">
-          <input type="file" id="compareInputA" accept=".jpg,.jpeg,.png,.webp" hidden />
-          <div class="compare-dropzone-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-              <path d="M12 13v8"></path>
-              <path d="m8 17 4-4 4 4"></path>
-              <path d="M20 16.7A4.5 4.5 0 0 0 18 8h-1.3A7 7 0 1 0 5 15.3"></path>
+          <!-- SÁNG / TỐI -->
+          <button type="button" class="hp-icon-btn" id="hpThemeBtn" aria-label="Chuyển giao diện tối" title="Chế độ Sáng / Tối">
+            <svg class="hp-sun-icon hidden"
+                 viewBox="0 0 24 24"
+                 fill="none"
+                 stroke="currentColor"
+                 stroke-width="1.8"
+                 stroke-linecap="round"
+                 stroke-linejoin="round"
+                 aria-hidden="true">
+              <circle cx="12" cy="12" r="4"></circle>
+              <path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path>
             </svg>
-          </div>
-          <p class="compare-dropzone-text">Kéo thả hoặc chọn ảnh</p>
-          <p class="compare-dropzone-sub">JPG / PNG / WEBP</p>
-        </div>
-        <div class="compare-preview" id="comparePreviewA">
-          <img id="compareImageA" alt="Ảnh A" />
-          <button class="compare-preview-remove" id="compareRemoveA">×</button>
-        </div>
-      </div>
-
-      <!-- Ảnh B - Sau -->
-      <div class="compare-card">
-        <div class="compare-card-header">
-          <h3 class="compare-card-title">Ảnh B - Sau / Theo dõi</h3>
-          <span class="compare-card-badge after">Thời điểm 2</span>
-        </div>
-        <div class="compare-dropzone" id="compareDropzoneB">
-          <input type="file" id="compareInputB" accept=".jpg,.jpeg,.png,.webp" hidden />
-          <div class="compare-dropzone-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-              <path d="M12 13v8"></path>
-              <path d="m8 17 4-4 4 4"></path>
-              <path d="M20 16.7A4.5 4.5 0 0 0 18 8h-1.3A7 7 0 1 0 5 15.3"></path>
+            <svg class="hp-moon-icon"
+                 viewBox="0 0 24 24"
+                 fill="none"
+                 stroke="currentColor"
+                 stroke-width="1.8"
+                 stroke-linecap="round"
+                 stroke-linejoin="round"
+                 aria-hidden="true">
+              <path d="M21 12.8A8.5 8.5 0 1 1 11.2 3a6.6 6.6 0 0 0 9.8 9.8Z"></path>
             </svg>
-          </div>
-          <p class="compare-dropzone-text">Kéo thả hoặc chọn ảnh</p>
-          <p class="compare-dropzone-sub">JPG / PNG / WEBP</p>
-        </div>
-        <div class="compare-preview" id="comparePreviewB">
-          <img id="compareImageB" alt="Ảnh B" />
-          <button class="compare-preview-remove" id="compareRemoveB">×</button>
-        </div>
-      </div>
-    </div>
-
-    <!-- Kết quả so sánh -->
-    <div class="compare-result hidden" id="compareResult">
-      <div class="compare-result-header">
-        <div class="compare-result-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3">
-            </path>
-            <circle cx="12" cy="12" r="3"></circle>
-          </svg>
-        </div>
-        <h3 class="compare-result-title">Kết quả so sánh</h3>
-      </div>
-      <div class="compare-result-content">
-        <div class="compare-result-item">
-          <div class="compare-result-label">Thay đổi diện tích</div>
-          <div class="compare-result-value" id="compareAreaChange">--%</div>
-        </div>
-        <div class="compare-result-item">
-          <div class="compare-result-label">Thay đổi màu sắc</div>
-          <div class="compare-result-value" id="compareColorChange">--%</div>
-        </div>
-        <div class="compare-result-item">
-          <div class="compare-result-label">Đánh giá tiến triển</div>
-          <div class="compare-result-value" id="compareProgression">--</div>
-        </div>
-        <div class="compare-result-item">
-          <div class="compare-result-label">Diễn biến nguy cơ hình ảnh</div>
-          <div class="compare-result-value" id="compareRiskEvolution">--</div>
-        </div>
-      </div>
-      <p class="compare-result-note" id="compareResultNote">
-        Kết quả so sánh dựa trên phân tích hình ảnh học máy tính. Để đánh giá chính xác tiến triển bệnh lý, bác sĩ cần
-        kết hợp với khám lâm sàng và tiền sử bệnh án.
-      </p>
-    </div>
-
-    <button class="compare-compare-btn" id="compareBtn" disabled>
-      So sánh hai ảnh
-    </button>
-  </section>
-
-  <!-- ================= STATS (Thống kê) ================= -->
-
-  <section class="history-page hidden" id="stats">
-    <div class="section-head">
-      <span class="section-eyebrow">Thống kê</span>
-      <h2 class="section-title">Thống kê phân tích</h2>
-    </div>
-    <div class="doctor-stats-toolbar">
-      <div>
-        <label for="statsFrom">Từ ngày</label>
-        <input type="date" id="statsFrom" />
-      </div>
-      <div>
-        <label for="statsTo">Đến ngày</label>
-        <input type="date" id="statsTo" />
-      </div>
-      <button type="button" class="btn btn-primary" id="statsApplyBtn">Cập nhật</button>
-    </div>
-    <p class="doctor-stats-status" id="statsStatus" role="status"></p>
-    <div class="doctor-stats-cards">
-      <article class="doctor-stat-card"><span>Tổng lượt phân tích</span><strong id="statsTotal">--</strong></article>
-      <article class="doctor-stat-card benign"><span>Lành tính</span><strong id="statsBenign">--</strong><small id="statsBenignRatio">--</small></article>
-      <article class="doctor-stat-card malignant"><span>Ác tính / nghi ngờ</span><strong id="statsMalignant">--</strong><small id="statsMalignantRatio">--</small></article>
-      <article class="doctor-stat-card confidence"><span>Độ tin cậy trung bình</span><strong id="statsConfidence">--</strong></article>
-    </div>
-    <div class="doctor-stats-grid">
-      <article class="doctor-chart-card">
-        <h3>Xu hướng khám theo tháng</h3>
-        <div class="doctor-chart-wrap"><canvas id="statsTrendChart"></canvas></div>
-      </article>
-      <article class="doctor-chart-card">
-        <h3>Phân bố phân loại ISIC</h3>
-        <div class="doctor-chart-wrap"><canvas id="statsDistributionChart"></canvas></div>
-      </article>
-    </div>
-  </section>
-
-  <!-- ================= PATIENT PAGE 1: LỊCH SỬ & TIỀN SỬ BỆNH ÁN (TIMELINE) ================= -->
-  <section class="patient-portal-page hidden" id="patientTimelinePage" aria-label="Lịch sử & Tiền sử bệnh án">
-    <!-- Banner Chào Mừng Bệnh Nhân -->
-    <div class="patient-welcome-banner">
-      <div class="patient-welcome-text">
-        <div class="patient-welcome-badge">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-            style="width: 14px; height: 14px;">
-            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
-          </svg>
-          Cổng Thông Tin Sức Khỏe Bệnh Nhân
-        </div>
-        <h2>Xin chào, <span id="patientBannerName">Bệnh nhân</span>!</h2>
-        <p>Theo dõi tiến trình thăm khám, dòng thời gian các đợt khám da liễu, kết quả phân loại tổn thương da từ AI và
-          nhận định chuyên khoa từ Bác sĩ.</p>
-      </div>
-      <div class="patient-welcome-icon" aria-hidden="true">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-          <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
-        </svg>
-      </div>
-    </div>
-
-    <!-- Thống kê nhanh của bệnh nhân -->
-    <div class="patient-stat-grid">
-      <div class="patient-stat-card">
-        <div class="patient-stat-icon green">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
-            <line x1="16" y1="2" x2="16" y2="6"></line>
-            <line x1="8" y1="2" x2="8" y2="6"></line>
-            <line x1="3" y1="10" x2="21" y2="10"></line>
-          </svg>
-        </div>
-        <div class="patient-stat-info">
-          <small>Tổng số lần khám</small>
-          <strong id="patientStatTotal">0</strong>
-        </div>
-      </div>
-      <div class="patient-stat-card">
-        <div class="patient-stat-icon orange">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-            <polyline points="22 4 12 14.01 9 11.01"></polyline>
-          </svg>
-        </div>
-        <div class="patient-stat-info">
-          <small>Đợt khám đã hoàn tất</small>
-          <strong id="patientStatCompleted">0</strong>
-        </div>
-      </div>
-      <div class="patient-stat-card">
-        <div class="patient-stat-icon blue">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-            <polyline points="14 2 14 8 20 8"></polyline>
-            <line x1="16" y1="13" x2="8" y2="13"></line>
-            <line x1="16" y1="17" x2="8" y2="17"></line>
-          </svg>
-        </div>
-        <div class="patient-stat-info">
-          <small>Hồ sơ có kết luận y khoa</small>
-          <strong id="patientStatDoctorReviewed">100%</strong>
-        </div>
-      </div>
-    </div>
-
-    <!-- Khung Timeline -->
-    <div class="patient-glass-card">
-      <div class="patient-page-header">
-        <div class="patient-page-icon green">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <circle cx="12" cy="12" r="10"></circle>
-            <polyline points="12 6 12 12 16 14"></polyline>
-          </svg>
-        </div>
-        <div>
-          <h3 class="patient-page-title">
-            Dòng thời gian các đợt khám da liễu
-          </h3>
-          <p class="patient-page-subtitle">
-            Bấm vào từng ca khám để xem chi tiết hình ảnh tổn thương, kết quả phân loại mô hình AI, chẩn đoán y khoa từ
-            bác sĩ và phác đồ hướng điều trị tương ứng.
-          </p>
-        </div>
-      </div>
-      <div id="patientTimelineList" class="patient-timeline-list">
-        <!-- Danh sách ca bệnh render bằng JS -->
-      </div>
-    </div>
-  </section>
-
-  <!-- ================= PATIENT PAGE 2: HỒ SƠ THÔNG TIN CÁ NHÂN ================= -->
-  <section class="patient-portal-page hidden" id="patientProfilePage" aria-label="Hồ sơ thông tin cá nhân">
-    <div class="patient-glass-card">
-      <div class="patient-page-header">
-        <div class="patient-page-icon green">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-            <circle cx="12" cy="7" r="4"></circle>
-          </svg>
-        </div>
-        <div>
-          <h3 class="patient-page-title">
-            Hồ sơ cá nhân & Tiền sử người bệnh
-          </h3>
-          <p class="patient-page-subtitle">
-            Xem và cập nhật thông tin cá nhân của bạn. Dữ liệu chuẩn xác giúp bác sĩ chẩn đoán tốt hơn và xuất báo cáo y
-            khoa chính xác.
-          </p>
-        </div>
-      </div>
-
-      <div id="patientProfileAlert" class="hidden"></div>
-
-      <form id="patientProfileForm" class="patient-form">
-        <div class="patient-form-grid">
-          <div class="patient-form-field">
-            <label for="patientProfileName">Họ và tên bệnh nhân *</label>
-            <input type="text" id="patientProfileName" required placeholder="Nguyễn Văn A" />
-          </div>
-
-          <div class="patient-form-field">
-            <label for="patientProfileEmail">Email đăng ký (Tài khoản)</label>
-            <input type="email" id="patientProfileEmail" disabled readonly />
-          </div>
-
-          <div class="patient-form-field">
-            <label for="patientProfilePhone">Số điện thoại liên hệ</label>
-            <input type="tel" id="patientProfilePhone" placeholder="0901234567" />
-          </div>
-
-          <div class="patient-form-field">
-            <label for="patientProfileGender">Giới tính</label>
-            <select id="patientProfileGender">
-              <option value="Nam">Nam</option>
-              <option value="Nữ">Nữ</option>
-              <option value="Khác">Khác</option>
-            </select>
-          </div>
-
-          <div class="patient-form-field">
-            <label for="patientProfileDob">Ngày sinh (Năm sinh)</label>
-            <input type="date" id="patientProfileDob" />
-          </div>
-        </div>
-
-        <div style="margin-top: 28px; display: flex; justify-content: flex-end; gap: 12px;">
-          <button type="submit" class="patient-btn-primary" id="savePatientProfileBtn">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-              style="width: 16px; height: 16px;">
-              <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path>
-              <polyline points="17 21 17 13 7 13 7 21"></polyline>
-              <polyline points="7 3 7 8 15 8"></polyline>
-            </svg>
-            Lưu thay đổi thông tin cá nhân
           </button>
-        </div>
-      </form>
-    </div>
-  </section>
-
-  <!-- ================= PATIENT PAGE 3: BÁO CÁO Y KHOA & TẢI XUỐNG PDF ================= -->
-  <section class="patient-portal-page hidden" id="patientReportsPage" aria-label="Báo cáo y khoa & Tải xuống PDF">
-    <div class="patient-glass-card">
-      <div class="patient-page-header">
-        <div class="patient-page-icon orange">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-            <polyline points="14 2 14 8 20 8"></polyline>
-            <line x1="16" y1="13" x2="8" y2="13"></line>
-            <line x1="16" y1="17" x2="8" y2="17"></line>
-          </svg>
-        </div>
-        <div>
-          <h3 class="patient-page-title">
-            Báo cáo kết quả khám & Hồ sơ bệnh án (PDF)
-          </h3>
-          <p class="patient-page-subtitle">
-            Xem lại và tải xuống file báo cáo kết quả y khoa chuẩn hóa (PDF) được ký duyệt bởi bác sĩ phụ trách để lưu
-            trữ hoặc đem đi thăm khám tuyến chuyên sâu.
-          </p>
+          <span class="hp-auth-divider" aria-hidden="true"></span>
+          <!-- CHƯA ĐĂNG NHẬP -->
+          <div class="hp-auth-guest" id="hpAuthGuest">
+            <button type="button" class="hp-auth-btn hp-auth-login" id="hpOpenLoginBtn" data-i18n="nav.login">Đăng nhập</button>
+            <button type="button"
+                    class="hp-auth-btn hp-auth-register"
+                    id="hpOpenRegisterBtn"
+                    title="Tạo tài khoản mới"
+                    data-i18n="nav.register">Đăng ký</button>
+          </div>
+          <!-- ĐÃ ĐĂNG NHẬP -->
+          <div class="hp-auth-user hidden" id="hpAuthUser">
+            <span class="hp-user-pill" id="hpUserPill" style="cursor: pointer;" title="Xem thông tin cá nhân">
+              <span class="hp-user-avatar" id="hpUserAvatar">D</span>
+              <span class="hp-user-meta">
+                <strong id="hpUserName">--</strong>
+                <small id="hpUserRole">DOCTOR</small>
+              </span>
+            </span>
+            <button type="button" class="hp-auth-logout" id="hpNavLogoutBtn" data-i18n="nav.logout">Đăng xuất</button>
+          </div>
+          <!-- Giữ element trạng thái kết nối để health-check trong main.js không lỗi -->
+          <span class="hidden" aria-hidden="true">
+            <span id="statusDot"></span>
+            <span id="statusText"></span>
+            <!-- Phần tử tương thích cho auth flow trong main.js. -->
+            <span id="authStatus">Chưa đăng nhập</span>
+            <button type="button" id="logoutBtn">Đăng xuất</button>
+          </span>
         </div>
       </div>
-
-      <div style="overflow-x: auto;">
-        <table class="patient-reports-table">
+    </header>
+    <!-- ================= SLIDES ================= -->
+    <section class="homepage-slideshow" data-testid="homepage-carousel" aria-label="" id="homepage-site-name">
+      <div class="homepage-carousel-track" id="homepage-carousel-track">
+        <article class="homepage-slide is-active" aria-hidden="false">
+          <img class="homepage-slide-image"
+               src="https://images.unsplash.com/photo-1551076805-e1869033e561?auto=format&fit=crop&w=1920&q=80"
+               alt="Đội ngũ y bác sĩ phòng khám da liễu"
+               loading="eager"
+               decoding="async" />
+          <div class="homepage-slide-content">
+            <h1 class="homepage-slide-title">Đội ngũ y bác sĩ DermaScan</h1>
+            <p class="homepage-slide-subtitle">Phòng khám da liễu kết hợp trí tuệ nhân tạo để sàng lọc tổn thương da sớm và chính xác hơn.</p>
+          </div>
+        </article>
+        <article class="homepage-slide" aria-hidden="true">
+          <img class="homepage-slide-image"
+               src="https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&w=1920&q=80"
+               alt="Tập thể nhân viên y tế"
+               loading="eager"
+               decoding="async" />
+          <div class="homepage-slide-content">
+            <h1 class="homepage-slide-title">Chăm sóc da chuyên sâu</h1>
+            <p class="homepage-slide-subtitle">Đội ngũ y tế đồng hành cùng bác sĩ trong từng ca sàng lọc, theo dõi và tư vấn điều trị.</p>
+          </div>
+        </article>
+        <article class="homepage-slide" aria-hidden="true">
+          <img class="homepage-slide-image"
+               src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=1920&q=80"
+               alt="Thiết bị dermoscopy và công nghệ y tế"
+               loading="eager"
+               decoding="async" />
+          <div class="homepage-slide-content">
+            <h1 class="homepage-slide-title">Dermoscopy &amp; AI</h1>
+            <p class="homepage-slide-subtitle">Hình ảnh soi da độ phân giải cao kết hợp mô hình EfficientNet để hỗ trợ quyết định lâm sàng.</p>
+          </div>
+        </article>
+      </div>
+      <div class="homepage-slide-controls" aria-label="Điều hướng banner">
+        <button type="button" class="homepage-slide-control" id="homepage-slide-prev" aria-label="Banner trước">‹</button>
+        <div class="homepage-slide-indicators" id="homepage-slide-indicators">
+          <button type="button" class="homepage-slide-indicator is-active" aria-label="Banner 1" aria-current="true"></button>
+          <button type="button" class="homepage-slide-indicator" aria-label="Banner 2" aria-current="false"></button>
+          <button type="button" class="homepage-slide-indicator" aria-label="Banner 3" aria-current="false"></button>
+        </div>
+        <button type="button" class="homepage-slide-control" id="homepage-slide-next" aria-label="Banner tiếp theo">›</button>
+      </div>
+      <div class="homepage-empty hidden" data-testid="homepage-empty" id="homepage-empty">
+        <span class="homepage-empty-mark">✦</span>
+        <h1 id="homepage-site-title">DermaScan AI</h1>
+        <p id="homepage-site-description">Chỉ dùng cho mục đích nghiên cứu.</p>
+        <div class="hp-hero-actions">
+          <a href="#analyze" class="hp-hero-cta" id="hpHeroCta">
+            <span id="hpHeroCtaText">Bắt đầu phân tích</span>
+            <svg viewBox="0 0 24 24"
+                 fill="none"
+                 stroke="currentColor"
+                 stroke-width="2"
+                 stroke-linecap="round"
+                 stroke-linejoin="round"
+                 aria-hidden="true">
+              <path d="M5 12h14"></path>
+              <path d="m13 6 6 6-6 6"></path>
+            </svg>
+          </a>
+          <a href="#features" class="hp-hero-ghost">Công nghệ lõi</a>
+        </div>
+      </div>
+    </section>
+    <!-- ================= ANALYZER ================= -->
+    <!-- Khu vực Phân tích: CHỈ hiển thị khi đã đăng nhập (main.js điều khiển) -->
+    <section class="analyzer hidden" id="analyze">
+      <div class="section-head">
+        <span class="section-eyebrow">Giao diện chẩn đoán</span>
+        <h2 class="section-title">Phân tích ảnh</h2>
+      </div>
+      <div class="analyzer-grid">
+        <!-- ================= LEFT ================= -->
+        <article class="panel panel-upload">
+          <header class="panel-head">
+            <div class="panel-head-left">
+              <span class="panel-num">01</span>
+              <div>
+                <h3 class="panel-title">Ảnh đầu vào</h3>
+                <p class="panel-sub">Chọn ảnh dermoscopy để phân tích</p>
+              </div>
+            </div>
+          </header>
+          <!-- BỐ CỤC 2 CỘT: BỆNH NHÂN (TRÁI) + TẢI ẢNH (PHẢI) -->
+          <div class="hp-in-grid">
+            <div class="hp-in-col hp-in-patient">
+              <!-- PATIENT -->
+              <div class="patient-selector">
+                <div class="patient-selector-head">
+                  <label for="patientSelect">Bệnh nhân</label>
+                  <button type="button" id="addTemporaryPatientBtn" class="workflow-small-btn patient-add-btn">+ Thêm bệnh nhân</button>
+                </div>
+                <select id="patientSelect" disabled>
+                  <option value="">Đăng nhập bác sĩ để tải danh sách</option>
+                </select>
+                <small id="patientHelp">Chọn bệnh nhân có tài khoản hoặc thêm bệnh nhân mới.</small>
+                <div id="selectedPatientCard" class="selected-patient-card" hidden>
+                  <div class="selected-patient-top">
+                    <strong id="selectedPatientName">--</strong>
+                    <span id="selectedPatientBadge" class="patient-source-badge"></span>
+                  </div>
+                  <div id="selectedPatientMeta" class="selected-patient-meta"></div>
+                  <div id="selectedPatientContact" class="selected-patient-contact"></div>
+                </div>
+                <div class="lesion-location-field">
+                  <label for="lesionLocationInput">Vị trí tổn thương</label>
+                  <input type="text" id="lesionLocationInput" maxlength="255" placeholder="Ví dụ: Cánh tay trái" />
+                </div>
+                <div class="model-selector-field">
+                  <label for="modelName">Mô hình AI</label>
+                  <output id="modelName">EfficientNet-B0</output>
+                  <small>Hệ thống sử dụng EfficientNet-B0 cho mọi phân tích.</small>
+                </div>
+              </div>
+            </div>
+            <div class="hp-in-col hp-in-upload">
+              <!-- DROPZONE -->
+              <div class="dropzone" id="dropZone">
+                <input type="file"
+                       id="imageInput"
+                       name="images"
+                       accept=".jpg,.jpeg,.png,.webp,image/jpeg,image/png,image/webp"
+                       multiple
+                       hidden />
+                <div class="dropzone-inner">
+                  <div class="dropzone-icon">
+                    <svg viewBox="0 0 24 24"
+                         fill="none"
+                         stroke="currentColor"
+                         stroke-width="1.6"
+                         stroke-linecap="round"
+                         stroke-linejoin="round">
+                      <path d="M12 13v8"></path>
+                      <path d="m8 17 4-4 4 4"></path>
+                      <path d="M20 16.7A4.5 4.5 0 0 0 18 8h-1.3A7 7 0 1 0 5 15.3"></path>
+                    </svg>
+                  </div>
+                  <p class="dropzone-title">Kéo thả một hoặc nhiều ảnh</p>
+                  <p class="dropzone-sub">
+                    hoặc
+                    <span class="dropzone-link">chọn ảnh từ máy</span>
+                  </p>
+                  <p class="dropzone-meta">JPG / JPEG / PNG / WEBP · tối đa 20 ảnh · 10 MB mỗi ảnh</p>
+                </div>
+              </div>
+              <!-- PREVIEW -->
+              <div class="preview hidden" id="previewWrap">
+                <img id="previewImg" class="clinical-image-zoomable" alt="Ảnh xem trước" />
+                <div class="preview-overlay">
+                  <span class="preview-tag">Ảnh đầu tiên</span>
+                </div>
+                <button type="button" class="preview-close" id="clearBtn" aria-label="Xóa ảnh">×</button>
+              </div>
+              <!-- SELECTED FILES -->
+              <div id="selectedFilesContainer" class="selected-files-container"></div>
+              <!-- BATCH STATUS -->
+              <div id="batchStatus" class="batch-status" hidden>
+                <span id="batchStatusText"></span>
+              </div>
+              <!-- ACTION BUTTONS: 1 HÀNG GỌN GÀNG -->
+              <div class="upload-action-row" id="uploadActionRow">
+                <button class="btn btn-primary" id="analyzeBtn" disabled>
+                  <span>Tải lên & phân tích ảnh đầu tiên</span>
+                </button>
+                <button type="button" class="btn btn-ghost hidden" id="resetBtn" title="Chọn ảnh hoặc batch khác">
+                  <svg viewBox="0 0 24 24"
+                       width="14"
+                       height="14"
+                       fill="none"
+                       stroke="currentColor"
+                       stroke-width="2.2"
+                       stroke-linecap="round"
+                       stroke-linejoin="round">
+                    <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
+                    <path d="M3 3v5h5" />
+                  </svg>
+                  <span>Chọn ảnh khác</span>
+                </button>
+              </div>
+              <!-- UPLOADED ITEMS -->
+              <div id="batchItems" class="batch-items"></div>
+            </div>
+          </div>
+        </article>
+        <!-- ================= RIGHT ================= -->
+        <article class="panel panel-results">
+          <header class="panel-head">
+            <div class="panel-head-left">
+              <span class="panel-num">02</span>
+              <div>
+                <h3 class="panel-title">Kết quả phân tích</h3>
+                <p class="panel-sub">EfficientNet-B0 + Grad-CAM</p>
+              </div>
+            </div>
+            <span class="panel-tag" id="resultTag" style="display: none"></span>
+          </header>
+          <!-- EMPTY -->
+          <div class="state state-empty" id="emptyState">
+            <div class="state-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4">
+                <circle cx="11" cy="11" r="8"></circle>
+                <path d="m21 21-4.3-4.3"></path>
+              </svg>
+            </div>
+            <p class="state-title">Chưa có kết quả</p>
+            <p class="state-desc">Đăng nhập bác sĩ, Chọn bệnh nhân, chọn ảnh và bắt đầu phân tích.</p>
+          </div>
+          <!-- LOADING -->
+          <div class="state state-loading hidden" id="loadingState">
+            <div class="loader">
+              <div class="loader-ring"></div>
+              <div class="loader-ring loader-ring-2"></div>
+              <div class="loader-core"></div>
+            </div>
+            <p class="state-title">Đang phân tích ảnh</p>
+            <p class="state-desc">Đang chạy EfficientNet và Grad-CAM</p>
+          </div>
+          <!-- ERROR -->
+          <div class="state state-error hidden" id="errorState">
+            <div class="state-icon state-icon-error">!</div>
+            <p class="state-title">Thao tác thất bại</p>
+            <p class="state-desc" id="errorText"></p>
+          </div>
+          <!-- RESULTS -->
+          <div class="state state-results hidden" id="resultsState">
+            <!-- VERDICT -->
+            <div class="verdict" id="verdictCard">
+              <div class="verdict-head">
+                <span class="verdict-icon" id="verdictIcon"></span>
+                <div>
+                  <span class="verdict-eyebrow">Sàng lọc nhị phân</span>
+                  <h3 class="verdict-title" id="verdictTitle"></h3>
+                </div>
+              </div>
+              <div class="verdict-meter">
+                <div class="verdict-meter-track">
+                  <div class="verdict-meter-fill" id="verdictFill"></div>
+                </div>
+                <span class="verdict-meter-value" id="verdictValue"></span>
+              </div>
+              <p class="verdict-note" id="verdictNote"></p>
+            </div>
+            <!-- ============ EVIDENCE GRID: ẢNH GỐC (TRÁI) + CHI TIẾT (PHẢI) ============ -->
+            <div class="hp-result-grid">
+              <div class="hp-result-media">
+                <div class="block hp-media-block">
+                  <div class="block-head">
+                    <h4 class="block-title">Ảnh dermoscopy gốc</h4>
+                    <span class="block-meta">Dermoscopy</span>
+                  </div>
+                  <figure class="cam-item hp-orig-figure">
+                    <img id="origImg" class="clinical-image-zoomable" alt="Ảnh gốc" />
+                    <figcaption>Ảnh gốc</figcaption>
+                  </figure>
+                </div>
+              </div>
+              <div class="hp-result-details">
+                <!-- PROBS -->
+                <div class="block">
+                  <div class="block-head">
+                    <h4 class="block-title">Xác suất từng nhóm tổn thương</h4>
+                    <span class="pred-badge" id="predBadge"></span>
+                  </div>
+                  <div class="prob-list" id="probsList"></div>
+                </div>
+                <!-- GRADCAM -->
+                <div class="block">
+                  <div class="block-head">
+                    <h4 class="block-title">Bản đồ nhiệt Grad-CAM</h4>
+                    <span class="block-meta">Vùng da bất thường</span>
+                  </div>
+                  <figure class="cam-item cam-item-accent hp-cam-figure">
+                    <img id="camImg" class="clinical-image-zoomable" alt="Grad-CAM" />
+                    <figcaption>Grad-CAM</figcaption>
+                  </figure>
+                </div>
+              </div>
+            </div>
+            <!-- INTERPRETATION -->
+            <div class="interp" id="interpCard">
+              <div class="interp-head">
+                <div class="interp-badges">
+                  <span class="severity-badge" id="severityBadge"></span>
+                  <span class="severity-note" id="severityNote"></span>
+                  <span class="chatgpt-pill" id="chatgptPill" title="Diễn giải ngữ cảnh thông minh bởi OpenAI ChatGPT">
+                    <svg viewBox="0 0 24 24" fill="currentColor" width="13" height="13">
+                      <path d="M22.28 10.37a5.53 5.53 0 0 0-.46-4.42 5.6 5.6 0 0 0-4.08-2.73 5.66 5.66 0 0 0-4.47.88 5.6 5.6 0 0 0-3.6-1.57 5.65 5.65 0 0 0-5.36 3.9 5.63 5.63 0 0 0-2.3 3.96 5.66 5.66 0 0 0 .8 4.6 5.53 5.53 0 0 0 .46 4.42 5.6 5.6 0 0 0 4.08 2.73 5.66 5.66 0 0 0 4.47-.88 5.6 5.6 0 0 0 3.6 1.57 5.65 5.65 0 0 0 5.36-3.9 5.63 5.63 0 0 0 2.3-3.96 5.66 5.66 0 0 0-.8-4.6z" />
+                    </svg>
+                    <span>Tư vấn bởi ChatGPT</span>
+                  </span>
+                </div>
+                <button type="button"
+                        class="chatgpt-regenerate-btn"
+                        id="chatgptRefreshBtn"
+                        title="Yêu cầu ChatGPT phân tích lại theo ngữ cảnh">
+                  <svg viewBox="0 0 24 24"
+                       width="13"
+                       height="13"
+                       fill="none"
+                       stroke="currentColor"
+                       stroke-width="2"
+                       stroke-linecap="round"
+                       stroke-linejoin="round">
+                    <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67" />
+                  </svg>
+                  <span>Hỏi lại AI</span>
+                </button>
+              </div>
+              <h4 class="interp-headline" id="interpHeadline"></h4>
+              <p class="interp-summary" id="interpSummary"></p>
+              <p class="interp-detail" id="interpDetail"></p>
+              <div class="interp-actions">
+                <h5 class="interp-actions-title">Khuyến nghị</h5>
+                <ul class="interp-actions-list" id="interpActions">
+                </ul>
+              </div>
+              <div class="interp-conclusion">
+                <p id="interpConclusion"></p>
+              </div>
+            </div>
+            <!-- ================= DOCTOR DIAGNOSIS ================= -->
+            <div class="block doctor-diagnosis" id="doctorDiagnosisSection">
+              <div class="block-head">
+                <div>
+                  <h4 class="block-title">Chẩn đoán của bác sĩ</h4>
+                  <p class="doctor-diagnosis-sub">Nhận xét chuyên môn độc lập với kết quả AI</p>
+                </div>
+                <div class="doctor-head-actions">
+                  <button type="button"
+                          id="applyChatGptSuggestionBtn"
+                          class="workflow-small-btn chatgpt-suggest-btn"
+                          title="Điền nhanh gợi ý lâm sàng từ phân tích ChatGPT">✨ Áp dụng gợi ý ChatGPT</button>
+                  <span id="doctorReviewStatus" class="doctor-review-status">Chưa lưu</span>
+                </div>
+              </div>
+              <div class="doctor-review-form">
+                <div class="doctor-review-field">
+                  <label for="doctorClinicalNote">Ghi chú lâm sàng</label>
+                  <textarea id="doctorClinicalNote"
+                            rows="3"
+                            maxlength="3000"
+                            placeholder="Ví dụ: Tổn thương có bờ không đều, màu sắc không đồng nhất..."></textarea>
+                </div>
+                <div class="doctor-review-field">
+                  <label for="doctorConclusion">
+                    Chẩn đoán / kết luận
+                    <span class="required-mark">*</span>
+                  </label>
+                  <textarea id="doctorConclusion" rows="4" maxlength="3000" placeholder="Nhập chẩn đoán của bác sĩ..."></textarea>
+                </div>
+                <div class="doctor-review-field">
+                  <label for="doctorRecommendation">Khuyến nghị</label>
+                  <textarea id="doctorRecommendation"
+                            rows="3"
+                            maxlength="3000"
+                            placeholder="Ví dụ: Khuyến nghị khám chuyên khoa da liễu, sinh thiết nếu cần..."></textarea>
+                </div>
+                <div class="doctor-review-footer">
+                  <p class="doctor-review-note">
+                    Kết luận của bác sĩ được lưu riêng, không phải kết quả dự
+                    đoán của AI.
+                  </p>
+                  <button type="button" id="saveDoctorReviewBtn" class="workflow-action-btn doctor-save-btn" disabled>Lưu chẩn đoán</button>
+                </div>
+              </div>
+            </div>
+            <!-- ACTIONS -->
+            <div class="block workflow-tools">
+              <div class="block-head">
+                <h4 class="block-title">Công cụ sau phân tích</h4>
+              </div>
+              <div class="workflow-actions">
+                <button type="button" id="measureBtn" class="workflow-action-btn" disabled>Đo tổn thương</button>
+                <button type="button" id="exportPdfBtn" class="workflow-action-btn" disabled>Xuất PDF</button>
+                <button type="button" id="exportExcelBtn" class="workflow-action-btn" disabled>Xuất Excel</button>
+                <button type="button" id="downloadPdfBtn" class="workflow-action-btn" disabled>Tải PDF</button>
+                <button type="button" id="sendEmailBtn" class="workflow-action-btn" disabled>Gửi Email</button>
+                <button type="button"
+                        id="viewTimelineBtn"
+                        class="workflow-action-btn"
+                        style="background:#ecfdf5;
+                               border:1px solid #6ee7b7;
+                               color:#047857;
+                               font-weight:600;
+                               display:inline-flex;
+                               align-items:center;
+                               gap:6px">
+                  <svg width="16"
+                       height="16"
+                       viewBox="0 0 24 24"
+                       fill="none"
+                       stroke="currentColor"
+                       stroke-width="2.2"
+                       stroke-linecap="round"
+                       stroke-linejoin="round"
+                       aria-hidden="true">
+                    <path d="M3 3v18h18" />
+                    <path d="m19 9-5 5-4-4-3 3" />
+                  </svg>
+                  <span>Xem Timeline</span>
+                </button>
+              </div>
+              <!-- MEASUREMENT -->
+              <div id="measurementResult" class="measurement-result" hidden>
+                <h5>Kết quả đo lường</h5>
+                <div class="measurement-grid">
+                  <div>
+                    <span>Diện tích</span>
+                    <strong id="lesionArea">--</strong>
+                    <small>px²</small>
+                  </div>
+                  <div>
+                    <span>Chu vi</span>
+                    <strong id="lesionPerimeter">--</strong>
+                    <small>px</small>
+                  </div>
+                  <div>
+                    <span>Tỷ lệ</span>
+                    <strong id="lesionRatio">--</strong>
+                    <small>%</small>
+                  </div>
+                </div>
+                <div id="contourResult" class="contour-result" hidden>
+                  <div class="contour-result-head">
+                    <strong>Khoanh vùng tổn thương</strong>
+                    <span>OpenCV Contour</span>
+                  </div>
+                  <img id="contourImg" class="clinical-image-zoomable" src="" alt="Ảnh khoanh vùng tổn thương" />
+                  <p class="contour-note">
+                    Đường viền thể hiện vùng tổn thương được phát hiện bằng xử
+                    lý ảnh OpenCV. Các thông số được tính theo pixel, không phải
+                    đơn vị mm.
+                  </p>
+                </div>
+              </div>
+              <div id="reportStatus" class="report-status" hidden></div>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+    <!-- ================= HISTORY (Lịch sử phân tích) ================= -->
+    <section class="history-page hidden" id="history">
+      <div class="section-head">
+        <span class="section-eyebrow">Lịch sử phân tích</span>
+        <h2 class="section-title">Lịch sử & Tiền sử bệnh án</h2>
+      </div>
+      <!-- Bộ lọc -->
+      <div class="history-filters">
+        <div class="history-filter-group">
+          <label for="historyDateFrom">Từ ngày:</label>
+          <input type="date" id="historyDateFrom" />
+        </div>
+        <div class="history-filter-group">
+          <label for="historyDateTo">Đến ngày:</label>
+          <input type="date" id="historyDateTo" />
+        </div>
+        <div class="history-filter-group">
+          <label for="historyPatient">Bệnh nhân:</label>
+          <select id="historyPatient">
+            <option value="">Tất cả bệnh nhân</option>
+          </select>
+        </div>
+        <div class="history-filter-group">
+          <label for="historyDiagnosis">Chẩn đoán:</label>
+          <select id="historyDiagnosis">
+            <option value="">Tất cả</option>
+            <option value="benign">Lành tính</option>
+            <option value="malignant">Ác tính</option>
+          </select>
+        </div>
+        <div class="history-filter-group history-search-group">
+          <label for="historySearch">Tìm kiếm:</label>
+          <input type="search" id="historySearch" placeholder="Tên, vị trí hoặc mã ca" autocomplete="off" />
+        </div>
+        <button class="history-export-btn" id="historyExportBtn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+            <polyline points="7 10 12 15 17 10"></polyline>
+            <line x1="12" y1="15" x2="12" y2="3"></line>
+          </svg>
+          Xuất file
+        </button>
+      </div>
+      <!-- Timeline Table -->
+      <div class="history-timeline">
+        <table class="history-table">
           <thead>
             <tr>
-              <th>Mã đợt khám</th>
-              <th>Ngày khám</th>
-              <th>Tên báo cáo</th>
-              <th>Trạng thái</th>
-              <th>Thao tác tải xuống</th>
+              <th>Ngày phân tích</th>
+              <th>Bệnh nhân</th>
+              <th>Vị trí tổn thương</th>
+              <th>Chẩn đoán AI</th>
+              <th>Độ tin cậy</th>
+              <th>Hành động</th>
             </tr>
           </thead>
-          <tbody id="patientReportsTableBody">
+          <tbody id="historyTableBody">
             <tr>
-              <td colspan="5" style="text-align: center; color: var(--ink-400); padding: 40px;">
-                Đang tải danh sách báo cáo...
-              </td>
+              <td colspan="6" style="text-align: center; color: var(--ink-400); padding: 40px;">Chưa có dữ liệu lịch sử phân tích</td>
             </tr>
           </tbody>
         </table>
       </div>
-    </div>
-  </section>
-
-  <!-- ================= MODAL CHI TIẾT CHẨN ĐOÁN & HƯỚNG ĐIỀU TRỊ ================= -->
-  <div id="patientCaseDetailModal" class="patient-modal hidden" role="dialog" aria-modal="true"
-    aria-labelledby="patientModalTitle">
-    <div class="patient-modal-backdrop" id="patientModalBackdrop"></div>
-    <div class="patient-modal-dialog">
-      <div class="patient-modal-header">
-        <div>
-          <h3 class="patient-modal-title" id="patientModalTitle">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-              style="width: 22px; height: 22px; color: #2ba149;">
-              <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
+    </section>
+    <!-- ================= COMPARE (So sánh tổn thương) ================= -->
+    <section class="compare-page hidden" id="compare">
+      <div class="section-head">
+        <span class="section-eyebrow">So sánh tiến triển</span>
+        <h2 class="section-title">So sánh tổn thương da</h2>
+      </div>
+      <div class="compare-grid">
+        <!-- Ảnh A - Trước -->
+        <div class="compare-card">
+          <div class="compare-card-header">
+            <h3 class="compare-card-title">Ảnh A - Trước / Trị liệu</h3>
+            <span class="compare-card-badge before">Thời điểm 1</span>
+          </div>
+          <div class="compare-dropzone" id="compareDropzoneA">
+            <input type="file" id="compareInputA" accept=".jpg,.jpeg,.png,.webp" hidden />
+            <div class="compare-dropzone-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                <path d="M12 13v8"></path>
+                <path d="m8 17 4-4 4 4"></path>
+                <path d="M20 16.7A4.5 4.5 0 0 0 18 8h-1.3A7 7 0 1 0 5 15.3"></path>
+              </svg>
+            </div>
+            <p class="compare-dropzone-text">Kéo thả hoặc chọn ảnh</p>
+            <p class="compare-dropzone-sub">JPG / PNG / WEBP</p>
+          </div>
+          <div class="compare-preview" id="comparePreviewA">
+            <img id="compareImageA" alt="Ảnh A" />
+            <button class="compare-preview-remove" id="compareRemoveA">×</button>
+          </div>
+        </div>
+        <!-- Ảnh B - Sau -->
+        <div class="compare-card">
+          <div class="compare-card-header">
+            <h3 class="compare-card-title">Ảnh B - Sau / Theo dõi</h3>
+            <span class="compare-card-badge after">Thời điểm 2</span>
+          </div>
+          <div class="compare-dropzone" id="compareDropzoneB">
+            <input type="file" id="compareInputB" accept=".jpg,.jpeg,.png,.webp" hidden />
+            <div class="compare-dropzone-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                <path d="M12 13v8"></path>
+                <path d="m8 17 4-4 4 4"></path>
+                <path d="M20 16.7A4.5 4.5 0 0 0 18 8h-1.3A7 7 0 1 0 5 15.3"></path>
+              </svg>
+            </div>
+            <p class="compare-dropzone-text">Kéo thả hoặc chọn ảnh</p>
+            <p class="compare-dropzone-sub">JPG / PNG / WEBP</p>
+          </div>
+          <div class="compare-preview" id="comparePreviewB">
+            <img id="compareImageB" alt="Ảnh B" />
+            <button class="compare-preview-remove" id="compareRemoveB">×</button>
+          </div>
+        </div>
+      </div>
+      <!-- Kết quả so sánh -->
+      <div class="compare-result hidden" id="compareResult">
+        <div class="compare-result-header">
+          <div class="compare-result-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path>
+              <circle cx="12" cy="12" r="3"></circle>
             </svg>
-            Chi tiết chẩn đoán & Hướng điều trị
-          </h3>
-          <span style="font-size: 12.5px; color: var(--ink-400); display: block; margin-top: 4px;">
-            Mã hồ sơ: <strong id="patientModalCaseCode" style="color: #2ba149;">--</strong> · Ngày khám: <span
-              id="patientModalDate">--</span>
-          </span>
+          </div>
+          <h3 class="compare-result-title">Kết quả so sánh</h3>
         </div>
-        <button type="button" class="patient-modal-close" id="patientModalCloseBtn" aria-label="Đóng">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-            style="width: 20px; height: 20px;">
-            <path d="M18 6L6 18M6 6l12 12"></path>
-          </svg>
-        </button>
+        <div class="compare-result-content">
+          <div class="compare-result-item">
+            <div class="compare-result-label">Thay đổi diện tích</div>
+            <div class="compare-result-value" id="compareAreaChange">--%</div>
+          </div>
+          <div class="compare-result-item">
+            <div class="compare-result-label">Thay đổi màu sắc</div>
+            <div class="compare-result-value" id="compareColorChange">--%</div>
+          </div>
+          <div class="compare-result-item">
+            <div class="compare-result-label">Đánh giá tiến triển</div>
+            <div class="compare-result-value" id="compareProgression">--</div>
+          </div>
+          <div class="compare-result-item">
+            <div class="compare-result-label">Diễn biến nguy cơ hình ảnh</div>
+            <div class="compare-result-value" id="compareRiskEvolution">--</div>
+          </div>
+        </div>
+        <p class="compare-result-note" id="compareResultNote">
+          Kết quả so sánh dựa trên phân tích hình ảnh học máy tính. Để đánh giá chính xác tiến triển bệnh lý, bác sĩ cần
+          kết hợp với khám lâm sàng và tiền sử bệnh án.
+        </p>
       </div>
-      <div class="patient-modal-body" id="patientDetailContent">
-        <!-- Nội dung chi tiết được điền tự động bởi patient.js -->
+      <button class="compare-compare-btn" id="compareBtn" disabled>So sánh hai ảnh</button>
+    </section>
+    <!-- ================= STATS (Thống kê) ================= -->
+    <section class="history-page hidden" id="stats">
+      <div class="section-head">
+        <span class="section-eyebrow">Thống kê</span>
+        <h2 class="section-title">Thống kê phân tích</h2>
+      </div>
+      <div class="doctor-stats-toolbar">
+        <div>
+          <label for="statsFrom">Từ ngày</label>
+          <input type="date" id="statsFrom" />
+        </div>
+        <div>
+          <label for="statsTo">Đến ngày</label>
+          <input type="date" id="statsTo" />
+        </div>
+        <button type="button" class="btn btn-primary" id="statsApplyBtn">Cập nhật</button>
+      </div>
+      <p class="doctor-stats-status" id="statsStatus" role="status"></p>
+      <div class="doctor-stats-cards">
+        <article class="doctor-stat-card"><span>Tổng lượt phân tích</span><strong id="statsTotal">--</strong></article>
+        <article class="doctor-stat-card benign"><span>Lành tính</span><strong id="statsBenign">--</strong><small id="statsBenignRatio">--</small></article>
+        <article class="doctor-stat-card malignant"><span>Ác tính / nghi ngờ</span><strong id="statsMalignant">--</strong><small id="statsMalignantRatio">--</small></article>
+        <article class="doctor-stat-card confidence"><span>Độ tin cậy trung bình</span><strong id="statsConfidence">--</strong></article>
+      </div>
+      <div class="doctor-stats-grid">
+        <article class="doctor-chart-card">
+          <h3>Xu hướng khám theo tháng</h3>
+          <div class="doctor-chart-wrap">
+            <canvas id="statsTrendChart"></canvas>
+          </div>
+        </article>
+        <article class="doctor-chart-card">
+          <h3>Phân bố phân loại ISIC</h3>
+          <div class="doctor-chart-wrap">
+            <canvas id="statsDistributionChart"></canvas>
+          </div>
+        </article>
+      </div>
+    </section>
+    <!-- ================= PATIENT PAGE 1: LỊCH SỬ & TIỀN SỬ BỆNH ÁN (TIMELINE) ================= -->
+    <section class="patient-portal-page hidden" id="patientTimelinePage" aria-label="Lịch sử & Tiền sử bệnh án">
+      <!-- Banner Chào Mừng Bệnh Nhân -->
+      <div class="patient-welcome-banner">
+        <div class="patient-welcome-text">
+          <div class="patient-welcome-badge">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 14px; height: 14px;">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+            </svg>
+            Cổng Thông Tin Sức Khỏe Bệnh Nhân
+          </div>
+          <h2>Xin chào, <span id="patientBannerName">Bệnh nhân</span>!</h2>
+          <p>
+            Theo dõi tiến trình thăm khám, dòng thời gian các đợt khám da liễu, kết quả phân loại tổn thương da từ AI và
+            nhận định chuyên khoa từ Bác sĩ.
+          </p>
+        </div>
+        <div class="patient-welcome-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
+          </svg>
+        </div>
+      </div>
+      <!-- Thống kê nhanh của bệnh nhân -->
+      <div class="patient-stat-grid">
+        <div class="patient-stat-card">
+          <div class="patient-stat-icon green">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+              <line x1="16" y1="2" x2="16" y2="6"></line>
+              <line x1="8" y1="2" x2="8" y2="6"></line>
+              <line x1="3" y1="10" x2="21" y2="10"></line>
+            </svg>
+          </div>
+          <div class="patient-stat-info">
+            <small>Tổng số lần khám</small>
+            <strong id="patientStatTotal">0</strong>
+          </div>
+        </div>
+        <div class="patient-stat-card">
+          <div class="patient-stat-icon orange">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+              <polyline points="22 4 12 14.01 9 11.01"></polyline>
+            </svg>
+          </div>
+          <div class="patient-stat-info">
+            <small>Đợt khám đã hoàn tất</small>
+            <strong id="patientStatCompleted">0</strong>
+          </div>
+        </div>
+        <div class="patient-stat-card">
+          <div class="patient-stat-icon blue">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+              <polyline points="14 2 14 8 20 8"></polyline>
+              <line x1="16" y1="13" x2="8" y2="13"></line>
+              <line x1="16" y1="17" x2="8" y2="17"></line>
+            </svg>
+          </div>
+          <div class="patient-stat-info">
+            <small>Hồ sơ có kết luận y khoa</small>
+            <strong id="patientStatDoctorReviewed">100%</strong>
+          </div>
+        </div>
+      </div>
+      <!-- Khung Timeline -->
+      <div class="patient-glass-card">
+        <div class="patient-page-header">
+          <div class="patient-page-icon green">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"></circle>
+              <polyline points="12 6 12 12 16 14"></polyline>
+            </svg>
+          </div>
+          <div>
+            <h3 class="patient-page-title">Dòng thời gian các đợt khám da liễu</h3>
+            <p class="patient-page-subtitle">
+              Bấm vào từng ca khám để xem chi tiết hình ảnh tổn thương, kết quả phân loại mô hình AI, chẩn đoán y khoa từ
+              bác sĩ và phác đồ hướng điều trị tương ứng.
+            </p>
+          </div>
+        </div>
+        <div id="patientTimelineList" class="patient-timeline-list">
+          <!-- Danh sách ca bệnh render bằng JS -->
+        </div>
+      </div>
+    </section>
+    <!-- ================= PATIENT PAGE 2: HỒ SƠ THÔNG TIN CÁ NHÂN ================= -->
+    <section class="patient-portal-page hidden" id="patientProfilePage" aria-label="Hồ sơ thông tin cá nhân">
+      <div class="patient-glass-card">
+        <div class="patient-page-header">
+          <div class="patient-page-icon green">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+              <circle cx="12" cy="7" r="4"></circle>
+            </svg>
+          </div>
+          <div>
+            <h3 class="patient-page-title">Hồ sơ cá nhân & Tiền sử người bệnh</h3>
+            <p class="patient-page-subtitle">
+              Xem và cập nhật thông tin cá nhân của bạn. Dữ liệu chuẩn xác giúp bác sĩ chẩn đoán tốt hơn và xuất báo cáo y
+              khoa chính xác.
+            </p>
+          </div>
+        </div>
+        <div id="patientProfileAlert" class="hidden"></div>
+        <form id="patientProfileForm" class="patient-form">
+          <div class="patient-form-grid">
+            <div class="patient-form-field">
+              <label for="patientProfileName">Họ và tên bệnh nhân *</label>
+              <input type="text" id="patientProfileName" required placeholder="Nguyễn Văn A" />
+            </div>
+            <div class="patient-form-field">
+              <label for="patientProfileEmail">Email đăng ký (Tài khoản)</label>
+              <input type="email" id="patientProfileEmail" disabled readonly />
+            </div>
+            <div class="patient-form-field">
+              <label for="patientProfilePhone">Số điện thoại liên hệ</label>
+              <input type="tel" id="patientProfilePhone" placeholder="0901234567" />
+            </div>
+            <div class="patient-form-field">
+              <label for="patientProfileGender">Giới tính</label>
+              <select id="patientProfileGender">
+                <option value="Nam">Nam</option>
+                <option value="Nữ">Nữ</option>
+                <option value="Khác">Khác</option>
+              </select>
+            </div>
+            <div class="patient-form-field">
+              <label for="patientProfileDob">Ngày sinh (Năm sinh)</label>
+              <input type="date" id="patientProfileDob" />
+            </div>
+          </div>
+          <div style="margin-top: 28px; display: flex; justify-content: flex-end; gap: 12px;">
+            <button type="submit" class="patient-btn-primary" id="savePatientProfileBtn">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 16px; height: 16px;">
+                <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path>
+                <polyline points="17 21 17 13 7 13 7 21"></polyline>
+                <polyline points="7 3 7 8 15 8"></polyline>
+              </svg>
+              Lưu thay đổi thông tin cá nhân
+            </button>
+          </div>
+        </form>
+      </div>
+    </section>
+    <!-- ================= PATIENT PAGE 3: BÁO CÁO Y KHOA & TẢI XUỐNG PDF ================= -->
+    <section class="patient-portal-page hidden" id="patientReportsPage" aria-label="Báo cáo y khoa & Tải xuống PDF">
+      <div class="patient-glass-card">
+        <div class="patient-page-header">
+          <div class="patient-page-icon orange">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+              <polyline points="14 2 14 8 20 8"></polyline>
+              <line x1="16" y1="13" x2="8" y2="13"></line>
+              <line x1="16" y1="17" x2="8" y2="17"></line>
+            </svg>
+          </div>
+          <div>
+            <h3 class="patient-page-title">Báo cáo kết quả khám & Hồ sơ bệnh án (PDF)</h3>
+            <p class="patient-page-subtitle">
+              Xem lại và tải xuống file báo cáo kết quả y khoa chuẩn hóa (PDF) được ký duyệt bởi bác sĩ phụ trách để lưu
+              trữ hoặc đem đi thăm khám tuyến chuyên sâu.
+            </p>
+          </div>
+        </div>
+        <div style="overflow-x: auto;">
+          <table class="patient-reports-table">
+            <thead>
+              <tr>
+                <th>Mã đợt khám</th>
+                <th>Ngày khám</th>
+                <th>Tên báo cáo</th>
+                <th>Trạng thái</th>
+                <th>Thao tác tải xuống</th>
+              </tr>
+            </thead>
+            <tbody id="patientReportsTableBody">
+              <tr>
+                <td colspan="5" style="text-align: center; color: var(--ink-400); padding: 40px;">Đang tải danh sách báo cáo...</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+    <!-- ================= MODAL CHI TIẾT CHẨN ĐOÁN & HƯỚNG ĐIỀU TRỊ ================= -->
+    <div id="patientCaseDetailModal" class="patient-modal hidden" role="dialog" aria-modal="true" aria-labelledby="patientModalTitle">
+      <div class="patient-modal-backdrop" id="patientModalBackdrop"></div>
+      <div class="patient-modal-dialog">
+        <div class="patient-modal-header">
+          <div>
+            <h3 class="patient-modal-title" id="patientModalTitle">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 22px; height: 22px; color: #2ba149">
+                <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
+              </svg>
+              Chi tiết chẩn đoán & Hướng điều trị
+            </h3>
+            <span style="font-size: 12.5px; color: var(--ink-400); display: block; margin-top: 4px;">
+              Mã hồ sơ: <strong id="patientModalCaseCode"
+         style="color: #2ba149">--</strong> · Ngày khám: <span id="patientModalDate">--</span>
+            </span>
+          </div>
+          <button type="button" class="patient-modal-close" id="patientModalCloseBtn" aria-label="Đóng">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 20px; height: 20px;">
+              <path d="M18 6L6 18M6 6l12 12"></path>
+            </svg>
+          </button>
+        </div>
+        <div class="patient-modal-body" id="patientDetailContent">
+          <!-- Nội dung chi tiết được điền tự động bởi patient.js -->
+        </div>
       </div>
     </div>
-  </div>
-
-  <!-- ================= FEATURES ================= -->
-
-  <section class="features" id="features">
-    <div class="section-head hp-features-head">
-      <span class="section-eyebrow"> Công nghệ lõi </span>
-
-      <h2 class="section-title">Tính năng cốt lõi của DermaScan AI</h2>
-
-      <p class="hp-features-lead">
-        Kết hợp thị giác máy tính và y khoa để đưa ra kết quả sàng lọc có
-        thể giải thích được.
-      </p>
-    </div>
-
-    <div class="features-grid">
-      <article class="feature">
-        <span class="hp-feature-badge">Mô hình học sâu</span>
-
-        <div class="feature-icon feature-icon-green">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"
-            stroke-linejoin="round" aria-hidden="true">
-            <circle cx="12" cy="5" r="2.3"></circle>
-
-            <circle cx="5" cy="18" r="2.3"></circle>
-
-            <circle cx="19" cy="18" r="2.3"></circle>
-
-            <path d="M12 7.3v2.9"></path>
-
-            <path d="M12 10.2 6.3 16.2"></path>
-
-            <path d="M12 10.2l5.7 6"></path>
-          </svg>
-        </div>
-
-        <h3 class="feature-title">Mô hình EfficientNet-B0</h3>
-
-        <p class="feature-desc">
-          Phân loại tổn thương da từ ảnh dermoscopy với kiến trúc nhẹ, chạy
-          mượt trên cả CPU và GPU.
+    <!-- ================= FEATURES ================= -->
+    <section class="features" id="features">
+      <div class="section-head hp-features-head">
+        <span class="section-eyebrow">Công nghệ lõi</span>
+        <h2 class="section-title">Tính năng cốt lõi của DermaScan AI</h2>
+        <p class="hp-features-lead">
+          Kết hợp thị giác máy tính và y khoa để đưa ra kết quả sàng lọc có
+          thể giải thích được.
         </p>
-      </article>
-
-      <article class="feature">
-        <span class="hp-feature-badge">Giải thích kết quả</span>
-
-        <div class="feature-icon feature-icon-orange">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"
-            stroke-linejoin="round" aria-hidden="true">
-            <circle cx="12" cy="12" r="7.2"></circle>
-
-            <circle cx="12" cy="12" r="3.2"></circle>
-
-            <path d="M12 2.2v3.2M12 18.6v3.2M2.2 12h3.2M18.6 12h3.2"></path>
-          </svg>
+      </div>
+      <div class="features-grid">
+        <article class="feature">
+          <span class="hp-feature-badge">Mô hình học sâu</span>
+          <div class="feature-icon feature-icon-green">
+            <svg viewBox="0 0 24 24"
+                 fill="none"
+                 stroke="currentColor"
+                 stroke-width="1.7"
+                 stroke-linecap="round"
+                 stroke-linejoin="round"
+                 aria-hidden="true">
+              <circle cx="12" cy="5" r="2.3"></circle>
+              <circle cx="5" cy="18" r="2.3"></circle>
+              <circle cx="19" cy="18" r="2.3"></circle>
+              <path d="M12 7.3v2.9"></path>
+              <path d="M12 10.2 6.3 16.2"></path>
+              <path d="M12 10.2l5.7 6"></path>
+            </svg>
+          </div>
+          <h3 class="feature-title">Mô hình EfficientNet-B0</h3>
+          <p class="feature-desc">
+            Phân loại tổn thương da từ ảnh dermoscopy với kiến trúc nhẹ, chạy
+            mượt trên cả CPU và GPU.
+          </p>
+        </article>
+        <article class="feature">
+          <span class="hp-feature-badge">Giải thích kết quả</span>
+          <div class="feature-icon feature-icon-orange">
+            <svg viewBox="0 0 24 24"
+                 fill="none"
+                 stroke="currentColor"
+                 stroke-width="1.7"
+                 stroke-linecap="round"
+                 stroke-linejoin="round"
+                 aria-hidden="true">
+              <circle cx="12" cy="12" r="7.2"></circle>
+              <circle cx="12" cy="12" r="3.2"></circle>
+              <path d="M12 2.2v3.2M12 18.6v3.2M2.2 12h3.2M18.6 12h3.2"></path>
+            </svg>
+          </div>
+          <h3 class="feature-title">Trực quan hóa Grad-CAM</h3>
+          <p class="feature-desc">
+            Bản đồ nhiệt chỉ ra vùng ảnh mà mô hình tập trung, giúp bác sĩ
+            hình dung cơ sở của từng dự đoán.
+          </p>
+        </article>
+        <article class="feature">
+          <span class="hp-feature-badge">Dữ liệu chuẩn quốc tế</span>
+          <div class="feature-icon feature-icon-green">
+            <svg viewBox="0 0 24 24"
+                 fill="none"
+                 stroke="currentColor"
+                 stroke-width="1.7"
+                 stroke-linecap="round"
+                 stroke-linejoin="round"
+                 aria-hidden="true">
+              <ellipse cx="12" cy="6" rx="7" ry="3"></ellipse>
+              <path d="M5 6v6c0 1.66 3.13 3 7 3s7-1.34 7-3V6"></path>
+              <path d="M5 12v6c0 1.66 3.13 3 7 3s7-1.34 7-3v-6"></path>
+            </svg>
+          </div>
+          <h3 class="feature-title">Bộ dữ liệu chuẩn ISIC</h3>
+          <p class="feature-desc">
+            Huấn luyện và kiểm chứng trên bộ ảnh ISIC được chuyên gia da liễu
+            chú giải theo chuẩn quốc tế.
+          </p>
+        </article>
+      </div>
+    </section>
+    <!-- ================= FOOTER ================= -->
+    <footer class="footer hp-footer">
+      <div class="hp-footer-accent" aria-hidden="true"></div>
+      <div class="footer-inner hp-footer-inner">
+        <div class="hp-footer-grid">
+          <!-- THƯƠNG HIỆU + MẠNG XÃ HỘI -->
+          <div class="hp-footer-col">
+            <a href="/" class="hp-footer-logo">
+              <span class="hp-footer-logo-mark">
+                <svg viewBox="0 0 24 24"
+                     fill="none"
+                     stroke="currentColor"
+                     stroke-width="1.8"
+                     stroke-linecap="round"
+                     stroke-linejoin="round"
+                     aria-hidden="true">
+                  <path d="M4 8V6a2 2 0 0 1 2-2h2"></path>
+                  <path d="M16 4h2a2 2 0 0 1 2 2v2"></path>
+                  <path d="M20 16v2a2 2 0 0 1-2 2h-2"></path>
+                  <path d="M8 20H6a2 2 0 0 1-2-2v-2"></path>
+                  <path d="M7 12h2.5l1.5-3 2 6 1.5-3H17"></path>
+                </svg>
+              </span>
+              <span class="footer-mark" id="site-footer-title"></span>
+            </a>
+            <span class="footer-sub" id="site-footer-description">Chỉ dùng cho mục đích nghiên cứu.</span>
+            <p class="hp-footer-about">
+              Ứng dụng y tế hỗ trợ bác sĩ sàng lọc tổn thương da bằng AI, kết
+              hợp EfficientNet-B0 và trực quan hóa Grad-CAM.
+            </p>
+            <div class="hp-socials">
+              <a class="hp-social-link hp-soc-facebook"
+                 href="#"
+                 target="_blank"
+                 rel="noopener noreferrer"
+                 aria-label="Facebook"
+                 title="Facebook">
+                <svg viewBox="0 0 320 512" fill="currentColor" aria-hidden="true">
+                  <path d="M80 299.3V512H196V299.3h86.5l18-97.8H196V166.9c0-51.7 20.3-71.5 72.7-71.5 16.3 0 29.4 .4 37 1.2V7.9C291.4 4 256.4 0 236.2 0C129.3 0 80 50.5 80 159.4v42.1H14v97.8H80z">
+                  </path>
+                </svg>
+              </a>
+              <a class="hp-social-link hp-soc-google" href="#" target="_blank" rel="noopener noreferrer" aria-label="Google" title="Google">
+                <svg viewBox="0 0 488 512" fill="currentColor" aria-hidden="true">
+                  <path d="M488 261.8C488 403.3 391.1 504 248 504 110.8 504 0 393.2 0 256S110.8 8 248 8c66.8 0 123 24.5 166.3 64.9l-67.5 64.9C258.5 52.6 94.3 116.6 94.3 256c0 86.5 69.1 156.6 153.7 156.6 98.2 0 135-70.4 140.8-106.9H248v-85.3h236.1c2.3 12.7 3.9 24.9 3.9 41.4z">
+                  </path>
+                </svg>
+              </a>
+              <a class="hp-social-link hp-soc-linkedin"
+                 href="#"
+                 target="_blank"
+                 rel="noopener noreferrer"
+                 aria-label="LinkedIn"
+                 title="LinkedIn">
+                <svg viewBox="0 0 448 512" fill="currentColor" aria-hidden="true">
+                  <path d="M100.28 448H7.4V148.9h92.88zM53.79 108.1C24.09 108.1 0 83.5 0 53.8a53.79 53.79 0 0 1 107.58 0c0 29.7-24.1 54.3-53.79 54.3zM447.9 448h-92.68V302.4c0-34.7-.7-79.2-48.29-79.2-48.29 0-55.69 37.7-55.69 76.7V448h-92.78V148.9h89.08v40.8h1.3c12.4-23.5 42.69-48.3 87.88-48.3 94 0 111.28 61.9 111.28 142.3V448z">
+                  </path>
+                </svg>
+              </a>
+              <a class="hp-social-link hp-soc-x"
+                 href="#"
+                 target="_blank"
+                 rel="noopener noreferrer"
+                 aria-label="Twitter / X"
+                 title="Twitter / X">
+                <svg viewBox="0 0 512 512" fill="currentColor" aria-hidden="true">
+                  <path d="M389.2 48h70.6L305.6 224.2 487 464H345L233.7 318.6 106.5 464H35.8L200.7 275.5 26.8 48H172.4L272.9 180.9 389.2 48zM364.4 421.8h39.1L151.1 88h-42L364.4 421.8z">
+                  </path>
+                </svg>
+              </a>
+              <a class="hp-social-link hp-soc-github"
+                 href="https://github.com/DTH235658-Phan-Thanh-Hoai/DoAnTriTueNhanTao"
+                 target="_blank"
+                 rel="noopener noreferrer"
+                 aria-label="GitHub"
+                 title="GitHub">
+                <svg viewBox="0 0 496 512" fill="currentColor" aria-hidden="true">
+                  <path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z">
+                  </path>
+                </svg>
+              </a>
+            </div>
+          </div>
+          <!-- LIÊN HỆ -->
+          <div class="hp-footer-col">
+            <h4 class="hp-footer-heading">Liên hệ</h4>
+            <ul class="hp-contact-list">
+              <li class="hp-contact-item">
+                <span class="hp-contact-ic">
+                  <svg viewBox="0 0 24 24"
+                       fill="none"
+                       stroke="currentColor"
+                       stroke-width="1.8"
+                       stroke-linecap="round"
+                       stroke-linejoin="round"
+                       aria-hidden="true">
+                    <rect x="3" y="5" width="18" height="14" rx="2"></rect>
+                    <path d="m3.5 7 8.5 6 8.5-6"></path>
+                  </svg>
+                </span>
+                <span class="hp-contact-body">
+                  <span class="hp-contact-label">Email</span>
+                  <a id="site-email" class="hidden hp-contact-value" href=""></a>
+                  <span class="hp-contact-fallback">contact@dermascan.ai</span>
+                </span>
+              </li>
+              <li class="hp-contact-item">
+                <span class="hp-contact-ic">
+                  <svg viewBox="0 0 24 24"
+                       fill="none"
+                       stroke="currentColor"
+                       stroke-width="1.8"
+                       stroke-linecap="round"
+                       stroke-linejoin="round"
+                       aria-hidden="true">
+                    <path d="M6.5 3h3l1.5 4.5-2 1.4a12.5 12.5 0 0 0 5.6 5.6l1.4-2L20.5 14v3a2 2 0 0 1-2.2 2A16.8 16.8 0 0 1 4 5.7 2 2 0 0 1 6.5 3Z"></path>
+                  </svg>
+                </span>
+                <span class="hp-contact-body">
+                  <span class="hp-contact-label">Hotline</span>
+                  <a id="site-phone" class="hidden hp-contact-value" href=""></a>
+                  <span class="hp-contact-fallback">1900 6868</span>
+                </span>
+              </li>
+              <li class="hp-contact-item hp-contact-address">
+                <span class="hp-contact-ic">
+                  <svg viewBox="0 0 24 24"
+                       fill="none"
+                       stroke="currentColor"
+                       stroke-width="1.8"
+                       stroke-linecap="round"
+                       stroke-linejoin="round"
+                       aria-hidden="true">
+                    <path d="M12 21s7-5.6 7-11a7 7 0 1 0-14 0c0 5.4 7 11 7 11Z"></path>
+                    <circle cx="12" cy="10" r="2.6"></circle>
+                  </svg>
+                </span>
+                <span class="hp-contact-body">
+                  <span class="hp-contact-label">Địa chỉ</span>
+                  <span id="site-address" class="hidden hp-contact-value"></span>
+                </span>
+              </li>
+              <li class="hp-contact-item hp-contact-fb">
+                <span class="hp-contact-ic">
+                  <svg viewBox="0 0 320 512" fill="currentColor" aria-hidden="true">
+                    <path d="M80 299.3V512H196V299.3h86.5l18-97.8H196V166.9c0-51.7 20.3-71.5 72.7-71.5 16.3 0 29.4 .4 37 1.2V7.9C291.4 4 256.4 0 236.2 0C129.3 0 80 50.5 80 159.4v42.1H14v97.8H80z">
+                    </path>
+                  </svg>
+                </span>
+                <span class="hp-contact-body">
+                  <span class="hp-contact-label">Mạng xã hội</span>
+                  <a id="site-facebook" class="hidden hp-contact-value" href="" target="_blank" rel="noopener noreferrer"></a>
+                </span>
+              </li>
+            </ul>
+          </div>
+          <!-- CÔNG NGHỆ -->
+          <div class="hp-footer-col">
+            <h4 class="hp-footer-heading">Công nghệ</h4>
+            <ul class="hp-tech-list">
+              <li>EfficientNet-B0 — phân loại tổn thương da</li>
+              <li>Grad-CAM — bản đồ chú ý trực quan</li>
+              <li>Bộ dữ liệu chuẩn ISIC</li>
+              <li>Báo cáo PDF &amp; gửi Email</li>
+            </ul>
+          </div>
+          <!-- LƯU Ý Y KHOA -->
+          <div class="hp-footer-col">
+            <h4 class="hp-footer-heading">Lưu ý y khoa</h4>
+            <div class="hp-medical-note">
+              <svg viewBox="0 0 24 24"
+                   fill="none"
+                   stroke="currentColor"
+                   stroke-width="1.8"
+                   stroke-linecap="round"
+                   stroke-linejoin="round"
+                   aria-hidden="true">
+                <path d="M10.3 3.9 1.9 18a2 2 0 0 0 1.7 3h16.8a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z"></path>
+                <path d="M12 9v4.5"></path>
+                <path d="M12 17.2h.01"></path>
+              </svg>
+              <p>
+                Kết quả phân tích chỉ mang tính chất
+                <strong>sàng lọc tham khảo</strong>, không phải chẩn đoán y khoa
+                và không thay thế tư vấn trực tiếp với bác sĩ chuyên khoa da
+                liễu.
+              </p>
+            </div>
+          </div>
         </div>
-
-        <h3 class="feature-title">Trực quan hóa Grad-CAM</h3>
-
-        <p class="feature-desc">
-          Bản đồ nhiệt chỉ ra vùng ảnh mà mô hình tập trung, giúp bác sĩ
-          hình dung cơ sở của từng dự đoán.
-        </p>
-      </article>
-
-      <article class="feature">
-        <span class="hp-feature-badge">Dữ liệu chuẩn quốc tế</span>
-
-        <div class="feature-icon feature-icon-green">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"
-            stroke-linejoin="round" aria-hidden="true">
-            <ellipse cx="12" cy="6" rx="7" ry="3"></ellipse>
-
-            <path d="M5 6v6c0 1.66 3.13 3 7 3s7-1.34 7-3V6"></path>
-
-            <path d="M5 12v6c0 1.66 3.13 3 7 3s7-1.34 7-3v-6"></path>
-          </svg>
+        <div class="footer-note hp-footer-bottom">
+          <span id="site-copyright"></span>
+          <span class="hp-footer-tagline">Sàng lọc ung thư da bằng AI</span>
         </div>
-
-        <h3 class="feature-title">Bộ dữ liệu chuẩn ISIC</h3>
-
-        <p class="feature-desc">
-          Huấn luyện và kiểm chứng trên bộ ảnh ISIC được chuyên gia da liễu
-          chú giải theo chuẩn quốc tế.
-        </p>
-      </article>
-    </div>
-  </section>
-
-  <!-- ================= FOOTER ================= -->
-
-  <footer class="footer hp-footer">
-    <div class="hp-footer-accent" aria-hidden="true"></div>
-
-    <div class="footer-inner hp-footer-inner">
-      <div class="hp-footer-grid">
-        <!-- THƯƠNG HIỆU + MẠNG XÃ HỘI -->
-        <div class="hp-footer-col">
-          <a href="/" class="hp-footer-logo">
-            <span class="hp-footer-logo-mark">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
-                stroke-linejoin="round" aria-hidden="true">
+      </div>
+    </footer>
+    <!-- ================= AUTH MODAL (ĐĂNG NHẬP / ĐĂNG KÝ) ================= -->
+    <div class="hp-auth-modal hidden" id="hpAuthModal" role="dialog" aria-modal="true" data-view="login">
+      <div class="hp-auth-backdrop" id="hpAuthBackdrop"></div>
+      <div class="hp-auth-dialog">
+        <div class="hp-auth-head">
+          <div class="hp-auth-brand">
+            <span class="hp-auth-brand-mark">
+              <svg viewBox="0 0 24 24"
+                   fill="none"
+                   stroke="currentColor"
+                   stroke-width="1.8"
+                   stroke-linecap="round"
+                   stroke-linejoin="round"
+                   aria-hidden="true">
                 <path d="M4 8V6a2 2 0 0 1 2-2h2"></path>
-
                 <path d="M16 4h2a2 2 0 0 1 2 2v2"></path>
-
                 <path d="M20 16v2a2 2 0 0 1-2 2h-2"></path>
-
                 <path d="M8 20H6a2 2 0 0 1-2-2v-2"></path>
-
                 <path d="M7 12h2.5l1.5-3 2 6 1.5-3H17"></path>
               </svg>
             </span>
-
-            <span class="footer-mark" id="site-footer-title"></span>
-          </a>
-
-          <span class="footer-sub" id="site-footer-description">Chỉ dùng cho mục đích nghiên cứu.</span>
-
-          <p class="hp-footer-about">
-            Ứng dụng y tế hỗ trợ bác sĩ sàng lọc tổn thương da bằng AI, kết
-            hợp EfficientNet-B0 và trực quan hóa Grad-CAM.
-          </p>
-
-          <div class="hp-socials">
-            <a class="hp-social-link hp-soc-facebook" href="#" target="_blank" rel="noopener noreferrer"
-              aria-label="Facebook" title="Facebook">
-              <svg viewBox="0 0 320 512" fill="currentColor" aria-hidden="true">
-                <path
-                  d="M80 299.3V512H196V299.3h86.5l18-97.8H196V166.9c0-51.7 20.3-71.5 72.7-71.5 16.3 0 29.4 .4 37 1.2V7.9C291.4 4 256.4 0 236.2 0C129.3 0 80 50.5 80 159.4v42.1H14v97.8H80z">
-                </path>
-              </svg>
-            </a>
-
-            <a class="hp-social-link hp-soc-google" href="#" target="_blank" rel="noopener noreferrer"
-              aria-label="Google" title="Google">
-              <svg viewBox="0 0 488 512" fill="currentColor" aria-hidden="true">
-                <path
-                  d="M488 261.8C488 403.3 391.1 504 248 504 110.8 504 0 393.2 0 256S110.8 8 248 8c66.8 0 123 24.5 166.3 64.9l-67.5 64.9C258.5 52.6 94.3 116.6 94.3 256c0 86.5 69.1 156.6 153.7 156.6 98.2 0 135-70.4 140.8-106.9H248v-85.3h236.1c2.3 12.7 3.9 24.9 3.9 41.4z">
-                </path>
-              </svg>
-            </a>
-
-            <a class="hp-social-link hp-soc-linkedin" href="#" target="_blank" rel="noopener noreferrer"
-              aria-label="LinkedIn" title="LinkedIn">
-              <svg viewBox="0 0 448 512" fill="currentColor" aria-hidden="true">
-                <path
-                  d="M100.28 448H7.4V148.9h92.88zM53.79 108.1C24.09 108.1 0 83.5 0 53.8a53.79 53.79 0 0 1 107.58 0c0 29.7-24.1 54.3-53.79 54.3zM447.9 448h-92.68V302.4c0-34.7-.7-79.2-48.29-79.2-48.29 0-55.69 37.7-55.69 76.7V448h-92.78V148.9h89.08v40.8h1.3c12.4-23.5 42.69-48.3 87.88-48.3 94 0 111.28 61.9 111.28 142.3V448z">
-                </path>
-              </svg>
-            </a>
-
-            <a class="hp-social-link hp-soc-x" href="#" target="_blank" rel="noopener noreferrer"
-              aria-label="Twitter / X" title="Twitter / X">
-              <svg viewBox="0 0 512 512" fill="currentColor" aria-hidden="true">
-                <path
-                  d="M389.2 48h70.6L305.6 224.2 487 464H345L233.7 318.6 106.5 464H35.8L200.7 275.5 26.8 48H172.4L272.9 180.9 389.2 48zM364.4 421.8h39.1L151.1 88h-42L364.4 421.8z">
-                </path>
-              </svg>
-            </a>
-
-            <a class="hp-social-link hp-soc-github"
-              href="https://github.com/DTH235658-Phan-Thanh-Hoai/DoAnTriTueNhanTao" target="_blank"
-              rel="noopener noreferrer" aria-label="GitHub" title="GitHub">
-              <svg viewBox="0 0 496 512" fill="currentColor" aria-hidden="true">
-                <path
-                  d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z">
-                </path>
-              </svg>
-            </a>
+            <span class="hp-auth-brand-text">
+              <strong>DermaScan AI</strong>
+              <span data-i18n="modal.brandSub">Sàng lọc ung thư da bằng AI</span>
+            </span>
           </div>
+          <button type="button" class="hp-auth-close" id="hpAuthCloseBtn" aria-label="Đóng" data-i18n-aria="modal.close">×</button>
         </div>
-
-        <!-- LIÊN HỆ -->
-        <div class="hp-footer-col">
-          <h4 class="hp-footer-heading">Liên hệ</h4>
-
-          <ul class="hp-contact-list">
-            <li class="hp-contact-item">
-              <span class="hp-contact-ic">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
-                  stroke-linejoin="round" aria-hidden="true">
-                  <rect x="3" y="5" width="18" height="14" rx="2"></rect>
-
-                  <path d="m3.5 7 8.5 6 8.5-6"></path>
-                </svg>
-              </span>
-
-              <span class="hp-contact-body">
-                <span class="hp-contact-label">Email</span>
-
-                <a id="site-email" class="hidden hp-contact-value" href=""></a>
-
-                <span class="hp-contact-fallback">contact@dermascan.ai</span>
-              </span>
-            </li>
-
-            <li class="hp-contact-item">
-              <span class="hp-contact-ic">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
-                  stroke-linejoin="round" aria-hidden="true">
-                  <path
-                    d="M6.5 3h3l1.5 4.5-2 1.4a12.5 12.5 0 0 0 5.6 5.6l1.4-2L20.5 14v3a2 2 0 0 1-2.2 2A16.8 16.8 0 0 1 4 5.7 2 2 0 0 1 6.5 3Z">
-                  </path>
-                </svg>
-              </span>
-
-              <span class="hp-contact-body">
-                <span class="hp-contact-label">Hotline</span>
-
-                <a id="site-phone" class="hidden hp-contact-value" href=""></a>
-
-                <span class="hp-contact-fallback">1900 6868</span>
-              </span>
-            </li>
-
-            <li class="hp-contact-item hp-contact-address">
-              <span class="hp-contact-ic">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
-                  stroke-linejoin="round" aria-hidden="true">
-                  <path d="M12 21s7-5.6 7-11a7 7 0 1 0-14 0c0 5.4 7 11 7 11Z"></path>
-
-                  <circle cx="12" cy="10" r="2.6"></circle>
-                </svg>
-              </span>
-
-              <span class="hp-contact-body">
-                <span class="hp-contact-label">Địa chỉ</span>
-
-                <span id="site-address" class="hidden hp-contact-value"></span>
-              </span>
-            </li>
-
-            <li class="hp-contact-item hp-contact-fb">
-              <span class="hp-contact-ic">
-                <svg viewBox="0 0 320 512" fill="currentColor" aria-hidden="true">
-                  <path
-                    d="M80 299.3V512H196V299.3h86.5l18-97.8H196V166.9c0-51.7 20.3-71.5 72.7-71.5 16.3 0 29.4 .4 37 1.2V7.9C291.4 4 256.4 0 236.2 0C129.3 0 80 50.5 80 159.4v42.1H14v97.8H80z">
-                  </path>
-                </svg>
-              </span>
-
-              <span class="hp-contact-body">
-                <span class="hp-contact-label">Mạng xã hội</span>
-
-                <a id="site-facebook" class="hidden hp-contact-value" href="" target="_blank"
-                  rel="noopener noreferrer"></a>
-              </span>
-            </li>
-          </ul>
+        <div class="hp-auth-tabs" role="tablist">
+          <button type="button" class="hp-auth-tab is-active" data-view="login" role="tab" data-i18n="modal.tabLogin">Đăng nhập</button>
+          <button type="button" class="hp-auth-tab" data-view="register" role="tab" data-i18n="modal.tabRegister">Đăng ký</button>
         </div>
-
-        <!-- CÔNG NGHỆ -->
-        <div class="hp-footer-col">
-          <h4 class="hp-footer-heading">Công nghệ</h4>
-
-          <ul class="hp-tech-list">
-            <li>EfficientNet-B0 — phân loại tổn thương da</li>
-
-            <li>Grad-CAM — bản đồ chú ý trực quan</li>
-
-            <li>Bộ dữ liệu chuẩn ISIC</li>
-
-            <li>Báo cáo PDF &amp; gửi Email</li>
-          </ul>
-        </div>
-
-        <!-- LƯU Ý Y KHOA -->
-        <div class="hp-footer-col">
-          <h4 class="hp-footer-heading">Lưu ý y khoa</h4>
-
-          <div class="hp-medical-note">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
-              stroke-linejoin="round" aria-hidden="true">
-              <path d="M10.3 3.9 1.9 18a2 2 0 0 0 1.7 3h16.8a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z"></path>
-
-              <path d="M12 9v4.5"></path>
-
-              <path d="M12 17.2h.01"></path>
-            </svg>
-
-            <p>
-              Kết quả phân tích chỉ mang tính chất
-              <strong>sàng lọc tham khảo</strong>, không phải chẩn đoán y khoa
-              và không thay thế tư vấn trực tiếp với bác sĩ chuyên khoa da
-              liễu.
+        <div class="hp-auth-body">
+          <!-- ============== VIEW: ĐĂNG NHẬP ============== -->
+          <form class="hp-form-view" id="hpLoginForm" novalidate data-view="login">
+            <h3 class="hp-auth-title" data-i18n="login.title">Đăng nhập</h3>
+            <p class="hp-auth-sub" data-i18n="login.sub">Đăng nhập để mở khóa giao diện Phân tích ảnh.</p>
+            <div class="hp-form-alert hidden" id="hpLoginAlert" role="alert">
+              <svg viewBox="0 0 24 24"
+                   fill="none"
+                   stroke="currentColor"
+                   stroke-width="1.8"
+                   stroke-linecap="round"
+                   stroke-linejoin="round"
+                   aria-hidden="true">
+                <path d="M10.3 3.9 1.9 18a2 2 0 0 0 1.7 3h16.8a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z"></path>
+                <path d="M12 9v4.5"></path>
+                <path d="M12 17.2h.01"></path>
+              </svg>
+              <span id="hpLoginAlertText"></span>
+            </div>
+            <div class="hp-field">
+              <label for="loginEmail">Email <span class="hp-req">*</span></label>
+              <input id="loginEmail" type="email" placeholder="you@example.com" autocomplete="email" data-i18n-ph="login.emailPh" />
+              <p class="hp-field-error hidden" id="hpLoginEmailErr"></p>
+            </div>
+            <div class="hp-field">
+              <label for="loginPassword">
+                <span data-i18n="login.lblPassword">Mật khẩu</span>
+                <span class="hp-req">*</span>
+              </label>
+              <div class="hp-pw-wrap">
+                <input id="loginPassword"
+                       type="password"
+                       placeholder="••••••••••••"
+                       autocomplete="current-password"
+                       data-i18n-ph="login.passwordPh" />
+                <button type="button" class="hp-pw-eye" id="hpLoginEye" aria-label="Hiện mật khẩu" data-i18n-aria="pw.show">
+                  <svg viewBox="0 0 24 24"
+                       fill="none"
+                       stroke="currentColor"
+                       stroke-width="1.8"
+                       stroke-linecap="round"
+                       stroke-linejoin="round"
+                       aria-hidden="true">
+                    <path d="M2 12s3.6-6.5 10-6.5S22 12 22 12s-3.6 6.5-10 6.5S2 12 2 12Z"></path>
+                    <circle cx="12" cy="12" r="2.8"></circle>
+                  </svg>
+                </button>
+              </div>
+              <p class="hp-field-error hidden" id="hpLoginPasswordErr"></p>
+            </div>
+            <button type="button" id="loginBtn" class="hp-btn-submit hp-btn-green" data-i18n="login.submit">Đăng nhập</button>
+            <p class="hp-auth-alt">
+              <span data-i18n="login.noAccount">Chưa có tài khoản?</span>
+              <button type="button" class="hp-to-register" id="hpToRegister" data-i18n="nav.register">Đăng ký</button>
+              <button type="button" class="hp-to-register" id="hpForgotPasswordBtn">Quên mật khẩu?</button>
             </p>
-          </div>
-        </div>
-      </div>
-
-      <div class="footer-note hp-footer-bottom">
-        <span id="site-copyright"></span>
-
-        <span class="hp-footer-tagline">Sàng lọc ung thư da bằng AI</span>
-      </div>
-    </div>
-  </footer>
-
-  <!-- ================= AUTH MODAL (ĐĂNG NHẬP / ĐĂNG KÝ) ================= -->
-
-  <div class="hp-auth-modal hidden" id="hpAuthModal" role="dialog" aria-modal="true" data-view="login">
-    <div class="hp-auth-backdrop" id="hpAuthBackdrop"></div>
-
-    <div class="hp-auth-dialog">
-      <div class="hp-auth-head">
-        <div class="hp-auth-brand">
-          <span class="hp-auth-brand-mark">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
-              stroke-linejoin="round" aria-hidden="true">
-              <path d="M4 8V6a2 2 0 0 1 2-2h2"></path>
-
-              <path d="M16 4h2a2 2 0 0 1 2 2v2"></path>
-
-              <path d="M20 16v2a2 2 0 0 1-2 2h-2"></path>
-
-              <path d="M8 20H6a2 2 0 0 1-2-2v-2"></path>
-
-              <path d="M7 12h2.5l1.5-3 2 6 1.5-3H17"></path>
-            </svg>
-          </span>
-
-          <span class="hp-auth-brand-text">
-            <strong>DermaScan AI</strong>
-
-            <span data-i18n="modal.brandSub">Sàng lọc ung thư da bằng AI</span>
-          </span>
-        </div>
-
-        <button type="button" class="hp-auth-close" id="hpAuthCloseBtn" aria-label="Đóng" data-i18n-aria="modal.close">
-          ×
-        </button>
-      </div>
-
-      <div class="hp-auth-tabs" role="tablist">
-        <button type="button" class="hp-auth-tab is-active" data-view="login" role="tab" data-i18n="modal.tabLogin">
-          Đăng nhập
-        </button>
-
-        <button type="button" class="hp-auth-tab" data-view="register" role="tab" data-i18n="modal.tabRegister">
-          Đăng ký
-        </button>
-      </div>
-
-      <div class="hp-auth-body">
-        <!-- ============== VIEW: ĐĂNG NHẬP ============== -->
-
-        <form class="hp-form-view" id="hpLoginForm" novalidate data-view="login">
-          <h3 class="hp-auth-title" data-i18n="login.title">Đăng nhập</h3>
-
-          <p class="hp-auth-sub" data-i18n="login.sub">
-            Đăng nhập để mở khóa giao diện Phân tích ảnh.
-          </p>
-
-          <div class="hp-form-alert hidden" id="hpLoginAlert" role="alert">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
-              stroke-linejoin="round" aria-hidden="true">
-              <path d="M10.3 3.9 1.9 18a2 2 0 0 0 1.7 3h16.8a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z"></path>
-
-              <path d="M12 9v4.5"></path>
-
-              <path d="M12 17.2h.01"></path>
-            </svg>
-
-            <span id="hpLoginAlertText"></span>
-          </div>
-
-          <div class="hp-field">
-            <label for="loginEmail">Email <span class="hp-req">*</span></label>
-
-            <input id="loginEmail" type="email" placeholder="you@example.com"
-              autocomplete="email" data-i18n-ph="login.emailPh" />
-
-            <p class="hp-field-error hidden" id="hpLoginEmailErr"></p>
-          </div>
-
-          <div class="hp-field">
-            <label for="loginPassword">
-              <span data-i18n="login.lblPassword">Mật khẩu</span>
-              <span class="hp-req">*</span>
-            </label>
-
-            <div class="hp-pw-wrap">
-              <input id="loginPassword" type="password" placeholder="••••••••••••" autocomplete="current-password"
-                data-i18n-ph="login.passwordPh" />
-
-              <button type="button" class="hp-pw-eye" id="hpLoginEye" aria-label="Hiện mật khẩu"
-                data-i18n-aria="pw.show">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
-                  stroke-linejoin="round" aria-hidden="true">
-                  <path d="M2 12s3.6-6.5 10-6.5S22 12 22 12s-3.6 6.5-10 6.5S2 12 2 12Z"></path>
-
-                  <circle cx="12" cy="12" r="2.8"></circle>
-                </svg>
-              </button>
+          </form>
+          <form class="hp-form-view hidden" id="hpTwoFactorForm" novalidate>
+            <h3 class="hp-auth-title">Xác thực đăng nhập</h3>
+            <p class="hp-auth-sub" id="hpTwoFactorDeliveryNotice" aria-live="polite">Nhập mã OTP gồm 6 chữ số để tiếp tục.</p>
+            <div class="hp-form-alert hidden" id="hpTwoFactorAlert">
+              <span id="hpTwoFactorAlertText"></span>
             </div>
-
-            <p class="hp-field-error hidden" id="hpLoginPasswordErr"></p>
-          </div>
-
-          <button type="button" id="loginBtn" class="hp-btn-submit hp-btn-green" data-i18n="login.submit">
-            Đăng nhập
-          </button>
-
-          <p class="hp-auth-alt">
-            <span data-i18n="login.noAccount">Chưa có tài khoản?</span>
-
-            <button type="button" class="hp-to-register" id="hpToRegister" data-i18n="nav.register">
-              Đăng ký
-            </button>
-            <button type="button" class="hp-to-register" id="hpForgotPasswordBtn">Quên mật khẩu?</button>
-          </p>
-        </form>
-
-        <form class="hp-form-view hidden" id="hpTwoFactorForm" novalidate>
-          <h3 class="hp-auth-title">Xác thực đăng nhập</h3>
-          <p class="hp-auth-sub" id="hpTwoFactorDeliveryNotice" aria-live="polite">Nhập mã OTP gồm 6 chữ số để tiếp tục.</p>
-          <div class="hp-form-alert hidden" id="hpTwoFactorAlert"><span id="hpTwoFactorAlertText"></span></div>
-          <div class="hp-field">
-            <label id="hpOtpLabel" for="hpOtpDigit1">Mã OTP 6 chữ số</label>
-            <div class="hp-otp-grid" id="hpOtpGrid" role="group" aria-labelledby="hpOtpLabel">
-              <input id="hpOtpDigit1" class="hp-otp-digit" type="text" inputmode="numeric" autocomplete="one-time-code" maxlength="1" aria-label="Chữ số OTP 1" />
-              <input class="hp-otp-digit" type="text" inputmode="numeric" maxlength="1" aria-label="Chữ số OTP 2" />
-              <input class="hp-otp-digit" type="text" inputmode="numeric" maxlength="1" aria-label="Chữ số OTP 3" />
-              <input class="hp-otp-digit" type="text" inputmode="numeric" maxlength="1" aria-label="Chữ số OTP 4" />
-              <input class="hp-otp-digit" type="text" inputmode="numeric" maxlength="1" aria-label="Chữ số OTP 5" />
-              <input class="hp-otp-digit" type="text" inputmode="numeric" maxlength="1" aria-label="Chữ số OTP 6" />
+            <div class="hp-field">
+              <label id="hpOtpLabel" for="hpOtpDigit1">Mã OTP 6 chữ số</label>
+              <div class="hp-otp-grid" id="hpOtpGrid" role="group" aria-labelledby="hpOtpLabel">
+                <input id="hpOtpDigit1"
+                       class="hp-otp-digit"
+                       type="text"
+                       inputmode="numeric"
+                       autocomplete="one-time-code"
+                       maxlength="1"
+                       aria-label="Chữ số OTP 1" />
+                <input class="hp-otp-digit" type="text" inputmode="numeric" maxlength="1" aria-label="Chữ số OTP 2" />
+                <input class="hp-otp-digit" type="text" inputmode="numeric" maxlength="1" aria-label="Chữ số OTP 3" />
+                <input class="hp-otp-digit" type="text" inputmode="numeric" maxlength="1" aria-label="Chữ số OTP 4" />
+                <input class="hp-otp-digit" type="text" inputmode="numeric" maxlength="1" aria-label="Chữ số OTP 5" />
+                <input class="hp-otp-digit" type="text" inputmode="numeric" maxlength="1" aria-label="Chữ số OTP 6" />
+              </div>
+              <input id="hpTwoFactorCode" type="hidden" />
             </div>
-            <input id="hpTwoFactorCode" type="hidden" />
-          </div>
-          <p class="hp-otp-help">Mã có hiệu lực trong <strong id="hpOtpCountdown">05:00</strong></p>
-          <button type="submit" class="hp-btn-submit hp-btn-green">Xác nhận</button>
-          <p class="hp-auth-alt">Chưa nhận được mã? <button type="button" class="hp-to-register" id="hpResendTwoFactorBtn">Gửi lại mã</button></p>
-        </form>
-        <form class="hp-form-view hidden" id="hpForgotPasswordForm" novalidate><h3 class="hp-auth-title">Khôi phục mật khẩu</h3><div class="hp-form-alert hidden" id="hpForgotAlert"><span id="hpForgotAlertText"></span></div><div class="hp-field"><label for="hpForgotEmail">Email</label><input id="hpForgotEmail" type="email" required></div><button type="submit" class="hp-btn-submit hp-btn-green">Tạo mã đặt lại</button><p class="hp-auth-alt"><button type="button" class="hp-to-register" id="hpResetPasswordBtn">Tôi đã có mã OTP</button></p></form>
-        <form class="hp-form-view hidden" id="hpResetPasswordForm" novalidate><h3 class="hp-auth-title">Đặt mật khẩu mới</h3><div class="hp-form-alert hidden" id="hpResetAlert"><span id="hpResetAlertText"></span></div><div class="hp-field"><label for="hpResetToken">Mã OTP từ Terminal</label><input id="hpResetToken" required></div><div class="hp-field"><label for="hpResetPassword">Mật khẩu mới</label><input id="hpResetPassword" type="password" minlength="12" required></div><button type="submit" class="hp-btn-submit hp-btn-green">Lưu mật khẩu</button></form>
-        <form class="hp-form-view hidden" id="hpVerifyEmailForm" novalidate><h3 class="hp-auth-title">Xác thực email</h3><div class="hp-form-alert hidden" id="hpVerifyEmailAlert"><span id="hpVerifyEmailAlertText"></span></div><div class="hp-field"><label for="hpVerifyEmailToken">Mã xác thực</label><input id="hpVerifyEmailToken" required></div><button type="submit" class="hp-btn-submit hp-btn-green">Xác thực email</button></form>
-
-        <!-- ============== VIEW: ĐĂNG KÝ ============== -->
-
-        <form class="hp-form-view hidden" id="hpRegisterForm" novalidate data-view="register">
-          <h3 class="hp-auth-title" data-i18n="register.title">
-            Tạo tài khoản
-          </h3>
-
-          <p class="hp-auth-sub" data-i18n="register.sub">
-            Đăng ký để sử dụng giao diện Phân tích ảnh của DermaScan AI.
-          </p>
-
-          <div class="hp-form-alert hidden" id="hpRegisterAlert" role="alert">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
-              stroke-linejoin="round" aria-hidden="true">
-              <path d="M10.3 3.9 1.9 18a2 2 0 0 0 1.7 3h16.8a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z"></path>
-
-              <path d="M12 9v4.5"></path>
-
-              <path d="M12 17.2h.01"></path>
-            </svg>
-
-            <span id="hpRegisterAlertText"></span>
-          </div>
-
-          <div class="hp-field">
-            <label for="hpRegFullName">
-              <span data-i18n="register.lblName">Họ và tên</span>
-              <span class="hp-req">*</span>
-            </label>
-
-            <input id="hpRegFullName" type="text" maxlength="150" placeholder="Nguyễn Văn A" autocomplete="name"
-              data-i18n-ph="register.namePh" />
-
-            <p class="hp-field-error hidden" id="hpRegFullNameErr"></p>
-          </div>
-
-          <div class="hp-field">
-            <label for="hpRegEmail">Email <span class="hp-req">*</span></label>
-
-            <input id="hpRegEmail" type="email" placeholder="you@example.com" autocomplete="email"
-              data-i18n-ph="register.emailPh" />
-
-            <p class="hp-field-error hidden" id="hpRegEmailErr"></p>
-          </div>
-
-          <div class="hp-field">
-            <label for="hpRegRole">
-              <span data-i18n="register.lblRole">Loại tài khoản</span>
-              <span class="hp-req">*</span>
-            </label>
-
-            <select id="hpRegRole">
-              <option value="DOCTOR" data-i18n="register.roleDoctor">
-                Bác sĩ (Doctor)
-              </option>
-
-              <option value="USER" data-i18n="register.roleUser">
-                Người dùng (User)
-              </option>
-            </select>
-          </div>
-
-          <div class="hp-field">
-            <label for="hpRegPassword">
-              <span data-i18n="register.lblPassword">Mật khẩu</span>
-              <span class="hp-req">*</span>
-            </label>
-
-            <div class="hp-pw-wrap">
-              <input id="hpRegPassword" type="password" placeholder="••••••••••••" autocomplete="new-password"
-                data-i18n-ph="register.pwPh" />
-
-              <button type="button" class="hp-pw-eye" id="hpRegEye" aria-label="Hiện mật khẩu" data-i18n-aria="pw.show">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
-                  stroke-linejoin="round" aria-hidden="true">
-                  <path d="M2 12s3.6-6.5 10-6.5S22 12 22 12s-3.6 6.5-10 6.5S2 12 2 12Z"></path>
-
-                  <circle cx="12" cy="12" r="2.8"></circle>
-                </svg>
-              </button>
-            </div>
-
-            <p class="hp-field-hint" data-i18n="register.pwHint">
-              Tối thiểu 12 ký tự.
+            <p class="hp-otp-help">Mã có hiệu lực trong <strong id="hpOtpCountdown">05:00</strong></p>
+            <button type="submit" class="hp-btn-submit hp-btn-green">Xác nhận</button>
+            <p class="hp-auth-alt">
+              Chưa nhận được mã?
+              <button type="button" class="hp-to-register" id="hpResendTwoFactorBtn">Gửi lại mã</button>
             </p>
-
-            <p class="hp-field-error hidden" id="hpRegPasswordErr"></p>
-          </div>
-
-          <div class="hp-field">
-            <label for="hpRegPassword2">
-              <span data-i18n="register.lblPassword2">Xác nhận mật khẩu</span>
-              <span class="hp-req">*</span>
-            </label>
-
-            <input id="hpRegPassword2" type="password" placeholder="••••••••••••" autocomplete="new-password" />
-
-            <p class="hp-field-error hidden" id="hpRegPassword2Err"></p>
-          </div>
-
-          <label class="hp-check">
-            <input type="checkbox" id="hpRegAgree" />
-
-            <span data-i18n="register.agree">Tôi đồng ý với điều khoản sử dụng và chính sách y khoa của hệ
+          </form>
+          <form class="hp-form-view hidden" id="hpForgotPasswordForm" novalidate>
+            <h3 class="hp-auth-title">Khôi phục mật khẩu</h3>
+            <div class="hp-form-alert hidden" id="hpForgotAlert">
+              <span id="hpForgotAlertText"></span>
+            </div>
+            <div class="hp-field">
+              <label for="hpForgotEmail">Email</label><input id="hpForgotEmail" type="email" required>
+            </div>
+            <button type="submit" class="hp-btn-submit hp-btn-green">Tạo mã đặt lại</button>
+            <p class="hp-auth-alt">
+              <button type="button" class="hp-to-register" id="hpResetPasswordBtn">Tôi đã có mã OTP</button>
+            </p>
+          </form>
+          <form class="hp-form-view hidden" id="hpResetPasswordForm" novalidate>
+            <h3 class="hp-auth-title">Đặt mật khẩu mới</h3>
+            <div class="hp-form-alert hidden" id="hpResetAlert">
+              <span id="hpResetAlertText"></span>
+            </div>
+            <div class="hp-field">
+              <label for="hpResetToken">Mã OTP từ Terminal</label><input id="hpResetToken" required>
+            </div>
+            <div class="hp-field">
+              <label for="hpResetPassword">Mật khẩu mới</label><input id="hpResetPassword" type="password" minlength="12" required>
+            </div>
+            <button type="submit" class="hp-btn-submit hp-btn-green">Lưu mật khẩu</button>
+          </form>
+          <form class="hp-form-view hidden" id="hpVerifyEmailForm" novalidate>
+            <h3 class="hp-auth-title">Xác thực email</h3>
+            <div class="hp-form-alert hidden" id="hpVerifyEmailAlert">
+              <span id="hpVerifyEmailAlertText"></span>
+            </div>
+            <div class="hp-field">
+              <label for="hpVerifyEmailToken">Mã xác thực</label><input id="hpVerifyEmailToken" required>
+            </div>
+            <button type="submit" class="hp-btn-submit hp-btn-green">Xác thực email</button>
+          </form>
+          <!-- ============== VIEW: ĐĂNG KÝ ============== -->
+          <form class="hp-form-view hidden" id="hpRegisterForm" novalidate data-view="register">
+            <h3 class="hp-auth-title" data-i18n="register.title">Tạo tài khoản</h3>
+            <p class="hp-auth-sub" data-i18n="register.sub">Đăng ký để sử dụng giao diện Phân tích ảnh của DermaScan AI.</p>
+            <div class="hp-form-alert hidden" id="hpRegisterAlert" role="alert">
+              <svg viewBox="0 0 24 24"
+                   fill="none"
+                   stroke="currentColor"
+                   stroke-width="1.8"
+                   stroke-linecap="round"
+                   stroke-linejoin="round"
+                   aria-hidden="true">
+                <path d="M10.3 3.9 1.9 18a2 2 0 0 0 1.7 3h16.8a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z"></path>
+                <path d="M12 9v4.5"></path>
+                <path d="M12 17.2h.01"></path>
+              </svg>
+              <span id="hpRegisterAlertText"></span>
+            </div>
+            <div class="hp-field">
+              <label for="hpRegFullName">
+                <span data-i18n="register.lblName">Họ và tên</span>
+                <span class="hp-req">*</span>
+              </label>
+              <input id="hpRegFullName"
+                     type="text"
+                     maxlength="150"
+                     placeholder="Nguyễn Văn A"
+                     autocomplete="name"
+                     data-i18n-ph="register.namePh" />
+              <p class="hp-field-error hidden" id="hpRegFullNameErr"></p>
+            </div>
+            <div class="hp-field">
+              <label for="hpRegEmail">Email <span class="hp-req">*</span></label>
+              <input id="hpRegEmail" type="email" placeholder="you@example.com" autocomplete="email" data-i18n-ph="register.emailPh" />
+              <p class="hp-field-error hidden" id="hpRegEmailErr"></p>
+            </div>
+            <div class="hp-field">
+              <label for="hpRegRole">
+                <span data-i18n="register.lblRole">Loại tài khoản</span>
+                <span class="hp-req">*</span>
+              </label>
+              <select id="hpRegRole">
+                <option value="DOCTOR" data-i18n="register.roleDoctor">Bác sĩ (Doctor)</option>
+                <option value="USER" data-i18n="register.roleUser">Người dùng (User)</option>
+              </select>
+            </div>
+            <div class="hp-field">
+              <label for="hpRegPassword">
+                <span data-i18n="register.lblPassword">Mật khẩu</span>
+                <span class="hp-req">*</span>
+              </label>
+              <div class="hp-pw-wrap">
+                <input id="hpRegPassword"
+                       type="password"
+                       placeholder="••••••••••••"
+                       autocomplete="new-password"
+                       data-i18n-ph="register.pwPh" />
+                <button type="button" class="hp-pw-eye" id="hpRegEye" aria-label="Hiện mật khẩu" data-i18n-aria="pw.show">
+                  <svg viewBox="0 0 24 24"
+                       fill="none"
+                       stroke="currentColor"
+                       stroke-width="1.8"
+                       stroke-linecap="round"
+                       stroke-linejoin="round"
+                       aria-hidden="true">
+                    <path d="M2 12s3.6-6.5 10-6.5S22 12 22 12s-3.6 6.5-10 6.5S2 12 2 12Z"></path>
+                    <circle cx="12" cy="12" r="2.8"></circle>
+                  </svg>
+                </button>
+              </div>
+              <p class="hp-field-hint" data-i18n="register.pwHint">Tối thiểu 12 ký tự.</p>
+              <p class="hp-field-error hidden" id="hpRegPasswordErr"></p>
+            </div>
+            <div class="hp-field">
+              <label for="hpRegPassword2">
+                <span data-i18n="register.lblPassword2">Xác nhận mật khẩu</span>
+                <span class="hp-req">*</span>
+              </label>
+              <input id="hpRegPassword2" type="password" placeholder="••••••••••••" autocomplete="new-password" />
+              <p class="hp-field-error hidden" id="hpRegPassword2Err"></p>
+            </div>
+            <label class="hp-check">
+              <input type="checkbox" id="hpRegAgree" />
+              <span data-i18n="register.agree">Tôi đồng ý với điều khoản sử dụng và chính sách y khoa của hệ
               thống.</span>
-          </label>
-
-          <p class="hp-field-error hidden" id="hpRegAgreeErr"></p>
-
-          <button type="submit" id="hpRegisterBtn" class="hp-btn-submit hp-btn-orange" data-i18n="register.submit">
-            Đăng ký
-          </button>
-
-          <p class="hp-auth-alt">
-            <span data-i18n="register.haveAccount">Đã có tài khoản?</span>
-
-            <button type="button" class="hp-to-login" id="hpToLogin" data-i18n="nav.login">
-              Đăng nhập
-            </button>
-          </p>
+            </label>
+            <p class="hp-field-error hidden" id="hpRegAgreeErr"></p>
+            <button type="submit" id="hpRegisterBtn" class="hp-btn-submit hp-btn-orange" data-i18n="register.submit">Đăng ký</button>
+            <p class="hp-auth-alt">
+              <span data-i18n="register.haveAccount">Đã có tài khoản?</span>
+              <button type="button" class="hp-to-login" id="hpToLogin" data-i18n="nav.login">Đăng nhập</button>
+            </p>
+          </form>
+        </div>
+      </div>
+    </div>
+    <!-- ================= CLINICAL IMAGE LIGHTBOX ================= -->
+    <div class="clinical-lightbox hidden" id="clinicalLightbox" role="dialog" aria-modal="true" aria-labelledby="clinicalLightboxTitle">
+      <div class="clinical-lightbox-dialog">
+        <div class="clinical-lightbox-toolbar">
+          <strong class="clinical-lightbox-title" id="clinicalLightboxTitle">Xem ảnh chi tiết</strong>
+          <button type="button" class="clinical-lightbox-control" id="clinicalZoomOut" aria-label="Thu nhỏ" title="Thu nhỏ">−</button>
+          <input class="clinical-lightbox-scale"
+                 id="clinicalZoomSlider"
+                 type="range"
+                 min="0.5"
+                 max="5"
+                 step="0.1"
+                 value="1"
+                 aria-label="Tỷ lệ thu phóng"
+                 title="Tỷ lệ thu phóng" />
+          <button type="button" class="clinical-lightbox-control" id="clinicalZoomIn" aria-label="Phóng to" title="Phóng to">+</button>
+          <button type="button"
+                  class="clinical-lightbox-control"
+                  id="clinicalZoomReset"
+                  aria-label="Đặt lại kích thước"
+                  title="Đặt lại kích thước">1:1</button>
+          <button type="button"
+                  class="clinical-lightbox-control clinical-lightbox-close"
+                  id="clinicalLightboxClose"
+                  aria-label="Đóng"
+                  title="Đóng">×</button>
+        </div>
+        <div class="clinical-lightbox-stage" id="clinicalLightboxStage">
+          <img class="clinical-lightbox-image" id="clinicalLightboxImage" alt="" draggable="false" />
+          <p class="clinical-lightbox-hint">Kéo để di chuyển · Cuộn để thu phóng</p>
+        </div>
+      </div>
+    </div>
+    <!-- ================= TEMP PATIENT MODAL ================= -->
+    <div id="temporaryPatientModal" class="patient-modal hidden" role="dialog" aria-modal="true" aria-labelledby="temporaryPatientTitle">
+      <div class="patient-modal-backdrop" id="temporaryPatientBackdrop"></div>
+      <div class="patient-modal-dialog">
+        <div class="patient-modal-head">
+          <div>
+            <span class="patient-modal-eyebrow">Bệnh nhân tạm</span>
+            <h3 id="temporaryPatientTitle">Thêm thông tin bệnh nhân</h3>
+          </div>
+          <button type="button" id="closeTemporaryPatientBtn" class="patient-modal-close" aria-label="Đóng">×</button>
+        </div>
+        <p class="patient-modal-note">
+          Thông tin này chỉ được lưu cùng ca phân tích và dùng cho báo cáo PDF.
+          Hệ thống không tạo tài khoản đăng nhập.
+        </p>
+        <form id="temporaryPatientForm">
+          <div class="patient-form-field full">
+            <label for="tempPatientFullName">Họ và tên *</label>
+            <input id="tempPatientFullName" type="text" maxlength="150" required />
+          </div>
+          <div class="patient-form-grid">
+            <div class="patient-form-field">
+              <label for="tempPatientDob">Ngày sinh</label>
+              <input id="tempPatientDob" type="date" />
+            </div>
+            <div class="patient-form-field">
+              <label for="tempPatientGender">Giới tính</label>
+              <select id="tempPatientGender">
+                <option value="">Chưa chọn</option>
+                <option value="Nam">Nam</option>
+                <option value="Nữ">Nữ</option>
+                <option value="Khác">Khác</option>
+              </select>
+            </div>
+          </div>
+          <div class="patient-form-grid">
+            <div class="patient-form-field">
+              <label for="tempPatientPhone">Số điện thoại</label>
+              <input id="tempPatientPhone" type="tel" maxlength="30" />
+            </div>
+            <div class="patient-form-field">
+              <label for="tempPatientEmail">Email</label>
+              <input id="tempPatientEmail" type="email" maxlength="254" />
+            </div>
+          </div>
+          <div class="patient-form-field full">
+            <label for="tempPatientAddress">Địa chỉ</label>
+            <input id="tempPatientAddress" type="text" maxlength="500" />
+          </div>
+          <div class="patient-modal-actions">
+            <button type="button" id="cancelTemporaryPatientBtn" class="workflow-small-btn">Hủy</button>
+            <button type="submit" class="workflow-small-btn primary">Lưu bệnh nhân</button>
+          </div>
         </form>
       </div>
     </div>
-  </div>
-
-  <!-- ================= CLINICAL IMAGE LIGHTBOX ================= -->
-  <div class="clinical-lightbox hidden" id="clinicalLightbox" role="dialog" aria-modal="true"
-    aria-labelledby="clinicalLightboxTitle">
-    <div class="clinical-lightbox-dialog">
-      <div class="clinical-lightbox-toolbar">
-        <strong class="clinical-lightbox-title" id="clinicalLightboxTitle">Xem ảnh chi tiết</strong>
-        <button type="button" class="clinical-lightbox-control" id="clinicalZoomOut" aria-label="Thu nhỏ"
-          title="Thu nhỏ">−</button>
-        <input class="clinical-lightbox-scale" id="clinicalZoomSlider" type="range" min="0.5" max="5" step="0.1"
-          value="1" aria-label="Tỷ lệ thu phóng" title="Tỷ lệ thu phóng" />
-        <button type="button" class="clinical-lightbox-control" id="clinicalZoomIn" aria-label="Phóng to"
-          title="Phóng to">+</button>
-        <button type="button" class="clinical-lightbox-control" id="clinicalZoomReset" aria-label="Đặt lại kích thước"
-          title="Đặt lại kích thước">1:1</button>
-        <button type="button" class="clinical-lightbox-control clinical-lightbox-close" id="clinicalLightboxClose"
-          aria-label="Đóng" title="Đóng">×</button>
-      </div>
-      <div class="clinical-lightbox-stage" id="clinicalLightboxStage">
-        <img class="clinical-lightbox-image" id="clinicalLightboxImage" alt="" draggable="false" />
-        <p class="clinical-lightbox-hint">Kéo để di chuyển · Cuộn để thu phóng</p>
-      </div>
-    </div>
-  </div>
-
-  <!-- ================= TEMP PATIENT MODAL ================= -->
-
-  <div id="temporaryPatientModal" class="patient-modal hidden" role="dialog" aria-modal="true"
-    aria-labelledby="temporaryPatientTitle">
-    <div class="patient-modal-backdrop" id="temporaryPatientBackdrop"></div>
-
-    <div class="patient-modal-dialog">
-      <div class="patient-modal-head">
-        <div>
-          <span class="patient-modal-eyebrow"> Bệnh nhân tạm </span>
-
-          <h3 id="temporaryPatientTitle">Thêm thông tin bệnh nhân</h3>
-        </div>
-
-        <button type="button" id="closeTemporaryPatientBtn" class="patient-modal-close" aria-label="Đóng">
-          ×
-        </button>
-      </div>
-
-      <p class="patient-modal-note">
-        Thông tin này chỉ được lưu cùng ca phân tích và dùng cho báo cáo PDF.
-        Hệ thống không tạo tài khoản đăng nhập.
-      </p>
-
-      <form id="temporaryPatientForm">
-        <div class="patient-form-field full">
-          <label for="tempPatientFullName"> Họ và tên * </label>
-
-          <input id="tempPatientFullName" type="text" maxlength="150" required />
-        </div>
-
-        <div class="patient-form-grid">
-          <div class="patient-form-field">
-            <label for="tempPatientDob"> Ngày sinh </label>
-
-            <input id="tempPatientDob" type="date" />
-          </div>
-
-          <div class="patient-form-field">
-            <label for="tempPatientGender"> Giới tính </label>
-
-            <select id="tempPatientGender">
-              <option value="">Chưa chọn</option>
-
-              <option value="Nam">Nam</option>
-
-              <option value="Nữ">Nữ</option>
-
-              <option value="Khác">Khác</option>
-            </select>
-          </div>
-        </div>
-
-        <div class="patient-form-grid">
-          <div class="patient-form-field">
-            <label for="tempPatientPhone"> Số điện thoại </label>
-
-            <input id="tempPatientPhone" type="tel" maxlength="30" />
-          </div>
-
-          <div class="patient-form-field">
-            <label for="tempPatientEmail"> Email </label>
-
-            <input id="tempPatientEmail" type="email" maxlength="254" />
-          </div>
-        </div>
-
-        <div class="patient-form-field full">
-          <label for="tempPatientAddress"> Địa chỉ </label>
-
-          <input id="tempPatientAddress" type="text" maxlength="500" />
-        </div>
-
-        <div class="patient-modal-actions">
-          <button type="button" id="cancelTemporaryPatientBtn" class="workflow-small-btn">
-            Hủy
-          </button>
-
-          <button type="submit" class="workflow-small-btn primary">
-            Lưu bệnh nhân
-          </button>
-        </div>
-      </form>
-    </div>
-  </div>
-
-  <!-- ================= PROFILE MODAL ================= -->
-
-  <div id="profileModal" class="profile-modal hidden" role="dialog" aria-modal="true"
-    aria-labelledby="profileModalTitle">
-    <div class="profile-modal-backdrop" id="profileModalBackdrop"></div>
-
-    <div class="profile-modal-dialog">
-      <div class="profile-modal-header">
-        <h3 class="profile-modal-title" id="profileModalTitle">Thông tin cá nhân</h3>
-        <button type="button" class="profile-modal-close" id="profileModalCloseBtn" aria-label="Đóng">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M18 6L6 18M6 6l12 12"></path>
-          </svg>
-        </button>
-      </div>
-
-      <div class="profile-modal-body">
-        <!-- Avatar Section -->
-        <div class="profile-avatar-section">
-          <div class="profile-avatar-wrapper">
-            <img id="profileAvatarImg" src="" alt="Avatar bác sĩ" class="profile-avatar-img" />
-            <div class="profile-avatar-initials" id="profileAvatarInitials">D</div>
-          </div>
-          <button type="button" class="profile-avatar-upload-btn" id="profileAvatarUploadBtn">
+    <!-- ================= PROFILE MODAL ================= -->
+    <div id="profileModal" class="profile-modal hidden" role="dialog" aria-modal="true" aria-labelledby="profileModalTitle">
+      <div class="profile-modal-backdrop" id="profileModalBackdrop"></div>
+      <div class="profile-modal-dialog">
+        <div class="profile-modal-header">
+          <h3 class="profile-modal-title" id="profileModalTitle">Thông tin cá nhân</h3>
+          <button type="button" class="profile-modal-close" id="profileModalCloseBtn" aria-label="Đóng">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
-              <circle cx="12" cy="13" r="4"></circle>
+              <path d="M18 6L6 18M6 6l12 12"></path>
             </svg>
-            Đổi ảnh đại diện
           </button>
-          <input type="file" id="profileAvatarInput" accept=".jpg,.jpeg,.png,.webp" hidden />
-          <p class="profile-avatar-note">JPG, PNG, WEBP · Tối đa 5MB</p>
         </div>
-
-        <!-- Form Fields -->
-        <form id="profileForm" class="profile-form">
-          <div class="profile-form-grid">
-            <div class="profile-form-field">
-              <label for="profileFullName">Họ và tên</label>
-              <input type="text" id="profileFullName" maxlength="150" placeholder="Nguyễn Văn A" />
+        <div class="profile-modal-body">
+          <!-- Avatar Section -->
+          <div class="profile-avatar-section">
+            <div class="profile-avatar-wrapper">
+              <img id="profileAvatarImg" src="" alt="Avatar bác sĩ" class="profile-avatar-img" />
+              <div class="profile-avatar-initials" id="profileAvatarInitials">D</div>
             </div>
-
-            <div class="profile-form-field">
-              <label for="profileSpecialty">Chuyên khoa</label>
-              <input type="text" id="profileSpecialty" maxlength="100" placeholder="Da liễu" />
-            </div>
-
-            <div class="profile-form-field">
-              <label for="profileHospital">Bệnh viện</label>
-              <input type="text" id="profileHospital" maxlength="150" placeholder="Bệnh viện X" />
-            </div>
-
-            <div class="profile-form-field">
-              <label for="profileLicense">Số chứng chỉ hành nghề</label>
-              <input type="text" id="profileLicense" maxlength="50" placeholder="XXXX-XXXX-XXXX" />
-            </div>
-
-            <div class="profile-form-field">
-              <label for="profilePhone">Số điện thoại</label>
-              <input type="tel" id="profilePhone" maxlength="20" placeholder="0901234567" />
-            </div>
-
-            <div class="profile-form-field">
-              <label for="profileEmail">Email</label>
-              <input type="email" id="profileEmail" maxlength="254" placeholder="email@example.com" readonly />
-            </div>
-          </div>
-
-          <div class="profile-form-actions">
-            <button type="button" class="profile-btn profile-btn-secondary" id="profileCancelBtn">
-              Hủy
+            <button type="button" class="profile-avatar-upload-btn" id="profileAvatarUploadBtn">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
+                <circle cx="12" cy="13" r="4"></circle>
+              </svg>
+              Đổi ảnh đại diện
             </button>
-            <button type="submit" class="profile-btn profile-btn-primary">
-              Lưu thay đổi
-            </button>
+            <input type="file" id="profileAvatarInput" accept=".jpg,.jpeg,.png,.webp" hidden />
+            <p class="profile-avatar-note">JPG, PNG, WEBP · Tối đa 5MB</p>
           </div>
-        </form>
+          <!-- Form Fields -->
+          <form id="profileForm" class="profile-form">
+            <div class="profile-form-grid">
+              <div class="profile-form-field">
+                <label for="profileFullName">Họ và tên</label>
+                <input type="text" id="profileFullName" maxlength="150" placeholder="Nguyễn Văn A" />
+              </div>
+              <div class="profile-form-field">
+                <label for="profileSpecialty">Chuyên khoa</label>
+                <input type="text" id="profileSpecialty" maxlength="100" placeholder="Da liễu" />
+              </div>
+              <div class="profile-form-field">
+                <label for="profileHospital">Bệnh viện</label>
+                <input type="text" id="profileHospital" maxlength="150" placeholder="Bệnh viện X" />
+              </div>
+              <div class="profile-form-field">
+                <label for="profileLicense">Số chứng chỉ hành nghề</label>
+                <input type="text" id="profileLicense" maxlength="50" placeholder="XXXX-XXXX-XXXX" />
+              </div>
+              <div class="profile-form-field">
+                <label for="profilePhone">Số điện thoại</label>
+                <input type="tel" id="profilePhone" maxlength="20" placeholder="0901234567" />
+              </div>
+              <div class="profile-form-field">
+                <label for="profileEmail">Email</label>
+                <input type="email" id="profileEmail" maxlength="254" placeholder="email@example.com" readonly />
+              </div>
+            </div>
+            <div class="profile-form-actions">
+              <button type="button" class="profile-btn profile-btn-secondary" id="profileCancelBtn">Hủy</button>
+              <button type="submit" class="profile-btn profile-btn-primary">Lưu thay đổi</button>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
-  </div>
-
-  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
-  <script src="{{ url_for('static', filename='js/focus_region.js') }}"></script>
-  <script src="{{ url_for('static', filename='js/timeline.js') }}?v=3.0"></script>
-  <script src="{{ url_for('static', filename='js/main.js') }}?v=3.0"></script>
-  <script src="{{ url_for('static', filename='js/patient.js') }}"></script>
-
-  <!-- ============ HOMEPAGE AUTH LOGIC (KHÔNG SỬA main.js) ============ -->
-
-  <script id="hp-app-script">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+    <script src="{{ url_for('static', filename='js/focus_region.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/timeline.js') }}?v=3.0"></script>
+    <script src="{{ url_for('static', filename='js/main.js') }}?v=3.0"></script>
+    <script src="{{ url_for('static', filename='js/patient.js') }}"></script>
+    <!-- ============ HOMEPAGE AUTH LOGIC (KHÔNG SỬA main.js) ============ -->
+    <script id="hp-app-script">
     (function () {
       "use strict";
 
@@ -7762,7 +7502,6 @@
         initPatientNav();
       }
     })();
-  </script>
-</body>
-
+    </script>
+  </body>
 </html>
