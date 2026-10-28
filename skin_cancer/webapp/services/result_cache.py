@@ -23,9 +23,9 @@ try:
 except ImportError:
     redis = None
 
-# Đường dẫn file cache SQLite nằm trong thư mục instance/ của project
+# Giữ nguyên cache mặc định; cho phép môi trường kiểm thử dùng SQLite riêng.
 PROJECT_ROOT = Path(__file__).resolve().parents[3]
-CACHE_DB_PATH = PROJECT_ROOT / "instance" / "cache.db"
+CACHE_DB_PATH = Path(os.environ.get("DERMASCAN_CACHE_DB_PATH") or PROJECT_ROOT / "instance" / "cache.db")
 
 REDIS_URL = os.environ.get("REDIS_URL", "redis://localhost:6379/0")
 CACHE_TTL = 7 * 24 * 3600  # Giữ kết quả trong 7 ngày

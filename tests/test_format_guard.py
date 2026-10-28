@@ -1,13 +1,12 @@
 """Safe syntax smoke tests: never load the Flask app or touch real data."""
 
 import ast
-from pathlib import Path
 import shutil
 import subprocess
+from pathlib import Path
 
 import pytest
 from jinja2 import Environment
-
 
 ROOT = Path(__file__).resolve().parents[1]
 WEBAPP = ROOT / "skin_cancer" / "webapp"
