@@ -99,3 +99,19 @@ Lưu ý: các test trong `tests/` tự tạo SQLite tạm; **không chạy** `te
 ## 7. Quy tắc bàn giao
 
 Tất cả thay đổi ở nhánh `qa/fresh-baseline-20261029`; không merge, không xóa file, không migration. Kiểm tra `git diff ba02d6a --name-only -- instance` cho kết quả rỗng. Các công việc UI và backend còn lại cần tiếp tục theo từng module cùng test bảo vệ mới.
+
+### Đối chiếu commit GitHub
+
+Nhánh QA được xuất bản lên GitHub bằng các commit tái tạo qua kết nối được cấp quyền; vì vậy **SHA commit remote khác SHA commit local**, nhưng SHA tree (toàn bộ nội dung file và mode) đã được đối chiếu khớp tại từng mốc:
+
+| Commit local | Commit tương ứng trên GitHub |
+| --- | --- |
+| `50e8b44` | `c5df8d8a21459f0cac715cde2347502142bec1a1` |
+| `42a9839` | `b1c463fd0ccab4b313168aff1bae757a412eea2c` |
+| `d96c673` | `44312f0ba39c060a0421f135f4d62338e22d03d9` |
+| `5d3eaa7` | `ffda7e2c38e0a60ef4d531b14f53f53eb9353e1b` |
+| `bb8587c` | `8b16b55f4da7b53fcc17bab9bc31feb8447b92db` |
+| `23f3d33` | `efe10ee6d07f356af704d459ddc180d1b6b5858a` |
+| `4c0b684` | `adeb4fb1d34a79ae2ca0c28f19d0142ef2de29fb` |
+
+GitHub branch: `https://github.com/LePhanHieu/Test3/tree/qa/fresh-baseline-20261029`. Không merge vào `main`.
