@@ -16,6 +16,7 @@ flask-cors>=4.0.0
 
 # Utilities
 tqdm>=4.65.0
+python-dotenv>=1.0.0
 
 # ONNX & Celery/Redis
 onnx>=1.15.0
