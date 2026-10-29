@@ -1,0 +1,46 @@
+/* Shared native dropdown palette for Admin, Doctor and Patient portals.
+   The opened option popup is browser/OS-controlled; support varies by platform. */
+:root {
+  --select-option-bg: #ffffff;
+  --select-option-text: #1e293b;
+  --select-option-hover: #eaf7ef;
+  --select-option-selected: #2ba149;
+  --select-option-disabled: #94a3b8;
+}
+
+select {
+  color-scheme: light;
+  accent-color: #2ba149;
+}
+
+select option,
+select optgroup {
+  background-color: var(--select-option-bg);
+  color: var(--select-option-text);
+}
+
+select option:hover,
+select option:focus {
+  background-color: var(--select-option-hover);
+  color: var(--select-option-text);
+}
+
+select option:checked {
+  background-color: var(--select-option-selected);
+  color: #ffffff;
+}
+
+select option:disabled {
+  color: var(--select-option-disabled);
+}
+
+html[data-theme="dark"] {
+  --select-option-bg: #1e293b;
+  --select-option-text: #f1f5f9;
+  --select-option-hover: #334155;
+  --select-option-disabled: #94a3b8;
+}
+
+html[data-theme="dark"] select {
+  color-scheme: dark;
+}
